@@ -9,7 +9,7 @@ public class BankWithUs {
     public static final String FILE_PATH = "data/save.txt";
 
     public BankWithUs(String filePath) {
-        ui = new UI();
+        ui = new Ui();
         storage = new Storage();
         try {
             accounts = new AccountList(storage.load());
