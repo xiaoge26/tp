@@ -11,6 +11,14 @@ public class BankWithUs {
     private Ui ui;
     private AccountList accounts;
 
+    /**
+     * Creates a new instance of BankWithUs. Initialises storage, ui and
+     * accounts. Should load data into accounts too.
+     *
+     * @param filePath the filepath. Should be data/save.txt by default
+     *
+     * @throws IOException thrown when something goes really, really wrong
+     */
     public BankWithUs(String filePath) throws IOException {
         ui = new Ui();
         storage = new Storage(filePath);
