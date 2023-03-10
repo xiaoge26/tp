@@ -2,12 +2,16 @@ package seedu.bankwithus;
 
 import java.util.Scanner;
 
-import static seedu.bankwithus.BankWithUs.FILE_PATH;
-
 public class Storage {
+
+    private String filepath;
+
+    public Storage(String filepath) {
+        this.filepath = filepath;
+    }
     
     public Scanner load() {
-        Scanner s = new Scanner(FILE_PATH);
+        Scanner s = new Scanner(filepath);
         return s;
     }
 
