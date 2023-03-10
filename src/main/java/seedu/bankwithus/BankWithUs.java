@@ -2,11 +2,11 @@ package seedu.bankwithus;
 
 public class BankWithUs {
 
+    public static final String FILE_PATH = "data/save.txt";
+
     private Storage storage;
     private Ui ui;
     private AccountList accounts;
-
-    public static final String FILE_PATH = "data/save.txt";
 
     public BankWithUs(String filePath) {
         ui = new Ui();
