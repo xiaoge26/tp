@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Storage {
 
-    private final File SAVE_DIR = new File("data");
+    private final File saveDir = new File("data");
     private File saveFile;
     private Ui ui;
 
@@ -38,7 +38,7 @@ public class Storage {
      * @throws IOException if something goes really wrong. Should almost never happen
      */
     public void createNewFile() throws IOException {
-        SAVE_DIR.mkdir();
+        saveDir.mkdir();
         saveFile.createNewFile();
         ui.showFileCreated();
     }
