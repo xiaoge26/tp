@@ -1,5 +1,8 @@
 package seedu.bankwithus;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class BankWithUs {
 
     public static final String FILE_PATH = "data/save.txt";
@@ -8,13 +11,19 @@ public class BankWithUs {
     private Ui ui;
     private AccountList accounts;
 
-    public BankWithUs(String filePath) {
+    public BankWithUs(String filePath) throws IOException {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
             accounts = new AccountList(storage.load());
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
             ui.showLoadingError();
+            try {
+                storage.createNewFile();
+            } catch (IOException ioE) {
+                ui.showIOError();
+                throw ioE;
+            }
             accounts = new AccountList();
         }
     }
@@ -23,6 +32,10 @@ public class BankWithUs {
 
     }
     public static void main(String[] args) {
-        new BankWithUs(FILE_PATH).run();
+        try {
+            new BankWithUs(FILE_PATH).run();
+        } catch (IOException e) {
+            return;
+        }
     }
 }
