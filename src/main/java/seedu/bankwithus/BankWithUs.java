@@ -25,7 +25,7 @@ public class BankWithUs {
         try {
             accounts = new AccountList(storage.load());
         } catch (FileNotFoundException e) {
-            ui.showLoadingError();
+            ui.showFileNotFoundError();
             try {
                 storage.createNewFile();
             } catch (IOException ioE) {
