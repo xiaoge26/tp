@@ -1,14 +1,16 @@
 package seedu.bankwithus;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AccountList {
     protected ArrayList<Account> accounts;
-    public Ui ui;
-
+    private Ui ui;
     public AccountList() {
+    }
+
+    public AccountList(Scanner scanner) {
+
     }
 
     /**
@@ -26,9 +28,5 @@ public class AccountList {
         } catch (NumberFormatException e) {
             ui.showNumberFormatError();
         }
-    }
-    
-    public AccountList(Scanner scanner) {
-
     }
 }
