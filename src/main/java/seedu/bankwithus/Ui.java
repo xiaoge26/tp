@@ -2,7 +2,7 @@ package seedu.bankwithus;
 
 public class Ui {
     
-    public void showLoadingError() {
+    public void showFileNotFoundError() {
         System.out.println("File not found, trying to create file.");
     }
 
