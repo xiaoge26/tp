@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Storage {
 
     private final File saveDir = new File("data");
-    private File saveFile;
+    protected File saveFile;
     private Ui ui;
 
     /**

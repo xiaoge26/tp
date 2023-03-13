@@ -13,7 +13,7 @@ public class BankWithUs {
 
     private Storage storage;
     private Ui ui;
-    private AccountList accounts;
+    protected static AccountList accounts;
     private Parser parser;
 
     /**
@@ -65,6 +65,11 @@ public class BankWithUs {
      */
     public void run() throws IOException {
         ui.createScanner();
+        if (storage.saveFile.length() < 1) {
+            createAccount();
+        } else {
+
+        }
         while (!isExitEntered) {
             String line = ui.getNextLine();
             try {
@@ -82,5 +87,15 @@ public class BankWithUs {
         } catch (IOException e) {
             return;
         }
+    }
+
+    public  void createAccount() {
+        System.out.println("Whats your name?");
+        ui.createScanner();
+        String userName = ui.getNextLine();
+        System.out.println("How much would you like to add as Balance?");
+        float balance = Float.parseFloat(ui.getNextLine());
+        Account myAccount = new Account(userName, balance);
+        accounts.accounts.add(myAccount);
     }
 }

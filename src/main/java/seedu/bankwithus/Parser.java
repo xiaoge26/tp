@@ -1,7 +1,7 @@
 package seedu.bankwithus;
 
 import seedu.bankwithus.exceptions.CommandNotFoundException;
-
+import seedu.bankwithus.BankWithUs;
 public class Parser {
 
     private BankWithUs bwu;
@@ -21,9 +21,17 @@ public class Parser {
         String args = split.length == 2 ? split[1] : "";
 
         switch (command) {
-        case "exit":
+        case "exit": {
             bwu.isExitEntered = true;
             break;
+        }
+
+        case "balance" : {
+            for(Account acc : BankWithUs.accounts.accounts) {
+                System.out.println(acc.balance);
+            }
+            break;
+        }
         default:
             throw new CommandNotFoundException();
         }
