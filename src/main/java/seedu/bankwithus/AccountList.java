@@ -32,8 +32,9 @@ public class AccountList {
     }
 
     /**
-     * @return returns all accounts details in String
      * name and balance are separated by $ prepared to be saved
+     *
+     * @return returns all accounts details in String
      */
     public String getAllAccountDetails() {
         String temp = "";
