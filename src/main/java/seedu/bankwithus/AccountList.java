@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class AccountList {
     protected ArrayList<Account> accounts;
     private Ui ui;
+
     public AccountList() {
     }
 
@@ -16,7 +17,7 @@ public class AccountList {
     /**
      * Creates a new account and adds it to the AccountList.
      *
-     * @param name Name of the new account to be added
+     * @param name          Name of the new account to be added
      * @param balanceString Balance of the new account to be added in String type
      * @throws NumberFormatException If balanceString cannot be parsed into a float number
      */
@@ -34,9 +35,9 @@ public class AccountList {
      * @return returns all accounts details in String
      * name and balance are separated by $ prepared to be saved
      */
-    public String getAllAccountDetails(){
+    public String getAllAccountDetails() {
         String temp = "";
-        for (Account acc : accounts ) {
+        for (Account acc : accounts) {
             temp += acc.name + "$" + acc.balance;
             temp += "\n";
         }
