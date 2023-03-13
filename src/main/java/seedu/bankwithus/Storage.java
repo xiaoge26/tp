@@ -2,6 +2,7 @@ package seedu.bankwithus;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -25,7 +26,6 @@ public class Storage {
      * Loads the saveFile contexts into AccountList.
      *
      * @return the scanner containing the contents of the saveFile
-     *
      * @throws FileNotFoundException if file is not found
      */
     public Scanner load() throws FileNotFoundException {
@@ -41,6 +41,17 @@ public class Storage {
         saveDir.mkdir();
         saveFile.createNewFile();
         ui.showFileCreated();
+    }
+
+    /**
+     * This method saves all account details to data/save.txt
+     *
+     * @param list The AccountList that stores all accounts
+     */
+    public void saveToFile(AccountList list) throws IOException {
+        FileWriter fw = new FileWriter(saveFile);
+        fw.write(list.getAllAccountDetails());
+        fw.close();
     }
 
 }
