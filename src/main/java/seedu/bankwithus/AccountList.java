@@ -29,4 +29,17 @@ public class AccountList {
             ui.showNumberFormatError();
         }
     }
+
+    /**
+     * @return returns all accounts details in String
+     * name and balance are separated by $ prepared to be saved
+     */
+    public String getAllAccountDetails(){
+        String temp = "";
+        for (Account acc : accounts ) {
+            temp += acc.name + "$" + acc.balance;
+            temp += "\n";
+        }
+        return temp;
+    }
 }
