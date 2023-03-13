@@ -1,8 +1,6 @@
 package seedu.bankwithus;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 
 import seedu.bankwithus.exceptions.CommandNotFoundException;
@@ -10,12 +8,10 @@ import seedu.bankwithus.exceptions.CommandNotFoundException;
 public class BankWithUs {
 
     public static final String FILE_PATH = "data/save.txt";
-
+    protected static AccountList accounts;
     public boolean isExitEntered = false;
-
     private Storage storage;
     private Ui ui;
-    protected static AccountList accounts;
     private Parser parser;
 
     /**
