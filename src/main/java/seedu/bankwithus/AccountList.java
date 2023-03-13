@@ -8,6 +8,7 @@ public class AccountList {
     private Ui ui;
 
     public AccountList() {
+        
     }
 
     public AccountList(Scanner scanner) {
