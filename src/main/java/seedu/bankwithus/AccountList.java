@@ -8,10 +8,11 @@ public class AccountList {
     private Ui ui;
 
     public AccountList() {
+        accounts = new ArrayList<Account>();
     }
 
     public AccountList(Scanner scanner) {
-
+        accounts = new ArrayList<Account>();
     }
 
     /**

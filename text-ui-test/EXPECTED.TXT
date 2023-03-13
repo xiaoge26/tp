@@ -1,2 +1,4 @@
 File not found, trying to create file.
 Savefile created successfully!
+Not a valid command!
+Goodbye! Hope to see you again! :)

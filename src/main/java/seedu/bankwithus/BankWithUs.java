@@ -3,13 +3,18 @@ package seedu.bankwithus;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import seedu.bankwithus.exceptions.CommandNotFoundException;
+
 public class BankWithUs {
 
     public static final String FILE_PATH = "data/save.txt";
 
+    public boolean isExitEntered = false;
+
     private Storage storage;
     private Ui ui;
     private AccountList accounts;
+    private Parser parser;
 
     /**
      * Creates a new instance of BankWithUs. Initialises storage, ui and
@@ -21,6 +26,7 @@ public class BankWithUs {
     public BankWithUs(String filePath) throws IOException {
         ui = new Ui();
         storage = new Storage(filePath);
+        parser = new Parser(this);
         try {
             accounts = new AccountList(storage.load());
         } catch (FileNotFoundException e) {
@@ -40,7 +46,7 @@ public class BankWithUs {
      *
      * @throws IOException throw error if the data cannot be saved
      */
-    private void exit(String filePath) throws IOException {
+    public void exit(String filePath) throws IOException {
         try {
             storage.saveToFile(accounts);
         } catch (IOException e) {
@@ -48,10 +54,26 @@ public class BankWithUs {
             throw e;
         }
         ui.showFarewellMessage();
+        ui.closeScanner();
     }
 
-    public void run() {
-
+    /**
+     * The main command and output loop. Takes in user input line by line
+     * and gives it to the parser to execute the command.
+     * 
+     * @throws IOException if something goes wrong while exiting the program
+     */
+    public void run() throws IOException {
+        ui.createScanner();
+        while (!isExitEntered) {
+            String line = ui.getNextLine();
+            try {
+                parser.parseUserInput(line);
+            } catch (CommandNotFoundException e) {
+                ui.showCommandNotFoundError();
+            }
+        }
+        exit(FILE_PATH);
     }
 
     public static void main(String[] args) {
