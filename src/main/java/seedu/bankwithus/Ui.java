@@ -1,7 +1,7 @@
 package seedu.bankwithus;
 
 public class Ui {
-    
+
     public void showFileNotFoundError() {
         System.out.println("File not found, trying to create file.");
     }
@@ -18,7 +18,7 @@ public class Ui {
         System.out.println("The input is not a number! Please try again.");
     }
 
-    public void showFarewellMessage(){
+    public void showFarewellMessage() {
         System.out.println("Goodbye! Hope to see you again! :)");
     }
 }
