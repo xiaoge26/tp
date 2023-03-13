@@ -17,4 +17,8 @@ public class Ui {
     public void showNumberFormatError() {
         System.out.println("The input is not a number! Please try again.");
     }
+
+    public void showFarewellMessage(){
+        System.out.println("Goodbye! Hope to see you again! :)");
+    }
 }
