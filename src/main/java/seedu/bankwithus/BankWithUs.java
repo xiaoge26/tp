@@ -16,7 +16,6 @@ public class BankWithUs {
      * accounts. Should load data into accounts too.
      *
      * @param filePath the filepath. Should be data/save.txt by default
-     *
      * @throws IOException thrown when something goes really, really wrong
      */
     public BankWithUs(String filePath) throws IOException {
@@ -36,9 +35,25 @@ public class BankWithUs {
         }
     }
 
+    /**
+     * exit the programme, save the data and show farewell message
+     *
+     * @throws IOException throw error if the data cannot be saved
+     */
+    private void exit(String filePath) throws IOException {
+        try {
+            storage.saveToFile(accounts);
+        } catch (IOException e) {
+            ui.showIOError();
+            throw e;
+        }
+        ui.showFarewellMessage();
+    }
+
     public void run() {
 
     }
+
     public static void main(String[] args) {
         try {
             new BankWithUs(FILE_PATH).run();

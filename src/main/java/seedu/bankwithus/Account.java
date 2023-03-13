@@ -6,10 +6,10 @@ public class Account {
 
 
     /**
-     * @param name initialise in the name of the account
+     * @param name    initialise in the name of the account
      * @param balance initialise the balance of the account
      */
-    public Account(String name, float balance){
+    public Account(String name, float balance) {
         this.name = name;
         this.balance = balance;
     }
@@ -17,11 +17,11 @@ public class Account {
     /**
      * @return returns a string contains the name of the Account
      */
-    public String getAccountName(){
+    public String getAccountName() {
         return name;
     }
 
-    public float getAccountBalance(){
+    public float getAccountBalance() {
         return balance;
     }
 
