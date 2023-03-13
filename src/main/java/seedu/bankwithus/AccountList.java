@@ -1,10 +1,14 @@
 package seedu.bankwithus;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AccountList {
-    protected ArrayList<Account> accounts;
+    protected static ArrayList<Account> accounts;
     private Ui ui;
 
     public AccountList() {
@@ -40,9 +44,11 @@ public class AccountList {
     public String getAllAccountDetails() {
         String temp = "";
         for (Account acc : accounts) {
-            temp += acc.name + "$" + acc.balance;
+            temp += acc.name + ";" + acc.balance;
             temp += "\n";
         }
         return temp;
     }
+
+
 }

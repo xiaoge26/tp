@@ -1,6 +1,8 @@
 package seedu.bankwithus;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 
 import seedu.bankwithus.exceptions.CommandNotFoundException;
@@ -67,8 +69,6 @@ public class BankWithUs {
         ui.createScanner();
         if (storage.saveFile.length() < 1) {
             createAccount();
-        } else {
-
         }
         while (!isExitEntered) {
             String line = ui.getNextLine();
@@ -96,6 +96,6 @@ public class BankWithUs {
         System.out.println("How much would you like to add as Balance?");
         float balance = Float.parseFloat(ui.getNextLine());
         Account myAccount = new Account(userName, balance);
-        accounts.accounts.add(myAccount);
+        AccountList.accounts.add(myAccount);
     }
 }
