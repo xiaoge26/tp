@@ -57,6 +57,12 @@ public class BankWithUs {
         ui.closeScanner();
     }
 
+    /**
+     * The main command and output loop. Takes in user input line by line
+     * and gives it to the parser to execute the command.
+     * 
+     * @throws IOException if something goes wrong while exiting the program
+     */
     public void run() throws IOException {
         ui.createScanner();
         while (!isExitEntered) {

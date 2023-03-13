@@ -10,6 +10,10 @@ public class Parser {
         this.bwu = bwu;
     }
 
+    /**
+     * Parses the user input into command and arguments.
+     */
+    
     public void parseUserInput(String input) throws CommandNotFoundException {
         // Split input by space
         String[] split = input.trim().split("\\s+", 2);
