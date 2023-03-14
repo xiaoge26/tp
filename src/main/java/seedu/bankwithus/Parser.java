@@ -22,13 +22,17 @@ public class Parser {
         String[] split = input.trim().split("\\s+", 2);
         String command = split[0];
         String args = split.length == 2 ? split[1] : "";
-
+        Ui screen = new Ui();
         if (command.equals("exit")) {
             bwu.isExitEntered = true;
         } else {
             switch (command) {
                 case "exit":
                     bwu.isExitEntered = true;
+                    break;
+                case "View_Account":
+                    String accDetails = bwu.accounts.getAllAccountDetails();
+                    screen.viewAccount(accDetails);
                     break;
                 default:
                     throw new CommandNotFoundException();
