@@ -76,6 +76,12 @@ public class BankWithUs {
         ui.createScanner();
         if (storage.saveFile.length() < 1) {
             createAccount();
+        } else {
+            try {
+                parser.parseSavedFile(accounts);
+            } catch (IOException e) {
+                ui.showIOError();
+            }
         }
         while (!isExitEntered) {
             String line = ui.getNextLine();
@@ -101,7 +107,6 @@ public class BankWithUs {
         try {
             new BankWithUs(FILE_PATH).run();
         } catch (IOException e) {
-            return;
         }
     }
 }
