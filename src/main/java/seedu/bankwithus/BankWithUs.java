@@ -9,7 +9,6 @@ public class BankWithUs {
 
     public static final String FILE_PATH = "data/save.txt";
     public boolean isExitEntered = false;
-    protected AccountList accounts;
     private Storage storage;
     private Ui ui;
     private AccountList accountList;
@@ -59,18 +58,18 @@ public class BankWithUs {
     /**
      * Creates a new Account for a first time user
      */
-    public  void createAccount() {
+    public void createAccount() {
         System.out.println("Whats your name?");
         String userName = ui.getNextLine();
         System.out.println("How much would you like to add as Balance?");
         String balance = ui.getNextLine();
-        this.accounts.addAccount(userName, balance);
+        accountList.addAccount(userName, balance);
     }
 
     /**
      * The main command and output loop. Takes in user input line by line
      * and gives it to the parser to execute the command.
-     * 
+     *
      * @throws IOException if something goes wrong while exiting the program
      */
     public void run() throws IOException {
