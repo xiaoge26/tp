@@ -27,11 +27,11 @@ public class Parser {
             bwu.isExitEntered = true;
         } else {
             switch (command) {
-                case "exit":
-                    bwu.isExitEntered = true;
-                    break;
-                default:
-                    throw new CommandNotFoundException();
+            case "exit":
+                bwu.isExitEntered = true;
+                break;
+            default:
+                throw new CommandNotFoundException();
             }
         }
     }
