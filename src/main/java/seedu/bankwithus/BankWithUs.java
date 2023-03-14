@@ -8,12 +8,10 @@ import seedu.bankwithus.exceptions.CommandNotFoundException;
 public class BankWithUs {
 
     public static final String FILE_PATH = "data/save.txt";
-
     public boolean isExitEntered = false;
-
+    protected AccountList accounts;
     private Storage storage;
     private Ui ui;
-    private AccountList accounts;
     private Parser parser;
 
     /**
@@ -58,6 +56,17 @@ public class BankWithUs {
     }
 
     /**
+     * Creates a new Account for a first time user
+     */
+    public  void createAccount() {
+        System.out.println("Whats your name?");
+        String userName = ui.getNextLine();
+        System.out.println("How much would you like to add as Balance?");
+        String balance = ui.getNextLine();
+        this.accounts.addAccount(userName, balance);
+    }
+
+    /**
      * The main command and output loop. Takes in user input line by line
      * and gives it to the parser to execute the command.
      * 
@@ -65,6 +74,9 @@ public class BankWithUs {
      */
     public void run() throws IOException {
         ui.createScanner();
+        if (storage.saveFile.length() < 1) {
+            createAccount();
+        }
         while (!isExitEntered) {
             String line = ui.getNextLine();
             try {
@@ -83,4 +95,5 @@ public class BankWithUs {
             return;
         }
     }
+
 }

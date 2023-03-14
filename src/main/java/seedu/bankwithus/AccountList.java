@@ -40,9 +40,11 @@ public class AccountList {
     public String getAllAccountDetails() {
         String temp = "";
         for (Account acc : accounts) {
-            temp += acc.name + "$" + acc.balance;
+            temp += acc.name + ";" + acc.balance;
             temp += "\n";
         }
         return temp;
     }
+
+
 }
