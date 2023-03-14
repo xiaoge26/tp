@@ -69,17 +69,19 @@ public class BankWithUs {
     /**
      * The main command and output loop. Takes in user input line by line
      * and gives it to the parser to execute the command.
-     * 
+     *
      * @throws IOException if something goes wrong while exiting the program
      */
     public void run() throws IOException {
         ui.createScanner();
         if (storage.saveFile.length() < 1) {
             createAccount();
-        }
-        else {
-            parser.parseSavedFile(accounts);
-            System.out.println(accounts.getAllAccountDetails());
+        } else {
+            try {
+                parser.parseSavedFile(accounts);
+            } catch (IOException e) {
+                ui.showIOError();
+            }
         }
         while (!isExitEntered) {
             String line = ui.getNextLine();
@@ -96,8 +98,6 @@ public class BankWithUs {
         try {
             new BankWithUs(FILE_PATH).run();
         } catch (IOException e) {
-            return;
         }
     }
-
 }
