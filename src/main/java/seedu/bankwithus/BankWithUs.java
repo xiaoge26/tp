@@ -8,8 +8,8 @@ import seedu.bankwithus.exceptions.CommandNotFoundException;
 public class BankWithUs {
 
     public static final String FILE_PATH = "data/save.txt";
-    protected AccountList accounts;
     public boolean isExitEntered = false;
+    protected AccountList accounts;
     private Storage storage;
     private Ui ui;
     private Parser parser;
