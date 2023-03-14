@@ -13,7 +13,9 @@ public class BankWithUs {
 
     private Storage storage;
     private Ui ui;
-    private AccountList accounts;
+    private AccountList accountList;
+
+    private Account currentAccount;
     private Parser parser;
 
     /**
@@ -28,7 +30,7 @@ public class BankWithUs {
         storage = new Storage(filePath);
         parser = new Parser(this);
         try {
-            accounts = new AccountList(storage.load());
+            accountList = new AccountList(storage.load());
         } catch (FileNotFoundException e) {
             ui.showFileNotFoundError();
             try {
@@ -37,7 +39,7 @@ public class BankWithUs {
                 ui.showIOError();
                 throw ioE;
             }
-            accounts = new AccountList();
+            accountList = new AccountList();
         }
     }
 
@@ -48,7 +50,7 @@ public class BankWithUs {
      */
     public void exit(String filePath) throws IOException {
         try {
-            storage.saveToFile(accounts);
+            storage.saveToFile(accountList);
         } catch (IOException e) {
             ui.showIOError();
             throw e;
@@ -76,11 +78,24 @@ public class BankWithUs {
         exit(FILE_PATH);
     }
 
+
+    public AccountList getAccountList() {
+        return accountList;
+    }
+
+    public void setAccountList(AccountList accountList) {
+        this.accountList = accountList;
+    }
+
     public static void main(String[] args) {
         try {
             new BankWithUs(FILE_PATH).run();
         } catch (IOException e) {
             return;
         }
+    }
+
+    public void setCurrentAccount(Account currentAccount) {
+        this.currentAccount = currentAccount;
     }
 }

@@ -45,4 +45,18 @@ public class AccountList {
         }
         return temp;
     }
+
+    public Account getCurrentAccount() {
+        return accounts.get(0);
+    }
+
+    public void depositMoney(String depositAmountString) throws NumberFormatException, NullPointerException {
+        try {
+            float depositAmount = Float.parseFloat(depositAmountString);
+            getCurrentAccount().balance += depositAmount;
+        } catch (NumberFormatException e) {
+            ui.showNumberFormatError();
+        }
+    }
+
 }

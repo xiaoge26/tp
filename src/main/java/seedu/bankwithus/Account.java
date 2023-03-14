@@ -4,7 +4,7 @@ public class Account {
     protected String name;
     protected float balance;
 
-
+    private Ui ui;
     /**
      * @param name    initialise in the name of the account
      * @param balance initialise the balance of the account

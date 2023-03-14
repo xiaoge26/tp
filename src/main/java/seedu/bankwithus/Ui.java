@@ -19,7 +19,7 @@ public class Ui {
     }
 
     public void showNumberFormatError() {
-        System.out.println("The input is not a number! Please try again.");
+        System.out.println("The input is not a valid number! Please try again.");
     }
 
     public void showCommandNotFoundError() {
@@ -30,10 +30,13 @@ public class Ui {
         System.out.println("Goodbye! Hope to see you again! :)");
     }
 
+    public void showDepositMessage() {
+        System.out.println("New deposit added!");
+    }
+
     /**
      * Creates a scanner in the Ui class
      */
-
     public void createScanner() {
         this.scanner = new Scanner(System.in);
     }
@@ -43,7 +46,6 @@ public class Ui {
      * 
      * @return the next of user input
      */
-
     public String getNextLine() {
         return scanner.nextLine();
     }
@@ -51,7 +53,6 @@ public class Ui {
     /**
      * Closes the scanner
      */
-
     public void closeScanner() {
         this.scanner.close();
     }

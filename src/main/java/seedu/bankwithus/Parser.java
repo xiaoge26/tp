@@ -3,7 +3,7 @@ package seedu.bankwithus;
 import seedu.bankwithus.exceptions.CommandNotFoundException;
 
 public class Parser {
-
+    private Ui ui;
     private BankWithUs bwu;
 
     public Parser(BankWithUs bwu) {
@@ -13,7 +13,6 @@ public class Parser {
     /**
      * Parses the user input into command and arguments.
      */
-    
     public void parseUserInput(String input) throws CommandNotFoundException {
         // Split input by space
         String[] split = input.trim().split("\\s+", 2);
@@ -24,6 +23,11 @@ public class Parser {
         case "exit":
             bwu.isExitEntered = true;
             break;
+        case "deposit":
+            bwu.getAccountList().depositMoney(args);
+            ui.showDepositMessage();
+            break;
+
         default:
             throw new CommandNotFoundException();
         }
