@@ -58,7 +58,7 @@ public class BankWithUs {
     /**
      * Creates a new Account for a first time user
      */
-    public  void createAccount() {
+    public void createAccount() {
         System.out.println("Whats your name?");
         String userName = ui.getNextLine();
         System.out.println("How much would you like to add as Balance?");
@@ -76,6 +76,10 @@ public class BankWithUs {
         ui.createScanner();
         if (storage.saveFile.length() < 1) {
             createAccount();
+        }
+        else {
+            parser.parseSavedFile(accounts);
+            System.out.println(accounts.getAllAccountDetails());
         }
         while (!isExitEntered) {
             String line = ui.getNextLine();

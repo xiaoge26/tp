@@ -1,6 +1,10 @@
 package seedu.bankwithus;
 
 import seedu.bankwithus.exceptions.CommandNotFoundException;
+
+import java.io.IOException;
+import java.util.Scanner;
+
 public class Parser {
     private BankWithUs bwu;
 
@@ -21,7 +25,30 @@ public class Parser {
         if (command.equals("exit")) {
             bwu.isExitEntered = true;
         } else {
-            throw new CommandNotFoundException();
+            switch (command) {
+                case "exit":
+                    bwu.isExitEntered = true;
+                    break;
+                default:
+                    throw new CommandNotFoundException();
+            }
+        }
+    }
+
+    /**
+     * This method reads any existing file and add the saved data
+     * into current programme
+     *
+     * @param list current operation AccountList
+     */
+    public void parseSavedFile(AccountList list) {
+        Scanner myReader = new Scanner("data/save.txt");
+        while (myReader.hasNextLine()) {
+            String data = myReader.nextLine();
+            String[] splitDetails = data.split(";");
+            String name = splitDetails[0];
+            String balance = splitDetails[1];
+            list.addAccount(name, balance);
         }
     }
 }
