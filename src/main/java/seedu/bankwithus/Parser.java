@@ -2,6 +2,7 @@ package seedu.bankwithus;
 
 import seedu.bankwithus.exceptions.CommandNotFoundException;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -41,8 +42,9 @@ public class Parser {
      *
      * @param list current operation AccountList
      */
-    public void parseSavedFile(AccountList list) {
-        Scanner myReader = new Scanner("data/save.txt");
+    public void parseSavedFile(AccountList list) throws IOException {
+        File f = new File("data/save.txt");
+        Scanner myReader = new Scanner(f);
         while (myReader.hasNextLine()) {
             String data = myReader.nextLine();
             String[] splitDetails = data.split(";");
