@@ -1,7 +1,6 @@
 package seedu.bankwithus;
 
 import seedu.bankwithus.exceptions.CommandNotFoundException;
-
 public class Parser {
     private Ui ui;
     private BankWithUs bwu;
@@ -27,10 +26,8 @@ public class Parser {
             bwu.getAccountList().depositMoney(args);
             ui.showDepositMessage();
             break;
-
         default:
             throw new CommandNotFoundException();
         }
     }
-
 }

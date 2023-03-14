@@ -8,8 +8,8 @@ import java.util.Scanner;
 
 public class Storage {
 
+    protected File saveFile;
     private final File saveDir = new File("data");
-    private File saveFile;
     private Ui ui;
 
     /**
