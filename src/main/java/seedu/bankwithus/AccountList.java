@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AccountList {
-    protected static ArrayList<Account> accounts;
+    protected ArrayList<Account> accounts;
     private Ui ui;
 
     public AccountList() {
