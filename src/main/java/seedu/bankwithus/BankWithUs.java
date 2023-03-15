@@ -76,6 +76,12 @@ public class BankWithUs {
         ui.createScanner();
         if (storage.saveFile.length() < 1) {
             createAccount();
+        } else {
+            try {
+                parser.parseSavedFile(accountList);
+            } catch (IOException e) {
+                ui.showIOError();
+            }
         }
         while (!isExitEntered) {
             String line = ui.getNextLine();

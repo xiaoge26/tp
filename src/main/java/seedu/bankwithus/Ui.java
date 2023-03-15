@@ -43,7 +43,7 @@ public class Ui {
 
     /**
      * Gets the next line of user input
-     * 
+     *
      * @return the next of user input
      */
     public String getNextLine() {
@@ -55,5 +55,30 @@ public class Ui {
      */
     public void closeScanner() {
         this.scanner.close();
+    }
+
+    public void printLine() {
+        System.out.println("----------------------------");
+    }
+
+    public void viewAccount(String accDetails) {
+        String name = accDetails.split(";")[0];
+        String bal = accDetails.split(";")[1];
+        printLine();
+        System.out.println("Name: " + name);
+        System.out.println("Balance: $" + bal);
+        printLine();
+    }
+
+    public void showBal(float finalBal) {
+        System.out.println("You have $" + String.valueOf(finalBal) + " remaining!");
+    }
+
+    public void showNegativeAmountError() {
+        System.out.println("Negative number entered!");
+    }
+
+    public void showInsufficientBalanceMessage() {
+        System.out.println("You do not have sufficient Balance");
     }
 }

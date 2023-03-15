@@ -25,4 +25,7 @@ public class Account {
         return balance;
     }
 
+    public void setBalance(float balance) {
+        this.balance = balance;
+    }
 }
