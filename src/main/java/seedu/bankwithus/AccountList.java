@@ -22,9 +22,9 @@ public class AccountList {
      * @throws NumberFormatException If balanceString cannot be parsed into a float number
      */
     public void addAccount(String name, String balanceString) throws NumberFormatException, NullPointerException {
-            float balance = Float.parseFloat(balanceString);
-            Account newAccount = new Account(name, balance);
-            accounts.add(newAccount);
+        float balance = Float.parseFloat(balanceString);
+        Account newAccount = new Account(name, balance);
+        accounts.add(newAccount);
     }
 
     /**
