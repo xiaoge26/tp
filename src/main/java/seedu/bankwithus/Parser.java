@@ -22,18 +22,26 @@ public class Parser {
         String[] split = input.trim().split("\\s+", 2);
         String command = split[0];
         String args = split.length == 2 ? split[1] : "";
-
-        if (command.equals("exit")) {
-            bwu.isExitEntered = true;
-        } else {
-            switch (command) {
-                case "exit":
-                    bwu.isExitEntered = true;
-                    break;
-                default:
-                    throw new CommandNotFoundException();
-            }
+        Ui screen = new Ui();
+        switch (command) {
+            case "exit":
+                bwu.isExitEntered = true;
+                break;
+            case "view-account":
+                String accDetails = bwu.accounts.getAllAccountDetails();
+                screen.viewAccount(accDetails);
+                break;
+            case "withdraw":
+                float withdrawAmt = Float.parseFloat(args);
+                float currBal = bwu.accounts.accounts.get(0).balance;
+                float final_bal = currBal-withdrawAmt;
+                bwu.accounts.accounts.get(0).setBalance(final_bal);
+                System.out.println("u have $" + String.valueOf(final_bal) + " remaining!");
+                break;
+            default:
+                throw new CommandNotFoundException();
         }
+
     }
 
     /**
