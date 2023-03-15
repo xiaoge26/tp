@@ -19,7 +19,7 @@ public class Parser {
         if (withdrawAmt < 0) {
             throw new NegativeAmountException();
         }
-        float currBal = bwu.accounts.accounts.get(0).balance;
+        float currBal = bwu.getAccountList().getCurrentAccount().balance;
         float finalBal = currBal-withdrawAmt;
         return finalBal;
     }
@@ -27,7 +27,6 @@ public class Parser {
     /**
      * Parses the user input into command and arguments.
      */
-
     public void parseUserInput(String input) throws CommandNotFoundException {
         // Split input by space
         String[] split = input.trim().split("\\s+", 2);
@@ -38,15 +37,28 @@ public class Parser {
         case "exit":
             bwu.isExitEntered = true;
             break;
+        case "deposit":
+            try {
+                bwu.getAccountList().depositMoney(args);
+                screen.showDepositMessage();
+                screen.showBal(bwu.getAccountList().getCurrentAccount().getAccountBalance());
+            } catch (NumberFormatException e) {
+                screen.showNumberFormatError();
+            } catch (NullPointerException e) {
+                screen.showNullInputError();
+            } catch (NegativeAmountException e) {
+                screen.showNegativeAmountError();
+            }
+            break;
         case "view-account":
-            String accDetails = bwu.accounts.getAllAccountDetails();
+            String accDetails = bwu.getAccountList().getAllAccountDetails();
             screen.viewAccount(accDetails);
             break;
         case "withdraw":
             try {
                 float finalBal = parseWithdrawAmt(args);
                 if(finalBal >= 0) {
-                    bwu.accounts.accounts.get(0).setBalance(finalBal);
+                    bwu.getAccountList().getCurrentAccount().setBalance(finalBal);
                     screen.showBal(finalBal);
                 } else {
                     screen.showInsufficientBalanceMessage();
@@ -57,10 +69,12 @@ public class Parser {
                 screen.showNegativeAmountError();
             }
             break;
+        case "help":
+            screen.showHelp();
+            break;
         default:
             throw new CommandNotFoundException();
         }
-
     }
 
 
