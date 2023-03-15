@@ -27,7 +27,7 @@ public class Parser {
             case "exit":
                 bwu.isExitEntered = true;
                 break;
-            case "View_Account":
+            case "view-account":
                 String accDetails = bwu.accounts.getAllAccountDetails();
                 screen.viewAccount(accDetails);
                 break;
