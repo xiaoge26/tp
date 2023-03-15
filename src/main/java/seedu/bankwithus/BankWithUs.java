@@ -9,9 +9,9 @@ public class BankWithUs {
 
     public static final String FILE_PATH = "data/save.txt";
     public boolean isExitEntered = false;
-    protected AccountList accounts;
     private Storage storage;
     private Ui ui;
+    private AccountList accountList;
     private Parser parser;
 
     /**
@@ -26,7 +26,7 @@ public class BankWithUs {
         storage = new Storage(filePath);
         parser = new Parser(this);
         try {
-            accounts = new AccountList(storage.load());
+            accountList = new AccountList(storage.load());
         } catch (FileNotFoundException e) {
             ui.showFileNotFoundError();
             try {
@@ -35,7 +35,7 @@ public class BankWithUs {
                 ui.showIOError();
                 throw ioE;
             }
-            accounts = new AccountList();
+            accountList = new AccountList();
         }
     }
 
@@ -46,7 +46,7 @@ public class BankWithUs {
      */
     public void exit(String filePath) throws IOException {
         try {
-            storage.saveToFile(accounts);
+            storage.saveToFile(accountList);
         } catch (IOException e) {
             ui.showIOError();
             throw e;
@@ -63,7 +63,16 @@ public class BankWithUs {
         String userName = ui.getNextLine();
         System.out.println("How much would you like to add as Balance?");
         String balance = ui.getNextLine();
-        this.accounts.addAccount(userName, balance);
+        try {
+            accountList.addAccount(userName, balance);
+            ui.showAddAccountMessage();
+        } catch (NullPointerException e) {
+            ui.showNullInputError();
+            createAccount();
+        } catch (NumberFormatException e) {
+            ui.showNumberFormatError();
+            createAccount();
+        }
     }
 
     /**
@@ -78,7 +87,7 @@ public class BankWithUs {
             createAccount();
         } else {
             try {
-                parser.parseSavedFile(accounts);
+                parser.parseSavedFile(accountList);
             } catch (IOException e) {
                 ui.showIOError();
             }
@@ -93,6 +102,12 @@ public class BankWithUs {
         }
         exit(FILE_PATH);
     }
+
+
+    public AccountList getAccountList() {
+        return accountList;
+    }
+
 
     public static void main(String[] args) {
         try {

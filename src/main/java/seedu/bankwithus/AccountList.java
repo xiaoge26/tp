@@ -1,11 +1,12 @@
 package seedu.bankwithus;
 
+import seedu.bankwithus.exceptions.NegativeAmountException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AccountList {
     protected ArrayList<Account> accounts;
-    private Ui ui;
 
     public AccountList() {
         accounts = new ArrayList<Account>();
@@ -22,14 +23,10 @@ public class AccountList {
      * @param balanceString Balance of the new account to be added in String type
      * @throws NumberFormatException If balanceString cannot be parsed into a float number
      */
-    public void addAccount(String name, String balanceString) throws NumberFormatException {
-        try {
-            float balance = Float.parseFloat(balanceString);
-            Account newAccount = new Account(name, balance);
-            accounts.add(newAccount);
-        } catch (NumberFormatException e) {
-            ui.showNumberFormatError();
-        }
+    public void addAccount(String name, String balanceString) throws NumberFormatException, NullPointerException {
+        float balance = Float.parseFloat(balanceString);
+        Account newAccount = new Account(name, balance);
+        accounts.add(newAccount);
     }
 
     /**
@@ -46,5 +43,17 @@ public class AccountList {
         return temp;
     }
 
+    public Account getCurrentAccount() {
+        return accounts.get(0);
+    }
 
+    public void depositMoney(String depositAmountString) throws NumberFormatException,
+            NullPointerException, NegativeAmountException {
+        float depositAmount = Float.parseFloat(depositAmountString);
+        if (depositAmount < 0) {
+            throw new NegativeAmountException();
+        } else {
+            getCurrentAccount().balance += depositAmount;
+        }
+    }
 }
