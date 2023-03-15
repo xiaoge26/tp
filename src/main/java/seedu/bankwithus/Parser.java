@@ -1,6 +1,7 @@
 package seedu.bankwithus;
 
 import seedu.bankwithus.exceptions.CommandNotFoundException;
+import seedu.bankwithus.exceptions.NegativeAmountException;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,11 +14,14 @@ public class Parser {
         this.bwu = bwu;
     }
 
-    public float parseWithdrawAmt(String args) {
+    public float parseWithdrawAmt(String args) throws NegativeAmountException {
         float withdrawAmt = Float.parseFloat(args);
+        if (withdrawAmt < 0) {
+            throw new NegativeAmountException();
+        }
         float currBal = bwu.accounts.accounts.get(0).balance;
-        float final_bal = currBal-withdrawAmt;
-        return final_bal;
+        float finalBal = currBal-withdrawAmt;
+        return finalBal;
     }
 
     /**
@@ -31,24 +35,30 @@ public class Parser {
         String args = split.length == 2 ? split[1] : "";
         Ui screen = new Ui();
         switch (command) {
-            case "exit":
-                bwu.isExitEntered = true;
-                break;
-            case "view-account":
-                String accDetails = bwu.accounts.getAllAccountDetails();
-                screen.viewAccount(accDetails);
-                break;
-            case "withdraw":
-                float final_bal = parseWithdrawAmt(args);
-                if(final_bal > -1) {
-                    bwu.accounts.accounts.get(0).setBalance(final_bal);
-                    screen.showBal(final_bal);
+        case "exit":
+            bwu.isExitEntered = true;
+            break;
+        case "view-account":
+            String accDetails = bwu.accounts.getAllAccountDetails();
+            screen.viewAccount(accDetails);
+            break;
+        case "withdraw":
+            try {
+                float finalBal = parseWithdrawAmt(args);
+                if(finalBal >= 0) {
+                    bwu.accounts.accounts.get(0).setBalance(finalBal);
+                    screen.showBal(finalBal);
                 } else {
-                    System.out.println("You do not have sufficient Balance");
+                    screen.showInsufficientBalanceMessage();
                 }
-                break;
-            default:
-                throw new CommandNotFoundException();
+            } catch (NumberFormatException e) {
+                screen.showNumberFormatError();
+            } catch (NegativeAmountException e) {
+                screen.showNegativeAmountError();
+            }
+            break;
+        default:
+            throw new CommandNotFoundException();
         }
 
     }
@@ -71,5 +81,6 @@ public class Parser {
             String balance = splitDetails[1];
             list.addAccount(name, balance);
         }
+        myReader.close();
     }
 }

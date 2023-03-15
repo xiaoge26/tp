@@ -72,4 +72,12 @@ public class Ui {
     public void showBal(float finalBal) {
         System.out.println("You have $" + String.valueOf(finalBal) + " remaining!");
     }
+
+    public void showNegativeAmountError() {
+        System.out.println("Negative number entered!");
+    }
+
+    public void showInsufficientBalanceMessage() {
+        System.out.println("You do not have sufficient Balance");
+    }
 }
