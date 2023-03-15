@@ -24,15 +24,15 @@ public class Parser {
         String args = split.length == 2 ? split[1] : "";
         Ui screen = new Ui();
         switch (command) {
-            case "exit":
-                bwu.isExitEntered = true;
-                break;
-            case "view-account":
-                String accDetails = bwu.accounts.getAllAccountDetails();
-                screen.viewAccount(accDetails);
-                break;
-            default:
-                throw new CommandNotFoundException();
+        case "exit":
+            bwu.isExitEntered = true;
+            break;
+        case "view-account":
+            String accDetails = bwu.accounts.getAllAccountDetails();
+            screen.viewAccount(accDetails);
+            break;
+        default:
+            throw new CommandNotFoundException();
         }
     }
 
