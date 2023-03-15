@@ -82,6 +82,7 @@ public class BankWithUs {
      * @throws IOException if something goes wrong while exiting the program
      */
     public void run() throws IOException {
+        ui.greet();
         ui.createScanner();
         if (storage.saveFile.length() < 1) {
             createAccount();
