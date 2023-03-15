@@ -1,6 +1,8 @@
 package seedu.bankwithus;
 
 import org.junit.jupiter.api.Test;
+import seedu.bankwithus.exceptions.NegativeAmountException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -33,7 +35,16 @@ class AccountListTest {
         String balance = "100.5";
         AccountList accountList = new AccountList();
         accountList.addAccount(name, balance);
-        accountList.depositMoney(amountString);
+        Ui screen = new Ui();
+        try {
+            accountList.depositMoney(amountString);
+        } catch (NumberFormatException e) {
+            screen.showNumberFormatError();
+        } catch (NullPointerException e) {
+            screen.showNullInputError();
+        } catch (NegativeAmountException e) {
+            screen.showNegativeAmountError();
+        }
         assertEquals(201, accountList.getCurrentAccount().getAccountBalance());
     }
 }

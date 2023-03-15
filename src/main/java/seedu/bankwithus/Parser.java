@@ -19,7 +19,7 @@ public class Parser {
         if (withdrawAmt < 0) {
             throw new NegativeAmountException();
         }
-        float currBal = bwu.getAccountList().accounts.get(0).balance;
+        float currBal = bwu.getAccountList().getCurrentAccount().balance;
         float finalBal = currBal-withdrawAmt;
         return finalBal;
     }
@@ -41,11 +41,13 @@ public class Parser {
             try {
                 bwu.getAccountList().depositMoney(args);
                 screen.showDepositMessage();
-                screen.showBal(bwu.getAccountList().accounts.get(0).getAccountBalance());
+                screen.showBal(bwu.getAccountList().getCurrentAccount().getAccountBalance());
             } catch (NumberFormatException e) {
                 screen.showNumberFormatError();
             } catch (NullPointerException e) {
-                screen.showNumberFormatError();
+                screen.showNullInputError();
+            } catch (NegativeAmountException e) {
+                screen.showNegativeAmountError();
             }
             break;
         case "view-account":
@@ -56,7 +58,7 @@ public class Parser {
             try {
                 float finalBal = parseWithdrawAmt(args);
                 if(finalBal >= 0) {
-                    bwu.getAccountList().accounts.get(0).setBalance(finalBal);
+                    bwu.getAccountList().getCurrentAccount().setBalance(finalBal);
                     screen.showBal(finalBal);
                 } else {
                     screen.showInsufficientBalanceMessage();

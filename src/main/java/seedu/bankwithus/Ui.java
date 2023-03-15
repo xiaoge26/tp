@@ -34,6 +34,9 @@ public class Ui {
         System.out.println("Goodbye! Hope to see you again! :)");
     }
 
+    public void showAddAccountMessage() {
+        System.out.println("Account created!");
+    }
     public void showDepositMessage() {
         System.out.println("New deposit added!");
     }

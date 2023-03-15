@@ -1,5 +1,7 @@
 package seedu.bankwithus;
 
+import seedu.bankwithus.exceptions.NegativeAmountException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -45,8 +47,13 @@ public class AccountList {
         return accounts.get(0);
     }
 
-    public void depositMoney(String depositAmountString) throws NumberFormatException, NullPointerException {
+    public void depositMoney(String depositAmountString) throws NumberFormatException,
+            NullPointerException, NegativeAmountException {
         float depositAmount = Float.parseFloat(depositAmountString);
-        getCurrentAccount().balance += depositAmount;
+        if (depositAmount < 0) {
+            throw new NegativeAmountException();
+        } else {
+            getCurrentAccount().balance += depositAmount;
+        }
     }
 }

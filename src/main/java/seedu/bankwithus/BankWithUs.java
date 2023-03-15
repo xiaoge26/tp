@@ -65,10 +65,13 @@ public class BankWithUs {
         String balance = ui.getNextLine();
         try {
             accountList.addAccount(userName, balance);
+            ui.showAddAccountMessage();
         } catch (NullPointerException e) {
             ui.showNullInputError();
+            createAccount();
         } catch (NumberFormatException e) {
             ui.showNumberFormatError();
+            createAccount();
         }
     }
 
@@ -105,9 +108,6 @@ public class BankWithUs {
         return accountList;
     }
 
-    public void setAccountList(AccountList accountList) {
-        this.accountList = accountList;
-    }
 
     public static void main(String[] args) {
         try {
