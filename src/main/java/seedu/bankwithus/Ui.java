@@ -22,6 +22,10 @@ public class Ui {
         System.out.println("The input is not a valid number! Please try again.");
     }
 
+    public void showNullInputError() {
+        System.out.println("The input cannot be empty! Please try again.");
+    }
+
     public void showCommandNotFoundError() {
         System.out.println("Not a valid command!");
     }

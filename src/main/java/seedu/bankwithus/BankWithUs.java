@@ -63,7 +63,13 @@ public class BankWithUs {
         String userName = ui.getNextLine();
         System.out.println("How much would you like to add as Balance?");
         String balance = ui.getNextLine();
-        accountList.addAccount(userName, balance);
+        try {
+            accountList.addAccount(userName, balance);
+        } catch (NullPointerException e) {
+            ui.showNullInputError();
+        } catch (NumberFormatException e) {
+            ui.showNumberFormatError();
+        }
     }
 
     /**

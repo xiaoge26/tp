@@ -38,8 +38,16 @@ public class Parser {
             bwu.isExitEntered = true;
             break;
         case "deposit":
-            bwu.getAccountList().depositMoney(args);
-            screen.showDepositMessage();
+            try {
+                bwu.getAccountList().depositMoney(args);
+                screen.showDepositMessage();
+                screen.showBal(bwu.getAccountList().accounts.get(0).getAccountBalance());
+            } catch (NumberFormatException e) {
+                screen.showNumberFormatError();
+            } catch (NullPointerException e) {
+                screen.showNumberFormatError();
+            }
+            break;
         case "view-account":
             String accDetails = bwu.getAccountList().getAllAccountDetails();
             screen.viewAccount(accDetails);
