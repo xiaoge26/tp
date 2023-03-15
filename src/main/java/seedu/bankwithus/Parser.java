@@ -13,6 +13,13 @@ public class Parser {
         this.bwu = bwu;
     }
 
+    public float parseWithdrawAmt(String args) {
+        float withdrawAmt = Float.parseFloat(args);
+        float currBal = bwu.accounts.accounts.get(0).balance;
+        float final_bal = currBal-withdrawAmt;
+        return final_bal;
+    }
+
     /**
      * Parses the user input into command and arguments.
      */
@@ -24,17 +31,29 @@ public class Parser {
         String args = split.length == 2 ? split[1] : "";
         Ui screen = new Ui();
         switch (command) {
-        case "exit":
-            bwu.isExitEntered = true;
-            break;
-        case "view-account":
-            String accDetails = bwu.accounts.getAllAccountDetails();
-            screen.viewAccount(accDetails);
-            break;
-        default:
-            throw new CommandNotFoundException();
+            case "exit":
+                bwu.isExitEntered = true;
+                break;
+            case "view-account":
+                String accDetails = bwu.accounts.getAllAccountDetails();
+                screen.viewAccount(accDetails);
+                break;
+            case "withdraw":
+                float final_bal = parseWithdrawAmt(args);
+                if(final_bal > -1) {
+                    bwu.accounts.accounts.get(0).setBalance(final_bal);
+                    screen.showBal(final_bal);
+                } else {
+                    System.out.println("You do not have sufficient Balance");
+                }
+                break;
+            default:
+                throw new CommandNotFoundException();
         }
+
     }
+
+
 
     /**
      * This method reads any existing file and add the saved data
