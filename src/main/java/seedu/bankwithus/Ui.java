@@ -56,12 +56,13 @@ public class Ui {
         this.scanner.close();
     }
 
+    public void printLine() {System.out.println("----------------------------");}
     public void viewAccount(String accDetails) {
         String name = accDetails.split(";")[0];
         String bal = accDetails.split(";")[1];
-        System.out.println("----------------------------");
+        printLine();
         System.out.println("Name: " + name);
         System.out.println("Balance: $"+bal);
-        System.out.println("----------------------------");
+        printLine();
     }
 }
