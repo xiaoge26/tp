@@ -1,29 +1,28 @@
 package seedu.bankwithus;
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AccountListTest {
 
     @Test
-    void addAccount_invalidBalance_expectException() throws NullPointerException {
+    void addAccount_invalidBalance_expectException() throws NumberFormatException {
         String name = "Bob";
         String balanceString = "abc";
         AccountList accountList = new AccountList();
-        assertThrows(NullPointerException.class,
+        assertThrows(NumberFormatException.class,
                 () -> accountList.addAccount(name, balanceString));
     }
 
     @Test
-    void depositMoney_invalidAmount_expectException() throws NullPointerException {
+    void depositMoney_invalidAmount_expectException() throws NumberFormatException {
         String amountString = "abc";
         String name = "Bob";
         String balance = "0";
         AccountList accountList = new AccountList();
         accountList.addAccount(name, balance);
-        assertThrows(NullPointerException.class,
+        assertThrows(NumberFormatException.class,
                 () -> accountList.depositMoney(amountString));
     }
 
