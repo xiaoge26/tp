@@ -69,6 +69,9 @@ public class Parser {
                 screen.showNegativeAmountError();
             }
             break;
+        case "help":
+            screen.showHelp();
+            break;
         default:
             throw new CommandNotFoundException();
         }

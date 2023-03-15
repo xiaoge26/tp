@@ -47,4 +47,12 @@ class AccountListTest {
         }
         assertEquals(201, accountList.getCurrentAccount().getAccountBalance());
     }
+
+    @Test
+    void testingAddAccount() {
+        AccountList TestAccountList = new AccountList();
+        TestAccountList.addAccount("Jane", "1000");
+        assertEquals("Jane", TestAccountList.accounts.get(0).name);
+        assertEquals(1000.0, TestAccountList.accounts.get(0).balance);
+    }
 }

@@ -88,4 +88,28 @@ public class Ui {
     public void showInsufficientBalanceMessage() {
         System.out.println("You do not have sufficient Balance");
     }
+
+    public void showHelp() {
+        printLine();
+        System.out.println("help: displays the current menu");
+        System.out.println("view-account: shows account name and balance");
+        System.out.println("withdraw <amount>: withdraws <amount> from available balance");
+        System.out.println("deposit <amount>: deposits <amount> and adds deposit to balance");
+        System.out.println("exit: quits program and saves");
+        printLine();
+    }
+
+    public void greet() {
+        System.out.println("Welcome to: ");
+        System.out.println("\n" +
+                " /$$$$$$$                      /$$       /$$      /$$ /$$   /$$     /$$       /$$   /$$          \n" +
+                "| $$__  $$                    | $$      | $$  /$ | $$|__/  | $$    | $$      | $$  | $$          \n" +
+                "| $$  \\ $$  /$$$$$$  /$$$$$$$ | $$   /$$| $$ /$$$| $$ /$$ /$$$$$$  | $$$$$$$ | $$  | $$  /$$$$$$$\n" +
+                "| $$$$$$$  |____  $$| $$__  $$| $$  /$$/| $$/$$ $$ $$| $$|_  $$_/  | $$__  $$| $$  | $$ /$$_____/\n" +
+                "| $$__  $$  /$$$$$$$| $$  \\ $$| $$$$$$/ | $$$$_  $$$$| $$  | $$    | $$  \\ $$| $$  | $$|  $$$$$$ \n" +
+                "| $$  \\ $$ /$$__  $$| $$  | $$| $$_  $$ | $$$/ \\  $$$| $$  | $$ /$$| $$  | $$| $$  | $$ \\____  $$\n" +
+                "| $$$$$$$/|  $$$$$$$| $$  | $$| $$ \\  $$| $$/   \\  $$| $$  |  $$$$/| $$  | $$|  $$$$$$/ /$$$$$$$/\n" +
+                "|_______/  \\_______/|__/  |__/|__/  \\__/|__/     \\__/|__/   \\___/  |__/  |__/ \\______/ |_______/ \n"
+                );
+    }
 }
