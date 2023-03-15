@@ -98,6 +98,7 @@ public class BankWithUs {
         try {
             new BankWithUs(FILE_PATH).run();
         } catch (IOException e) {
+            return;
         }
     }
 }
