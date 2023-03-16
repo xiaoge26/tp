@@ -7,19 +7,16 @@ import java.util.Scanner;
 
 public class AccountList {
     private ArrayList<Account> accounts;
-    private BankWithUs bwu;
     private Ui ui;
-    
+
     public AccountList(BankWithUs bwu) {
         accounts = new ArrayList<Account>();
-        this.bwu = bwu;
         this.ui = bwu.getUi();
         createNewAccount();
     }
 
     public AccountList(Scanner scanner, BankWithUs bwu) {
         accounts = new ArrayList<Account>();
-        this.bwu = bwu;
         this.ui = bwu.getUi();
         Parser parser = new Parser(this);
         try {
