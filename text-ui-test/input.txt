@@ -1,19 +1,23 @@
+
+hi;hi
 hihi
-1000.0
+hihi
+
+1000
 help
-hihi
+view account
 view-account
-withdraw 1500
-withdraw -10
-withdraw a100
+deposit -1
+deposit java
 view-account
-withdraw 200
+deposit 100.21
 view-account
-withdraw 800.1
-deposit -100
-deposit bb100
-deposit 1000
+withdraw -1
+withdraw 100000
 view-account
-deposit 100
+withdraw dba
 view-account
+withdraw 100
+view-account
+
 exit
