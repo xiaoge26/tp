@@ -1,6 +1,61 @@
 File not found, trying to create file.
 Savefile created successfully!
+Welcome to: 
+
+ /$$$$$$$                      /$$       /$$      /$$ /$$   /$$     /$$       /$$   /$$          
+| $$__  $$                    | $$      | $$  /$ | $$|__/  | $$    | $$      | $$  | $$          
+| $$  \ $$  /$$$$$$  /$$$$$$$ | $$   /$$| $$ /$$$| $$ /$$ /$$$$$$  | $$$$$$$ | $$  | $$  /$$$$$$$
+| $$$$$$$  |____  $$| $$__  $$| $$  /$$/| $$/$$ $$ $$| $$|_  $$_/  | $$__  $$| $$  | $$ /$$_____/
+| $$__  $$  /$$$$$$$| $$  \ $$| $$$$$$/ | $$$$_  $$$$| $$  | $$    | $$  \ $$| $$  | $$|  $$$$$$ 
+| $$  \ $$ /$$__  $$| $$  | $$| $$_  $$ | $$$/ \  $$$| $$  | $$ /$$| $$  | $$| $$  | $$ \____  $$
+| $$$$$$$/|  $$$$$$$| $$  | $$| $$ \  $$| $$/   \  $$| $$  |  $$$$/| $$  | $$|  $$$$$$/ /$$$$$$$/
+|_______/  \_______/|__/  |__/|__/  \__/|__/     \__/|__/   \___/  |__/  |__/ \______/ |_______/ 
+
 Whats your name?
 How much would you like to add as Balance?
 Account created!
+----------------------------
+help: displays the current menu
+view-account: shows account name and balance
+withdraw <amount>: withdraws <amount> from available balance
+deposit <amount>: deposits <amount> and adds deposit to balance
+exit: quits program and saves
+----------------------------
+Not a valid command!
+----------------------------
+Name: hihi
+Balance: $1000.0
+
+----------------------------
+You do not have sufficient Balance
+Negative number entered!
+The input is not a valid number! Please try again.
+----------------------------
+Name: hihi
+Balance: $1000.0
+
+----------------------------
+You have $800.0 remaining!
+----------------------------
+Name: hihi
+Balance: $800.0
+
+----------------------------
+You do not have sufficient Balance
+Negative number entered!
+The input is not a valid number! Please try again.
+New deposit added!
+You have $1800.0 remaining!
+----------------------------
+Name: hihi
+Balance: $1800.0
+
+----------------------------
+New deposit added!
+You have $1900.0 remaining!
+----------------------------
+Name: hihi
+Balance: $1900.0
+
+----------------------------
 Goodbye! Hope to see you again! :)

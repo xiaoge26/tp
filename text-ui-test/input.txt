@@ -1,3 +1,19 @@
-june
-1000
+hihi
+1000.0
+help
+hihi
+view-account
+withdraw 1500
+withdraw -10
+withdraw a100
+view-account
+withdraw 200
+view-account
+withdraw 800.1
+deposit -100
+deposit bb100
+deposit 1000
+view-account
+deposit 100
+view-account
 exit
