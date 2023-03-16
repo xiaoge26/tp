@@ -1,5 +1,3 @@
-File not found, trying to create file.
-Savefile created successfully!
 Welcome to: 
 
  /$$$$$$$                      /$$       /$$      /$$ /$$   /$$     /$$       /$$   /$$          
@@ -11,9 +9,10 @@ Welcome to:
 | $$$$$$$/|  $$$$$$$| $$  | $$| $$ \  $$| $$/   \  $$| $$  |  $$$$/| $$  | $$|  $$$$$$/ /$$$$$$$/
 |_______/  \_______/|__/  |__/|__/  \__/|__/     \__/|__/   \___/  |__/  |__/ \______/ |_______/ 
 
-Whats your name?
+File not found, trying to create file.
+Savefile created successfully!
+What's your name?
 How much would you like to add as Balance?
-Account created!
 ----------------------------
 help: displays the current menu
 view-account: shows account name and balance
@@ -28,7 +27,7 @@ Balance: $1000.0
 
 ----------------------------
 You do not have sufficient Balance
-Negative number entered!
+Negative amount entered!
 The input is not a valid number! Please try again.
 ----------------------------
 Name: hihi
@@ -42,7 +41,7 @@ Balance: $800.0
 
 ----------------------------
 You do not have sufficient Balance
-Negative number entered!
+Negative amount entered!
 The input is not a valid number! Please try again.
 New deposit added!
 You have $1800.0 remaining!

@@ -26,6 +26,7 @@ public class BankWithUs {
         storage = new Storage(filePath);
         parser = new Parser(this);
         ui.createScanner();
+        ui.greet();
         try {
             accountList = new AccountList(storage.load(), this);
         } catch (FileNotFoundException e) {
@@ -71,7 +72,6 @@ public class BankWithUs {
      * @throws IOException if something goes wrong while exiting the program
      */
     public void run() throws IOException {
-        ui.greet();
         while (!isExitEntered) {
             String line = ui.getNextLine();
             try {
