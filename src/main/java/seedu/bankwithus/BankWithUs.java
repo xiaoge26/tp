@@ -39,6 +39,10 @@ public class BankWithUs {
         }
     }
 
+    public AccountList getAccountList() {
+        return accountList;
+    }
+
     /**
      * exit the programme, save the data and show farewell message
      *
@@ -56,26 +60,6 @@ public class BankWithUs {
     }
 
     /**
-     * Creates a new Account for a first time user
-     */
-    public void createAccount() {
-        System.out.println("Whats your name?");
-        String userName = ui.getNextLine();
-        System.out.println("How much would you like to add as Balance?");
-        String balance = ui.getNextLine();
-        try {
-            accountList.addAccount(userName, balance);
-            ui.showAddAccountMessage();
-        } catch (NullPointerException e) {
-            ui.showNullInputError();
-            createAccount();
-        } catch (NumberFormatException e) {
-            ui.showNumberFormatError();
-            createAccount();
-        }
-    }
-
-    /**
      * The main command and output loop. Takes in user input line by line
      * and gives it to the parser to execute the command.
      *
@@ -84,15 +68,15 @@ public class BankWithUs {
     public void run() throws IOException {
         ui.greet();
         ui.createScanner();
-        if (storage.saveFile.length() < 1) {
-            createAccount();
-        } else {
-            try {
-                parser.parseSavedFile(accountList);
-            } catch (IOException e) {
-                ui.showIOError();
-            }
-        }
+        // if (storage.saveFile.length() < 1) {
+        //     createAccount();
+        // } else {
+        //     try {
+        //         parser.parseSavedFile(accountList);
+        //     } catch (IOException e) {
+        //         ui.showIOError();
+        //     }
+        // }
         while (!isExitEntered) {
             String line = ui.getNextLine();
             try {
@@ -103,12 +87,6 @@ public class BankWithUs {
         }
         exit(FILE_PATH);
     }
-
-
-    public AccountList getAccountList() {
-        return accountList;
-    }
-
 
     public static void main(String[] args) {
         try {

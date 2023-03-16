@@ -7,13 +7,41 @@ import java.util.Scanner;
 
 public class AccountList {
     protected ArrayList<Account> accounts;
+    private Ui ui;
 
     public AccountList() {
         accounts = new ArrayList<Account>();
+        ui = new Ui();
+        createAccount();
     }
 
     public AccountList(Scanner scanner) {
         accounts = new ArrayList<Account>();
+        ui = new Ui();
+    }
+
+    /**
+     * Creates a new Account for a first time user
+     */
+    public void createAccount() {
+        ui.createScanner();
+        System.out.println("Whats your name?");
+        String userName = ui.getNextLine();
+        System.out.println("How much would you like to add as Balance?");
+        String balance = ui.getNextLine();
+        try {
+            addAccount(userName, balance);
+            ui.showAddAccountMessage();
+            ui.closeScanner();
+        } catch (NullPointerException e) {
+            ui.showNullInputError();
+            createAccount();
+            ui.closeScanner();
+        } catch (NumberFormatException e) {
+            ui.showNumberFormatError();
+            createAccount();
+            ui.closeScanner();
+        }
     }
 
     /**
