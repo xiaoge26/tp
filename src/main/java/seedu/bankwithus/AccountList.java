@@ -1,7 +1,6 @@
 package seedu.bankwithus;
 
 import seedu.bankwithus.exceptions.NegativeAmountException;
-import seedu.bankwithus.exceptions.UserNameBlankException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
