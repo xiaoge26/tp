@@ -14,14 +14,6 @@ public class BankWithUs {
     private AccountList accountList;
     private Parser parser;
 
-    public AccountList getAccountList() {
-        return accountList;
-    }
-
-    public Ui getUi() {
-        return ui;
-    }
-
     /**
      * Creates a new instance of BankWithUs. Initialises storage, ui and
      * accounts. Should load data into accounts too.
@@ -53,6 +45,14 @@ public class BankWithUs {
             }
             accountList = new AccountList(this);
         }
+    }
+
+    public AccountList getAccountList() {
+        return accountList;
+    }
+
+    public Ui getUi() {
+        return ui;
     }
 
     /**
