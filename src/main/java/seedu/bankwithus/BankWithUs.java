@@ -25,7 +25,6 @@ public class BankWithUs {
         // Main object instantiations
         ui = new Ui();
         storage = new Storage(filePath);
-        parser = new Parser(this);
 
         // Ui stuff
         ui.createScanner();
@@ -45,6 +44,7 @@ public class BankWithUs {
             }
             accountList = new AccountList(this);
         }
+        parser = new Parser(this);
     }
 
     public AccountList getAccountList() {
