@@ -8,7 +8,6 @@ package seedu.bankwithus;
 
 class AccountListTest {
 
-    // Invalid because addAccount parameter have been changed
     // @Test
     // void addAccount_invalidBalance_expectException() throws NumberFormatException {
     //     String name = "Bob";
