@@ -23,7 +23,11 @@ public class Account {
         return balance;
     }
 
-    public void setBalance(float balance) {
-        this.balance = balance;
+    public void addBalance(float balance) {
+        this.balance += balance;
+    }
+
+    public void subtractBalance(float balance) {
+        this.balance -= balance;
     }
 }
