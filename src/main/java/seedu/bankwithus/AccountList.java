@@ -147,6 +147,18 @@ public class AccountList {
             getCurrentAccount().addBalance(depositAmount);
         }
     }
+
+    public void withdrawMoney(String withdrawAmountString) throws NumberFormatException,
+            NegativeAmountException, InsufficientBalanceException {
+        float withdrawAmount = Float.parseFloat(withdrawAmountString);
+        if (withdrawAmount < 0) {
+            throw new NegativeAmountException();
+        }
+        float currentBalance = getCurrentAccount().getAccountBalance();
+        if (currentBalance < withdrawAmount) {
+            throw new InsufficientBalanceException();
+        } else {
+            getCurrentAccount().subtractBalance(withdrawAmount);
         }
     }
 }

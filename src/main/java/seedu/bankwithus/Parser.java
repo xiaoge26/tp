@@ -32,16 +32,6 @@ public class Parser {
         this.accountList = accountList;
     }
 
-    public float parseWithdrawAmt(String args) throws NegativeAmountException {
-        float withdrawAmt = Float.parseFloat(args);
-        if (withdrawAmt < 0) {
-            throw new NegativeAmountException();
-        }
-        float currBal = accountList.getCurrentAccount().balance;
-        float finalBal = currBal-withdrawAmt;
-        return finalBal;
-    }
-
     /**
      * Parses the user input into command and arguments.
      * @throws IOException
@@ -79,18 +69,15 @@ public class Parser {
             break;
         case "withdraw":
             try {
-                float finalBal = parseWithdrawAmt(args);
-                if(finalBal >= 0) {
-                    accountList.getCurrentAccount().setBalance(finalBal);
-                    ui.showBal(finalBal);
-                } else {
-                    ui.showInsufficientBalanceMessage();
-                }
+                accountList.withdrawMoney(args);
                 ui.showWithdrawMessage();
+                accountList.showBal();
             } catch (NumberFormatException e) {
                 ui.showNumberFormatError();
             } catch (NegativeAmountException e) {
                 ui.showNegativeAmountError();
+            } catch (InsufficientBalanceException e) {
+                ui.showInsufficientBalanceMessage();
             }
             break;
         case "help":
