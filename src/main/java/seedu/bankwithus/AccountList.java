@@ -1,5 +1,6 @@
 package seedu.bankwithus;
 
+import seedu.bankwithus.exceptions.InsufficientBalanceException;
 import seedu.bankwithus.exceptions.NegativeAmountException;
 
 import java.util.ArrayList;
