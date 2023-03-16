@@ -60,15 +60,16 @@ public class BankWithUs {
      *
      * @throws IOException throw error if the data cannot be saved
      */
-    public void exit(String filePath) throws IOException {
+    public void exit() throws IOException {
+        isExitEntered = true;
+        ui.showFarewellMessage();
+        ui.closeScanner();
         try {
             storage.saveToFile(accountList);
         } catch (IOException e) {
             ui.showIOError();
             throw e;
         }
-        ui.showFarewellMessage();
-        ui.closeScanner();
     }
 
     /**
@@ -86,7 +87,6 @@ public class BankWithUs {
                 ui.showCommandNotFoundError();
             }
         }
-        exit(FILE_PATH);
     }
 
     public static void main(String[] args) {

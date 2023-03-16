@@ -4,6 +4,7 @@ import seedu.bankwithus.exceptions.CommandNotFoundException;
 import seedu.bankwithus.exceptions.CorruptedSaveFileException;
 import seedu.bankwithus.exceptions.NegativeAmountException;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Parser {
@@ -40,8 +41,9 @@ public class Parser {
 
     /**
      * Parses the user input into command and arguments.
+     * @throws IOException
      */
-    public void parseUserInput(String input) throws CommandNotFoundException {
+    public void parseUserInput(String input) throws CommandNotFoundException, IOException {
         // Split input by space
         String[] split = input.trim().split("\\s+", 2);
         String command = split[0];
@@ -49,7 +51,11 @@ public class Parser {
         Ui screen = new Ui();
         switch (command) {
         case "exit":
-            bwu.isExitEntered = true;
+            try {
+                bwu.exit();
+            } catch (IOException e) {
+                throw e;
+            }
             break;
         case "deposit":
             try {
