@@ -1,6 +1,7 @@
 package seedu.bankwithus;
 
 import seedu.bankwithus.exceptions.NegativeAmountException;
+import seedu.bankwithus.exceptions.UserNameBlankException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -20,13 +21,23 @@ public class AccountList {
         ui = new Ui();
     }
 
+    private String getName() {
+        ui.askForName();
+        String userName = ui.getNextLine();
+        userName.trim();
+        if (userName.isBlank()) {
+            ui.showBlankUserNameError();
+            return getName();
+        }
+        return userName;
+    }
+
     /**
      * Creates a new Account for a first time user
      */
     public void createAccount() {
         ui.createScanner();
-        System.out.println("Whats your name?");
-        String userName = ui.getNextLine();
+        String userName = getName();
         System.out.println("How much would you like to add as Balance?");
         String balance = ui.getNextLine();
         try {

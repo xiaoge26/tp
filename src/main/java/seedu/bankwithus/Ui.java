@@ -112,4 +112,12 @@ public class Ui {
                 "|_______/  \\_______/|__/  |__/|__/  \\__/|__/     \\__/|__/   \\___/  |__/  |__/ \\______/ |_______/ \n"
                 );
     }
+
+    public void askForName() {
+        System.out.println("What's your name?");
+    }
+
+    public void showBlankUserNameError() {
+        System.out.println("User Name cannot be blank.");
+    }
 }
