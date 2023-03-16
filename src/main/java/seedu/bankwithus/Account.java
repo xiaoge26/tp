@@ -5,6 +5,8 @@ public class Account {
     protected float balance;
 
     /**
+     * Instantiates an account object
+     * 
      * @param name    initialise in the name of the account
      * @param balance initialise the balance of the account
      */
@@ -13,9 +15,6 @@ public class Account {
         this.balance = balance;
     }
 
-    /**
-     * @return returns a string contains the name of the Account
-     */
     public String getAccountName() {
         return name;
     }

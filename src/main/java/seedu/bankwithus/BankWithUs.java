@@ -30,14 +30,20 @@ public class BankWithUs {
      * @throws IOException thrown when something goes really, really wrong
      */
     public BankWithUs(String filePath) throws IOException {
+        // Main object instantiations
         ui = new Ui();
         storage = new Storage(filePath);
         parser = new Parser(this);
+
+        // Ui stuff
         ui.createScanner();
         ui.greet();
+
+        // Initialising accountList
         try {
             accountList = new AccountList(storage.load(), this);
         } catch (FileNotFoundException e) {
+            // If savefile not created
             ui.showFileNotFoundError();
             try {
                 storage.createNewFile();

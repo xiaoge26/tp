@@ -10,10 +10,20 @@ public class Parser {
     private BankWithUs bwu;
     private AccountList accountList;
 
+    /**
+     * Instantiates a bwu Parser object
+     * 
+     * @param bwu the main bankWithUs program
+     */
     public Parser(BankWithUs bwu) {
         this.bwu = bwu;
     }
 
+    /**
+     * Instatiates a accountList Parser object
+     * 
+     * @param accountList the accountList
+     */
     public Parser(AccountList accountList) {
         this.accountList = accountList;
     }
@@ -81,6 +91,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the save file. Takes in the scanner to the save file,
+     * and splits the name and balance by ; character.
+     * 
+     * @param scanner
+     * @throws CorruptedSaveFileException if any of the parameters are corrupted
+     */
     public void parseSavedFile(Scanner scanner) throws CorruptedSaveFileException {
         String accountDetails = scanner.nextLine();
         accountDetails.trim();

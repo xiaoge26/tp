@@ -9,12 +9,28 @@ public class AccountList {
     private ArrayList<Account> accounts;
     private Ui ui;
 
+    /**
+     * Instantiates AccountList and creates a new account.
+     * Called only when savefile is not found
+     * 
+     * @param bwu the main bankWithUs program
+     */
     public AccountList(BankWithUs bwu) {
         accounts = new ArrayList<Account>();
         this.ui = bwu.getUi();
         createNewAccount();
     }
 
+    /**
+     * Instantiates AccountList and either:
+     * 1. Load the saved information in the save file into
+     *    the account list
+     * 2. Create a brand new account if the save file was
+     *    empty
+     * 
+     * @param scanner the scanner containing the information in the save file
+     * @param bwu     the main bankWithUs program
+     */
     public AccountList(Scanner scanner, BankWithUs bwu) {
         accounts = new ArrayList<Account>();
         this.ui = bwu.getUi();
@@ -27,6 +43,21 @@ public class AccountList {
         }
     }
 
+    /**
+     * Returns the current account.
+     * @return
+     */
+    public Account getCurrentAccount() {
+        return accounts.get(0);
+    }
+
+    /**
+     * Asks the user for the name and returns it in the form of
+     * a string. Will keep looping so long as the user does not
+     * give a valid name
+     * 
+     * @return the userName String
+     */
     private String askUserForName() {
         ui.askForName();
         String userName = ui.getNextLine();
@@ -42,7 +73,14 @@ public class AccountList {
         return userName;
     }
 
-    private float askUserForBalance() throws NumberFormatException {
+    /**
+     * Asks the user for their initial balance and returns it as a
+     * float. Will keep looping so long as the user does not give
+     * a valid balance.
+     * 
+     * @return balance in the form of a float
+     */
+    private float askUserForBalance() {
         ui.askForBalance();
         String balanceString = ui.getNextLine();
         balanceString.trim();
@@ -82,9 +120,9 @@ public class AccountList {
     }
 
     /**
-     * name and balance are separated by ; prepared to be saved
+     * Name and balance are separated by ; prepared to be saved
      *
-     * @return returns all accounts details in String
+     * @return returns all accounts details in String format
      */
     public String getAllAccountDetails() {
         String temp = "";
@@ -93,10 +131,6 @@ public class AccountList {
             temp += "\n";
         }
         return temp;
-    }
-
-    public Account getCurrentAccount() {
-        return accounts.get(0);
     }
 
     public void depositMoney(String depositAmountString) throws NumberFormatException,
