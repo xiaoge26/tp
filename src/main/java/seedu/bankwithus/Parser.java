@@ -20,7 +20,7 @@ public class Parser {
     public Parser(BankWithUs bwu) {
         this.bwu = bwu;
         this.ui = bwu.getUi();
-        this.accountList = accountList;
+        this.accountList = bwu.getAccountList();
     }
 
     /**
@@ -63,10 +63,11 @@ public class Parser {
             try {
                 accountList.depositMoney(args);
                 ui.showDepositMessage();
-                ui.showBal(accountList.getCurrentAccount().getAccountBalance());
+                accountList.showBal();
             } catch (NumberFormatException e) {
                 ui.showNumberFormatError();
             } catch (NullPointerException e) {
+                // Will almost never happen, but who knows
                 ui.showNullInputError();
             } catch (NegativeAmountException e) {
                 ui.showNegativeAmountError();
@@ -101,7 +102,8 @@ public class Parser {
 
     /**
      * Parses the save file. Takes in the scanner to the save file,
-     * and splits the name and balance by ; character.
+     * and splits the name and balance by ; character. Part of 
+     * accountList parser, not bwu parser
      * 
      * @param scanner
      * @throws CorruptedSaveFileException if any of the parameters are corrupted

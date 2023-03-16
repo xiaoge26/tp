@@ -133,6 +133,11 @@ public class AccountList {
         return temp;
     }
 
+    public void showBal() {
+        float balance = getCurrentAccount().getAccountBalance();
+        ui.showBal(balance);
+    }
+
     public void depositMoney(String depositAmountString) throws NumberFormatException,
             NullPointerException, NegativeAmountException {
         float depositAmount = Float.parseFloat(depositAmountString);
