@@ -86,6 +86,7 @@ public class Parser {
                 } else {
                     ui.showInsufficientBalanceMessage();
                 }
+                ui.showWithdrawMessage();
             } catch (NumberFormatException e) {
                 ui.showNumberFormatError();
             } catch (NegativeAmountException e) {

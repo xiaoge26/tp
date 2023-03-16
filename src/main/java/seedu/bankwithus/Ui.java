@@ -37,8 +37,13 @@ public class Ui {
     public void showAddAccountMessage() {
         System.out.println("Account created!");
     }
+
     public void showDepositMessage() {
         System.out.println("New deposit added!");
+    }
+
+    public void showWithdrawMessage() {
+        System.out.println("Withdrawal successful!");
     }
 
     /**
