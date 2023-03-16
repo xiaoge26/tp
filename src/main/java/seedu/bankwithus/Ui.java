@@ -120,4 +120,9 @@ public class Ui {
     public void showBlankUserNameError() {
         System.out.println("User Name cannot be blank.");
     }
+
+    public void askForBalance() {
+        System.out.println("How much would you like to add as Balance?");
+
+    }
 }

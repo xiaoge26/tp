@@ -12,7 +12,7 @@ public class AccountList {
     public AccountList() {
         accounts = new ArrayList<Account>();
         ui = new Ui();
-        createAccount();
+        createNewAccount();
     }
 
     public AccountList(Scanner scanner) {
@@ -20,37 +20,26 @@ public class AccountList {
         ui = new Ui();
     }
 
-    private String getName() {
+    private String askUserForName() {
         ui.askForName();
         String userName = ui.getNextLine();
         userName.trim();
         if (userName.isBlank()) {
             ui.showBlankUserNameError();
-            return getName();
+            return askUserForName();
         }
         return userName;
     }
 
-    /**
-     * Creates a new Account for a first time user
-     */
-    public void createAccount() {
-        ui.createScanner();
-        String userName = getName();
-        System.out.println("How much would you like to add as Balance?");
-        String balance = ui.getNextLine();
+    private float askUserForBalance() throws NumberFormatException {
+        ui.askForBalance();
+        String balanceString = ui.getNextLine();
+        balanceString.trim();
         try {
-            addAccount(userName, balance);
-            ui.showAddAccountMessage();
-            ui.closeScanner();
-        } catch (NullPointerException e) {
-            ui.showNullInputError();
-            createAccount();
-            ui.closeScanner();
+            float balance = Float.parseFloat(balanceString);
+            return balance;
         } catch (NumberFormatException e) {
-            ui.showNumberFormatError();
-            createAccount();
-            ui.closeScanner();
+            return askUserForBalance();
         }
     }
 
@@ -58,13 +47,22 @@ public class AccountList {
      * Creates a new account and adds it to the AccountList.
      *
      * @param name          Name of the new account to be added
-     * @param balanceString Balance of the new account to be added in String type
-     * @throws NumberFormatException If balanceString cannot be parsed into a float number
+     * @param balance Balance of the new account to be added
      */
-    public void addAccount(String name, String balanceString) throws NumberFormatException, NullPointerException {
-        float balance = Float.parseFloat(balanceString);
+    public void addAccount(String name, float balance) {
         Account newAccount = new Account(name, balance);
         accounts.add(newAccount);
+    }
+
+    /**
+     * Creates a new Account for a first time user
+     */
+    public void createNewAccount() {
+        ui.createScanner();
+        String userName = askUserForName();
+        float balance = askUserForBalance();
+        addAccount(userName, balance);
+        ui.closeScanner();
     }
 
     /**
