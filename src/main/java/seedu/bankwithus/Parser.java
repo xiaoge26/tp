@@ -115,5 +115,6 @@ public class Parser {
         } catch (Exception e) {
             throw new CorruptedSaveFileException();
         }
+        scanner.close();
     }
 }
