@@ -87,10 +87,13 @@ public class Parser {
         if (accountDetails.isBlank()) {
             throw new CorruptedSaveFileException();
         }
-        String[] splitDetails = accountDetails.split(";");
-        String name = splitDetails[0];
-        String balanceString = splitDetails[1];
         try {
+            String[] splitDetails = accountDetails.split(";");
+            String name = splitDetails[0].trim();
+            String balanceString = splitDetails[1].trim();
+            if (name.isEmpty() || balanceString.isEmpty()) {
+                throw new Exception();
+            }
             float balance = Float.parseFloat(balanceString);
             accountList.addAccount(name, balance);
         } catch (Exception e) {
