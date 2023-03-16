@@ -6,18 +6,28 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AccountList {
-    protected ArrayList<Account> accounts;
+    private ArrayList<Account> accounts;
+    private BankWithUs bwu;
     private Ui ui;
-
-    public AccountList() {
+    
+    public AccountList(BankWithUs bwu) {
         accounts = new ArrayList<Account>();
-        ui = new Ui();
+        this.bwu = bwu;
+        this.ui = bwu.getUi();
         createNewAccount();
     }
 
-    public AccountList(Scanner scanner) {
+    public AccountList(Scanner scanner, BankWithUs bwu) {
         accounts = new ArrayList<Account>();
-        ui = new Ui();
+        this.bwu = bwu;
+        this.ui = bwu.getUi();
+        Parser parser = new Parser(this);
+        try {
+            parser.parseSavedFile(scanner);
+        } catch (Exception e) {
+            ui.showCorruptedSaveFileError();
+            createNewAccount();
+        }
     }
 
     private String askUserForName() {
@@ -37,8 +47,13 @@ public class AccountList {
         balanceString.trim();
         try {
             float balance = Float.parseFloat(balanceString);
+            if (balance < 0) {
+                ui.showNegativeAmountError();
+                return askUserForBalance();
+            }
             return balance;
         } catch (NumberFormatException e) {
+            ui.showNumberFormatError();
             return askUserForBalance();
         }
     }
@@ -46,8 +61,8 @@ public class AccountList {
     /**
      * Creates a new account and adds it to the AccountList.
      *
-     * @param name          Name of the new account to be added
-     * @param balance Balance of the new account to be added
+     * @param name      Name of the new account to be added
+     * @param balance   Balance of the new account to be added
      */
     public void addAccount(String name, float balance) {
         Account newAccount = new Account(name, balance);
@@ -58,15 +73,13 @@ public class AccountList {
      * Creates a new Account for a first time user
      */
     public void createNewAccount() {
-        ui.createScanner();
         String userName = askUserForName();
         float balance = askUserForBalance();
         addAccount(userName, balance);
-        ui.closeScanner();
     }
 
     /**
-     * name and balance are separated by $ prepared to be saved
+     * name and balance are separated by ; prepared to be saved
      *
      * @return returns all accounts details in String
      */

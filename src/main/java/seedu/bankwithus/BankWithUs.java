@@ -25,8 +25,9 @@ public class BankWithUs {
         ui = new Ui();
         storage = new Storage(filePath);
         parser = new Parser(this);
+        ui.createScanner();
         try {
-            accountList = new AccountList(storage.load());
+            accountList = new AccountList(storage.load(), this);
         } catch (FileNotFoundException e) {
             ui.showFileNotFoundError();
             try {
@@ -35,12 +36,16 @@ public class BankWithUs {
                 ui.showIOError();
                 throw ioE;
             }
-            accountList = new AccountList();
+            accountList = new AccountList(this);
         }
     }
 
     public AccountList getAccountList() {
         return accountList;
+    }
+
+    public Ui getUi() {
+        return ui;
     }
 
     /**
@@ -67,7 +72,6 @@ public class BankWithUs {
      */
     public void run() throws IOException {
         ui.greet();
-        ui.createScanner();
         // if (storage.saveFile.length() < 1) {
         //     createAccount();
         // } else {

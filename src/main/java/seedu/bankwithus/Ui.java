@@ -82,7 +82,7 @@ public class Ui {
     }
 
     public void showNegativeAmountError() {
-        System.out.println("Negative number entered!");
+        System.out.println("Negative amount entered!");
     }
 
     public void showInsufficientBalanceMessage() {
@@ -124,5 +124,9 @@ public class Ui {
     public void askForBalance() {
         System.out.println("How much would you like to add as Balance?");
 
+    }
+
+    public void showCorruptedSaveFileError() {
+        System.out.println("Save file is corrupted!!! Creating new account...");
     }
 }

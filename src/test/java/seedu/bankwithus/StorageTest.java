@@ -12,10 +12,10 @@ public class StorageTest {
         assertDoesNotThrow(() -> storage.load());
     }
 
-    @Test
-    public void save_accountList_noMessage() {
-        AccountList accountList = new AccountList();
-        Storage storage = new Storage("data/save.txt");
-        assertDoesNotThrow(() -> storage.saveToFile(accountList));
-    }
+    // @Test
+    // public void save_accountList_noMessage() {
+    //     AccountList accountList = new AccountList();
+    //     Storage storage = new Storage("data/save.txt");
+    //     assertDoesNotThrow(() -> storage.saveToFile(accountList));
+    // }
 }

@@ -1,6 +1,7 @@
 package seedu.bankwithus;
 
 import seedu.bankwithus.exceptions.CommandNotFoundException;
+import seedu.bankwithus.exceptions.CorruptedSaveFileException;
 import seedu.bankwithus.exceptions.NegativeAmountException;
 
 import java.io.File;
@@ -9,9 +10,14 @@ import java.util.Scanner;
 
 public class Parser {
     private BankWithUs bwu;
+    private AccountList accountList;
 
     public Parser(BankWithUs bwu) {
         this.bwu = bwu;
+    }
+
+    public Parser(AccountList accountList) {
+        this.accountList = accountList;
     }
 
     public float parseWithdrawAmt(String args) throws NegativeAmountException {
@@ -79,22 +85,39 @@ public class Parser {
 
 
 
-    /**
-     * This method reads any existing file and add the saved data
-     * into current programme
-     *
-     * @param list current operation AccountList
-     */
-    public void parseSavedFile(AccountList list) throws IOException {
-        File f = new File("data/save.txt");
-        Scanner myReader = new Scanner(f);
-        while (myReader.hasNextLine()) {
-            String data = myReader.nextLine();
-            String[] splitDetails = data.split(";");
-            String name = splitDetails[0];
-            String balance = splitDetails[1];
-            list.addAccount(name, balance);
+    // /**
+    //  * This method reads any existing file and add the saved data
+    //  * into current programme
+    //  *
+    //  * @param list current operation AccountList
+    //  */
+    // public void parseSavedFile(AccountList list) throws IOException {
+    //     File f = new File("data/save.txt");
+    //     Scanner myReader = new Scanner(f);
+    //     while (myReader.hasNextLine()) {
+    //         String data = myReader.nextLine();
+    //         String[] splitDetails = data.split(";");
+    //         String name = splitDetails[0];
+    //         String balanceString = splitDetails[1];
+    //         list.addAccount(name, balanceString);
+    //     }
+    //     myReader.close();
+    // }
+
+    public void parseSavedFile(Scanner scanner) throws CorruptedSaveFileException {
+        String accountDetails = scanner.nextLine();
+        accountDetails.trim();
+        if (accountDetails.isBlank()) {
+            throw new CorruptedSaveFileException();
         }
-        myReader.close();
+        String[] splitDetails = accountDetails.split(";");
+        String name = splitDetails[0];
+        String balanceString = splitDetails[1];
+        try {
+            float balance = Float.parseFloat(balanceString);
+            accountList.addAccount(name, balance);
+        } catch (Exception e) {
+            throw new CorruptedSaveFileException();
+        }
     }
 }
