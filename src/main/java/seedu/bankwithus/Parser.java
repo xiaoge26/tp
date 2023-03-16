@@ -20,6 +20,7 @@ public class Parser {
     public Parser(BankWithUs bwu) {
         this.bwu = bwu;
         this.ui = bwu.getUi();
+        this.accountList = accountList;
     }
 
     /**
@@ -36,7 +37,7 @@ public class Parser {
         if (withdrawAmt < 0) {
             throw new NegativeAmountException();
         }
-        float currBal = bwu.getAccountList().getCurrentAccount().balance;
+        float currBal = accountList.getCurrentAccount().balance;
         float finalBal = currBal-withdrawAmt;
         return finalBal;
     }
@@ -60,9 +61,9 @@ public class Parser {
             break;
         case "deposit":
             try {
-                bwu.getAccountList().depositMoney(args);
+                accountList.depositMoney(args);
                 ui.showDepositMessage();
-                ui.showBal(bwu.getAccountList().getCurrentAccount().getAccountBalance());
+                ui.showBal(accountList.getCurrentAccount().getAccountBalance());
             } catch (NumberFormatException e) {
                 ui.showNumberFormatError();
             } catch (NullPointerException e) {
@@ -72,14 +73,14 @@ public class Parser {
             }
             break;
         case "view-account":
-            String accDetails = bwu.getAccountList().getAllAccountDetails();
+            String accDetails = accountList.getAllAccountDetails();
             ui.viewAccount(accDetails);
             break;
         case "withdraw":
             try {
                 float finalBal = parseWithdrawAmt(args);
                 if(finalBal >= 0) {
-                    bwu.getAccountList().getCurrentAccount().setBalance(finalBal);
+                    accountList.getCurrentAccount().setBalance(finalBal);
                     ui.showBal(finalBal);
                 } else {
                     ui.showInsufficientBalanceMessage();
