@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class Parser {
     private BankWithUs bwu;
     private AccountList accountList;
+    private Ui ui;
 
     /**
      * Instantiates a bwu Parser object
@@ -18,6 +19,7 @@ public class Parser {
      */
     public Parser(BankWithUs bwu) {
         this.bwu = bwu;
+        this.ui = bwu.getUi();
     }
 
     /**
@@ -48,7 +50,6 @@ public class Parser {
         String[] split = input.trim().split("\\s+", 2);
         String command = split[0];
         String args = split.length == 2 ? split[1] : "";
-        Ui screen = new Ui();
         switch (command) {
         case "exit":
             try {
@@ -60,37 +61,37 @@ public class Parser {
         case "deposit":
             try {
                 bwu.getAccountList().depositMoney(args);
-                screen.showDepositMessage();
-                screen.showBal(bwu.getAccountList().getCurrentAccount().getAccountBalance());
+                ui.showDepositMessage();
+                ui.showBal(bwu.getAccountList().getCurrentAccount().getAccountBalance());
             } catch (NumberFormatException e) {
-                screen.showNumberFormatError();
+                ui.showNumberFormatError();
             } catch (NullPointerException e) {
-                screen.showNullInputError();
+                ui.showNullInputError();
             } catch (NegativeAmountException e) {
-                screen.showNegativeAmountError();
+                ui.showNegativeAmountError();
             }
             break;
         case "view-account":
             String accDetails = bwu.getAccountList().getAllAccountDetails();
-            screen.viewAccount(accDetails);
+            ui.viewAccount(accDetails);
             break;
         case "withdraw":
             try {
                 float finalBal = parseWithdrawAmt(args);
                 if(finalBal >= 0) {
                     bwu.getAccountList().getCurrentAccount().setBalance(finalBal);
-                    screen.showBal(finalBal);
+                    ui.showBal(finalBal);
                 } else {
-                    screen.showInsufficientBalanceMessage();
+                    ui.showInsufficientBalanceMessage();
                 }
             } catch (NumberFormatException e) {
-                screen.showNumberFormatError();
+                ui.showNumberFormatError();
             } catch (NegativeAmountException e) {
-                screen.showNegativeAmountError();
+                ui.showNegativeAmountError();
             }
             break;
         case "help":
-            screen.showHelp();
+            ui.showHelp();
             break;
         default:
             throw new CommandNotFoundException();
