@@ -49,12 +49,14 @@ public class AccountList {
         try {
             float balance = Float.parseFloat(balanceString);
             if (balance < 0) {
-                ui.showNegativeAmountError();
-                return askUserForBalance();
+                throw new NegativeAmountException();
             }
             return balance;
         } catch (NumberFormatException e) {
             ui.showNumberFormatError();
+            return askUserForBalance();
+        } catch (NegativeAmountException e) {
+            ui.showNegativeAmountError();
             return askUserForBalance();
         }
     }
