@@ -2,4 +2,5 @@ File not found, trying to create file.
 Savefile created successfully!
 Whats your name?
 How much would you like to add as Balance?
+Account created!
 Goodbye! Hope to see you again! :)
