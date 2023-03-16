@@ -4,8 +4,6 @@ import seedu.bankwithus.exceptions.CommandNotFoundException;
 import seedu.bankwithus.exceptions.CorruptedSaveFileException;
 import seedu.bankwithus.exceptions.NegativeAmountException;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Parser {
@@ -82,27 +80,6 @@ public class Parser {
             throw new CommandNotFoundException();
         }
     }
-
-
-
-    // /**
-    //  * This method reads any existing file and add the saved data
-    //  * into current programme
-    //  *
-    //  * @param list current operation AccountList
-    //  */
-    // public void parseSavedFile(AccountList list) throws IOException {
-    //     File f = new File("data/save.txt");
-    //     Scanner myReader = new Scanner(f);
-    //     while (myReader.hasNextLine()) {
-    //         String data = myReader.nextLine();
-    //         String[] splitDetails = data.split(";");
-    //         String name = splitDetails[0];
-    //         String balanceString = splitDetails[1];
-    //         list.addAccount(name, balanceString);
-    //     }
-    //     myReader.close();
-    // }
 
     public void parseSavedFile(Scanner scanner) throws CorruptedSaveFileException {
         String accountDetails = scanner.nextLine();
