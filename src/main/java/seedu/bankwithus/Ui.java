@@ -128,4 +128,8 @@ public class Ui {
     public void showCorruptedSaveFileError() {
         System.out.println("Save file is corrupted!!! Creating new account...");
     }
+
+    public void showForbiddenCharacterError() {
+        System.out.println("Please do not put the chacter ';' in the name.");
+    }
 }

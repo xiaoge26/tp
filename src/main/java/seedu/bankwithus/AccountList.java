@@ -35,6 +35,10 @@ public class AccountList {
             ui.showBlankUserNameError();
             return askUserForName();
         }
+        if (userName.contains(";")) {
+            ui.showForbiddenCharacterError();
+            return askUserForName();
+        }
         return userName;
     }
 
