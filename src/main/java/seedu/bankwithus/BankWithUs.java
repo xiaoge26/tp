@@ -14,6 +14,14 @@ public class BankWithUs {
     private AccountList accountList;
     private Parser parser;
 
+    public AccountList getAccountList() {
+        return accountList;
+    }
+
+    public Ui getUi() {
+        return ui;
+    }
+
     /**
      * Creates a new instance of BankWithUs. Initialises storage, ui and
      * accounts. Should load data into accounts too.
@@ -41,16 +49,8 @@ public class BankWithUs {
         }
     }
 
-    public AccountList getAccountList() {
-        return accountList;
-    }
-
-    public Ui getUi() {
-        return ui;
-    }
-
     /**
-     * exit the programme, save the data and show farewell message
+     * Exit the programme, save the data and show farewell message
      *
      * @throws IOException throw error if the data cannot be saved
      */
