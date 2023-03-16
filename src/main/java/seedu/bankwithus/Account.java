@@ -1,8 +1,8 @@
 package seedu.bankwithus;
 
 public class Account {
-    protected String name;
-    protected float balance;
+    private String name;
+    private float balance;
 
     /**
      * Instantiates an account object

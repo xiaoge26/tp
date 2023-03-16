@@ -127,7 +127,7 @@ public class AccountList {
     public String getAllAccountDetails() {
         String temp = "";
         for (Account acc : accounts) {
-            temp += acc.name + ";" + acc.balance;
+            temp += acc.getAccountName() + ";" + acc.getAccountBalance();
             temp += "\n";
         }
         return temp;
@@ -144,7 +144,9 @@ public class AccountList {
         if (depositAmount < 0) {
             throw new NegativeAmountException();
         } else {
-            getCurrentAccount().balance += depositAmount;
+            getCurrentAccount().addBalance(depositAmount);
+        }
+    }
         }
     }
 }
