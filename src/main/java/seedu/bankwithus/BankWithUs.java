@@ -22,12 +22,19 @@ public class BankWithUs {
      * @throws IOException thrown when something goes really, really wrong
      */
     public BankWithUs(String filePath) throws IOException {
+        // Main object instantiations
         ui = new Ui();
         storage = new Storage(filePath);
-        parser = new Parser(this);
+
+        // Ui stuff
+        ui.createScanner();
+        ui.greet();
+
+        // Initialising accountList
         try {
-            accountList = new AccountList(storage.load());
+            accountList = new AccountList(storage.load(), this);
         } catch (FileNotFoundException e) {
+            // If savefile not created
             ui.showFileNotFoundError();
             try {
                 storage.createNewFile();
@@ -35,43 +42,33 @@ public class BankWithUs {
                 ui.showIOError();
                 throw ioE;
             }
-            accountList = new AccountList();
+            accountList = new AccountList(this);
         }
+        parser = new Parser(this);
+    }
+
+    public AccountList getAccountList() {
+        return accountList;
+    }
+
+    public Ui getUi() {
+        return ui;
     }
 
     /**
-     * exit the programme, save the data and show farewell message
+     * Exit the programme, save the data and show farewell message
      *
      * @throws IOException throw error if the data cannot be saved
      */
-    public void exit(String filePath) throws IOException {
+    public void exit() throws IOException {
+        isExitEntered = true;
+        ui.showFarewellMessage();
+        ui.closeScanner();
         try {
             storage.saveToFile(accountList);
         } catch (IOException e) {
             ui.showIOError();
             throw e;
-        }
-        ui.showFarewellMessage();
-        ui.closeScanner();
-    }
-
-    /**
-     * Creates a new Account for a first time user
-     */
-    public void createAccount() {
-        System.out.println("Whats your name?");
-        String userName = ui.getNextLine();
-        System.out.println("How much would you like to add as Balance?");
-        String balance = ui.getNextLine();
-        try {
-            accountList.addAccount(userName, balance);
-            ui.showAddAccountMessage();
-        } catch (NullPointerException e) {
-            ui.showNullInputError();
-            createAccount();
-        } catch (NumberFormatException e) {
-            ui.showNumberFormatError();
-            createAccount();
         }
     }
 
@@ -82,17 +79,6 @@ public class BankWithUs {
      * @throws IOException if something goes wrong while exiting the program
      */
     public void run() throws IOException {
-        ui.greet();
-        ui.createScanner();
-        if (storage.saveFile.length() < 1) {
-            createAccount();
-        } else {
-            try {
-                parser.parseSavedFile(accountList);
-            } catch (IOException e) {
-                ui.showIOError();
-            }
-        }
         while (!isExitEntered) {
             String line = ui.getNextLine();
             try {
@@ -101,14 +87,7 @@ public class BankWithUs {
                 ui.showCommandNotFoundError();
             }
         }
-        exit(FILE_PATH);
     }
-
-
-    public AccountList getAccountList() {
-        return accountList;
-    }
-
 
     public static void main(String[] args) {
         try {

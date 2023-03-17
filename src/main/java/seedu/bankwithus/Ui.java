@@ -37,8 +37,13 @@ public class Ui {
     public void showAddAccountMessage() {
         System.out.println("Account created!");
     }
+
     public void showDepositMessage() {
         System.out.println("New deposit added!");
+    }
+
+    public void showWithdrawMessage() {
+        System.out.println("Withdrawal successful!");
     }
 
     /**
@@ -82,7 +87,7 @@ public class Ui {
     }
 
     public void showNegativeAmountError() {
-        System.out.println("Negative number entered!");
+        System.out.println("Negative amount entered!");
     }
 
     public void showInsufficientBalanceMessage() {
@@ -102,14 +107,42 @@ public class Ui {
     public void greet() {
         System.out.println("Welcome to: ");
         System.out.println("\n" +
-                " /$$$$$$$                      /$$       /$$      /$$ /$$   /$$     /$$       /$$   /$$          \n" +
-                "| $$__  $$                    | $$      | $$  /$ | $$|__/  | $$    | $$      | $$  | $$          \n" +
-                "| $$  \\ $$  /$$$$$$  /$$$$$$$ | $$   /$$| $$ /$$$| $$ /$$ /$$$$$$  | $$$$$$$ | $$  | $$  /$$$$$$$\n" +
-                "| $$$$$$$  |____  $$| $$__  $$| $$  /$$/| $$/$$ $$ $$| $$|_  $$_/  | $$__  $$| $$  | $$ /$$_____/\n" +
-                "| $$__  $$  /$$$$$$$| $$  \\ $$| $$$$$$/ | $$$$_  $$$$| $$  | $$    | $$  \\ $$| $$  | $$|  $$$$$$ \n" +
-                "| $$  \\ $$ /$$__  $$| $$  | $$| $$_  $$ | $$$/ \\  $$$| $$  | $$ /$$| $$  | $$| $$  | $$ \\____  $$\n" +
-                "| $$$$$$$/|  $$$$$$$| $$  | $$| $$ \\  $$| $$/   \\  $$| $$  |  $$$$/| $$  | $$|  $$$$$$/ /$$$$$$$/\n" +
-                "|_______/  \\_______/|__/  |__/|__/  \\__/|__/     \\__/|__/   \\___/  |__/  |__/ \\______/ |_______/ \n"
-                );
+                " /$$$$$$$                      /$$       /$$      /$$" + 
+                " /$$   /$$     /$$       /$$   /$$          \n" +
+                "| $$__  $$                    | $$      | $$  /$ | $$" + 
+                "|__/  | $$    | $$      | $$  | $$          \n" +
+                "| $$  \\ $$  /$$$$$$  /$$$$$$$ | $$   /$$| $$ /$$$|" + 
+                " $$ /$$ /$$$$$$  | $$$$$$$ | $$  | $$  /$$$$$$$\n" +
+                "| $$$$$$$  |____  $$| $$__  $$| $$  /$$/| $$/$$ $$" + 
+                " $$| $$|_  $$_/  | $$__  $$| $$  | $$ /$$_____/\n" +
+                "| $$__  $$  /$$$$$$$| $$  \\ $$| $$$$$$/ | $$$$_  " + 
+                "$$$$| $$  | $$    | $$  \\ $$| $$  | $$|  $$$$$$ \n" +
+                "| $$  \\ $$ /$$__  $$| $$  | $$| $$_  $$ | $$$/ \\  " + 
+                "$$$| $$  | $$ /$$| $$  | $$| $$  | $$ \\____  $$\n" +
+                "| $$$$$$$/|  $$$$$$$| $$  | $$| $$ \\  $$| $$/   \\ " + 
+                " $$| $$  |  $$$$/| $$  | $$|  $$$$$$/ /$$$$$$$/\n" +
+                "|_______/  \\_______/|__/  |__/|__/  \\__/|__/     " + 
+                "\\__/|__/   \\___/  |__/  |__/ \\______/ |_______/ \n"
+        );
+    }
+
+    public void askForName() {
+        System.out.println("What's your name?");
+    }
+
+    public void showBlankUserNameError() {
+        System.out.println("User Name cannot be blank.");
+    }
+
+    public void askForBalance() {
+        System.out.println("How much would you like to add as Balance?");
+    }
+
+    public void showCorruptedSaveFileError() {
+        System.out.println("Save file is corrupted!!! Creating new account...");
+    }
+
+    public void showForbiddenCharacterError() {
+        System.out.println("Please do not put the chacter ';' in the name.");
     }
 }

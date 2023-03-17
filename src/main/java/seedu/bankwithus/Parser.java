@@ -1,100 +1,120 @@
 package seedu.bankwithus;
 
 import seedu.bankwithus.exceptions.CommandNotFoundException;
+import seedu.bankwithus.exceptions.CorruptedSaveFileException;
+import seedu.bankwithus.exceptions.InsufficientBalanceException;
 import seedu.bankwithus.exceptions.NegativeAmountException;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Parser {
     private BankWithUs bwu;
+    private AccountList accountList;
+    private Ui ui;
 
+    /**
+     * Instantiates a bwu Parser object
+     * 
+     * @param bwu the main bankWithUs program
+     */
     public Parser(BankWithUs bwu) {
         this.bwu = bwu;
+        this.ui = bwu.getUi();
+        this.accountList = bwu.getAccountList();
     }
 
-    public float parseWithdrawAmt(String args) throws NegativeAmountException {
-        float withdrawAmt = Float.parseFloat(args);
-        if (withdrawAmt < 0) {
-            throw new NegativeAmountException();
-        }
-        float currBal = bwu.getAccountList().getCurrentAccount().balance;
-        float finalBal = currBal-withdrawAmt;
-        return finalBal;
+    /**
+     * Instatiates a accountList Parser object
+     * 
+     * @param accountList the accountList
+     */
+    public Parser(AccountList accountList) {
+        this.accountList = accountList;
     }
 
     /**
      * Parses the user input into command and arguments.
+     * @throws IOException
      */
-    public void parseUserInput(String input) throws CommandNotFoundException {
+    public void parseUserInput(String input) throws CommandNotFoundException, IOException {
         // Split input by space
         String[] split = input.trim().split("\\s+", 2);
         String command = split[0];
         String args = split.length == 2 ? split[1] : "";
-        Ui screen = new Ui();
         switch (command) {
         case "exit":
-            bwu.isExitEntered = true;
+            try {
+                bwu.exit();
+            } catch (IOException e) {
+                throw e;
+            }
             break;
         case "deposit":
             try {
-                bwu.getAccountList().depositMoney(args);
-                screen.showDepositMessage();
-                screen.showBal(bwu.getAccountList().getCurrentAccount().getAccountBalance());
+                accountList.depositMoney(args);
+                ui.showDepositMessage();
+                accountList.showBal();
             } catch (NumberFormatException e) {
-                screen.showNumberFormatError();
+                ui.showNumberFormatError();
             } catch (NullPointerException e) {
-                screen.showNullInputError();
+                // Will almost never happen, but who knows
+                ui.showNullInputError();
             } catch (NegativeAmountException e) {
-                screen.showNegativeAmountError();
+                ui.showNegativeAmountError();
             }
             break;
         case "view-account":
-            String accDetails = bwu.getAccountList().getAllAccountDetails();
-            screen.viewAccount(accDetails);
+            String accDetails = accountList.getAllAccountDetails();
+            ui.viewAccount(accDetails);
             break;
         case "withdraw":
             try {
-                float finalBal = parseWithdrawAmt(args);
-                if(finalBal >= 0) {
-                    bwu.getAccountList().getCurrentAccount().setBalance(finalBal);
-                    screen.showBal(finalBal);
-                } else {
-                    screen.showInsufficientBalanceMessage();
-                }
+                accountList.withdrawMoney(args);
+                ui.showWithdrawMessage();
+                accountList.showBal();
             } catch (NumberFormatException e) {
-                screen.showNumberFormatError();
+                ui.showNumberFormatError();
             } catch (NegativeAmountException e) {
-                screen.showNegativeAmountError();
+                ui.showNegativeAmountError();
+            } catch (InsufficientBalanceException e) {
+                ui.showInsufficientBalanceMessage();
             }
             break;
         case "help":
-            screen.showHelp();
+            ui.showHelp();
             break;
         default:
             throw new CommandNotFoundException();
         }
     }
 
-
-
     /**
-     * This method reads any existing file and add the saved data
-     * into current programme
-     *
-     * @param list current operation AccountList
+     * Parses the save file. Takes in the scanner to the save file,
+     * and splits the name and balance by ; character. Part of 
+     * accountList parser, not bwu parser
+     * 
+     * @param scanner
+     * @throws CorruptedSaveFileException if any of the parameters are corrupted
      */
-    public void parseSavedFile(AccountList list) throws IOException {
-        File f = new File("data/save.txt");
-        Scanner myReader = new Scanner(f);
-        while (myReader.hasNextLine()) {
-            String data = myReader.nextLine();
-            String[] splitDetails = data.split(";");
-            String name = splitDetails[0];
-            String balance = splitDetails[1];
-            list.addAccount(name, balance);
+    public void parseSavedFile(Scanner scanner) throws CorruptedSaveFileException {
+        String accountDetails = scanner.nextLine();
+        accountDetails.trim();
+        if (accountDetails.isBlank()) {
+            throw new CorruptedSaveFileException();
         }
-        myReader.close();
+        try {
+            String[] splitDetails = accountDetails.split(";");
+            String name = splitDetails[0].trim();
+            String balanceString = splitDetails[1].trim();
+            if (name.isEmpty() || balanceString.isEmpty()) {
+                throw new Exception();
+            }
+            float balance = Float.parseFloat(balanceString);
+            accountList.addAccount(name, balance);
+        } catch (Exception e) {
+            throw new CorruptedSaveFileException();
+        }
+        scanner.close();
     }
 }

@@ -1,11 +1,12 @@
 package seedu.bankwithus;
 
 public class Account {
-    protected String name;
-    protected float balance;
+    private String name;
+    private float balance;
 
-    private Ui ui;
     /**
+     * Instantiates an account object
+     * 
      * @param name    initialise in the name of the account
      * @param balance initialise the balance of the account
      */
@@ -14,9 +15,6 @@ public class Account {
         this.balance = balance;
     }
 
-    /**
-     * @return returns a string contains the name of the Account
-     */
     public String getAccountName() {
         return name;
     }
@@ -25,7 +23,11 @@ public class Account {
         return balance;
     }
 
-    public void setBalance(float balance) {
-        this.balance = balance;
+    public void addBalance(float balance) {
+        this.balance += balance;
+    }
+
+    public void subtractBalance(float balance) {
+        this.balance -= balance;
     }
 }

@@ -1,3 +1,23 @@
-june
+
+hi;hi
+hihi
+hihi
+
 1000
+help
+view account
+view-account
+deposit -1
+deposit java
+view-account
+deposit 100.21
+view-account
+withdraw -1
+withdraw 100000
+view-account
+withdraw dba
+view-account
+withdraw 100
+view-account
+
 exit
