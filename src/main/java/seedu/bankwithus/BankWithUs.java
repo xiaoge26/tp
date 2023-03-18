@@ -33,6 +33,7 @@ public class BankWithUs {
         // Initialising accountList
         try {
             accountList = new AccountList(storage.load(), this);
+            ui.showNumberOfAccount(accountList.getSize());
         } catch (FileNotFoundException e) {
             // If savefile not created
             ui.showFileNotFoundError();

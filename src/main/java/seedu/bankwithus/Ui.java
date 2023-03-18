@@ -107,21 +107,21 @@ public class Ui {
     public void greet() {
         System.out.println("Welcome to: ");
         System.out.println("\n" +
-                " /$$$$$$$                      /$$       /$$      /$$" + 
+                " /$$$$$$$                      /$$       /$$      /$$" +
                 " /$$   /$$     /$$       /$$   /$$          \n" +
-                "| $$__  $$                    | $$      | $$  /$ | $$" + 
+                "| $$__  $$                    | $$      | $$  /$ | $$" +
                 "|__/  | $$    | $$      | $$  | $$          \n" +
-                "| $$  \\ $$  /$$$$$$  /$$$$$$$ | $$   /$$| $$ /$$$|" + 
+                "| $$  \\ $$  /$$$$$$  /$$$$$$$ | $$   /$$| $$ /$$$|" +
                 " $$ /$$ /$$$$$$  | $$$$$$$ | $$  | $$  /$$$$$$$\n" +
-                "| $$$$$$$  |____  $$| $$__  $$| $$  /$$/| $$/$$ $$" + 
+                "| $$$$$$$  |____  $$| $$__  $$| $$  /$$/| $$/$$ $$" +
                 " $$| $$|_  $$_/  | $$__  $$| $$  | $$ /$$_____/\n" +
-                "| $$__  $$  /$$$$$$$| $$  \\ $$| $$$$$$/ | $$$$_  " + 
+                "| $$__  $$  /$$$$$$$| $$  \\ $$| $$$$$$/ | $$$$_  " +
                 "$$$$| $$  | $$    | $$  \\ $$| $$  | $$|  $$$$$$ \n" +
-                "| $$  \\ $$ /$$__  $$| $$  | $$| $$_  $$ | $$$/ \\  " + 
+                "| $$  \\ $$ /$$__  $$| $$  | $$| $$_  $$ | $$$/ \\  " +
                 "$$$| $$  | $$ /$$| $$  | $$| $$  | $$ \\____  $$\n" +
-                "| $$$$$$$/|  $$$$$$$| $$  | $$| $$ \\  $$| $$/   \\ " + 
+                "| $$$$$$$/|  $$$$$$$| $$  | $$| $$ \\  $$| $$/   \\ " +
                 " $$| $$  |  $$$$/| $$  | $$|  $$$$$$/ /$$$$$$$/\n" +
-                "|_______/  \\_______/|__/  |__/|__/  \\__/|__/     " + 
+                "|_______/  \\_______/|__/  |__/|__/  \\__/|__/     " +
                 "\\__/|__/   \\___/  |__/  |__/ \\______/ |_______/ \n"
         );
     }
@@ -145,4 +145,29 @@ public class Ui {
     public void showForbiddenCharacterError() {
         System.out.println("Please do not put the chacter ';' in the name.");
     }
+
+    public void showAccountDeleted(String name) {
+        System.out.println("Account: " + name + " deleted");
+        printLine();
+    }
+
+    public void showNoAccountFound() {
+        System.out.println("Account is not found, please re-enter the account name");
+        printLine();
+    }
+
+    public void showNoAccount() {
+        System.out.println("There is no account");
+        printLine();
+    }
+
+    public void showEmptyFile() {
+        System.out.println("There is no saved account, please create a new account");
+        printLine();
+    }
+
+    public void showNumberOfAccount(int accSize) {
+        System.out.println("Found " + accSize + " Account");
+    }
+
 }

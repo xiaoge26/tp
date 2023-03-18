@@ -1,9 +1,11 @@
 package seedu.bankwithus;
 
+import seedu.bankwithus.exceptions.AccountNotFoundException;
 import seedu.bankwithus.exceptions.CommandNotFoundException;
 import seedu.bankwithus.exceptions.CorruptedSaveFileException;
 import seedu.bankwithus.exceptions.InsufficientBalanceException;
 import seedu.bankwithus.exceptions.NegativeAmountException;
+import seedu.bankwithus.exceptions.SaveFileIsEmpty;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -15,7 +17,7 @@ public class Parser {
 
     /**
      * Instantiates a bwu Parser object
-     * 
+     *
      * @param bwu the main bankWithUs program
      */
     public Parser(BankWithUs bwu) {
@@ -26,7 +28,7 @@ public class Parser {
 
     /**
      * Instatiates a accountList Parser object
-     * 
+     *
      * @param accountList the accountList
      */
     public Parser(AccountList accountList) {
@@ -35,6 +37,7 @@ public class Parser {
 
     /**
      * Parses the user input into command and arguments.
+     *
      * @throws IOException
      */
     public void parseUserInput(String input) throws CommandNotFoundException, IOException {
@@ -43,65 +46,71 @@ public class Parser {
         String command = split[0];
         String args = split.length == 2 ? split[1] : "";
         switch (command) {
-        case "exit":
-            try {
-                bwu.exit();
-            } catch (IOException e) {
-                throw e;
-            }
-            break;
-        case "deposit":
-            try {
-                accountList.depositMoney(args);
-                ui.showDepositMessage();
-                accountList.showBal();
-            } catch (NumberFormatException e) {
-                ui.showNumberFormatError();
-            } catch (NullPointerException e) {
-                // Will almost never happen, but who knows
-                ui.showNullInputError();
-            } catch (NegativeAmountException e) {
-                ui.showNegativeAmountError();
-            }
-            break;
-        case "view-account":
-            String accDetails = accountList.getAllAccountDetails();
-            ui.viewAccount(accDetails);
-            break;
-        case "withdraw":
-            try {
-                accountList.withdrawMoney(args);
-                ui.showWithdrawMessage();
-                accountList.showBal();
-            } catch (NumberFormatException e) {
-                ui.showNumberFormatError();
-            } catch (NegativeAmountException e) {
-                ui.showNegativeAmountError();
-            } catch (InsufficientBalanceException e) {
-                ui.showInsufficientBalanceMessage();
-            }
-            break;
-        case "help":
-            ui.showHelp();
-            break;
-        default:
-            throw new CommandNotFoundException();
+            case "exit":
+                try {
+                    bwu.exit();
+                } catch (IOException e) {
+                    throw e;
+                }
+                break;
+            case "deposit":
+                try {
+                    accountList.depositMoney(args);
+                    ui.showDepositMessage();
+                    accountList.showBal();
+                } catch (NumberFormatException e) {
+                    ui.showNumberFormatError();
+                } catch (NullPointerException e) {
+                    // Will almost never happen, but who knows
+                    ui.showNullInputError();
+                } catch (NegativeAmountException e) {
+                    ui.showNegativeAmountError();
+                }
+                break;
+            case "view-account":
+                try {
+                    String accDetails = accountList.getAllAccountDetails();
+                    ui.viewAccount(accDetails);
+                } catch (AccountNotFoundException e) {
+                    ui.showNoAccount();
+                }
+                break;
+            case "withdraw":
+                try {
+                    accountList.withdrawMoney(args);
+                    ui.showWithdrawMessage();
+                    accountList.showBal();
+                } catch (NumberFormatException e) {
+                    ui.showNumberFormatError();
+                } catch (NegativeAmountException e) {
+                    ui.showNegativeAmountError();
+                } catch (InsufficientBalanceException e) {
+                    ui.showInsufficientBalanceMessage();
+                }
+                break;
+            case "help":
+                ui.showHelp();
+                break;
+            case "delete":
+                accountList.deleteAccount(args);
+                break;
+            default:
+                throw new CommandNotFoundException();
         }
     }
 
     /**
      * Parses the save file. Takes in the scanner to the save file,
-     * and splits the name and balance by ; character. Part of 
+     * and splits the name and balance by ; character. Part of
      * accountList parser, not bwu parser
-     * 
+     *
      * @param scanner
      * @throws CorruptedSaveFileException if any of the parameters are corrupted
      */
-    public void parseSavedFile(Scanner scanner) throws CorruptedSaveFileException {
+    public void parseSavedFile(Scanner scanner) throws CorruptedSaveFileException, SaveFileIsEmpty {
         String accountDetails = scanner.nextLine();
-        accountDetails.trim();
         if (accountDetails.isBlank()) {
-            throw new CorruptedSaveFileException();
+            throw new SaveFileIsEmpty();
         }
         try {
             String[] splitDetails = accountDetails.split(";");
