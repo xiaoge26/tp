@@ -170,4 +170,11 @@ public class Ui {
         System.out.println("Found " + accSize + " Account");
     }
 
+    public void showNewAddedAccount(Account acc) {
+        printLine();
+        System.out.println("Name: " + acc.getAccountName());
+        System.out.println("Balance: $" + acc.getAccountBalance());
+        printLine();
+    }
+
 }

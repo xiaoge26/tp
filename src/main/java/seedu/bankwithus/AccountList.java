@@ -111,6 +111,7 @@ public class AccountList {
     public void addAccount(String name, float balance) {
         Account newAccount = new Account(name, balance);
         accounts.add(newAccount);
+        ui.showNewAddedAccount(newAccount);
     }
 
     /**
