@@ -46,56 +46,56 @@ public class Parser {
         String command = split[0];
         String args = split.length == 2 ? split[1] : "";
         switch (command) {
-            case "exit":
-                try {
-                    bwu.exit();
-                } catch (IOException e) {
-                    throw e;
-                }
-                break;
-            case "deposit":
-                try {
-                    accountList.depositMoney(args);
-                    ui.showDepositMessage();
-                    accountList.showBal();
-                } catch (NumberFormatException e) {
-                    ui.showNumberFormatError();
-                } catch (NullPointerException e) {
-                    // Will almost never happen, but who knows
-                    ui.showNullInputError();
-                } catch (NegativeAmountException e) {
-                    ui.showNegativeAmountError();
-                }
-                break;
-            case "view-account":
-                try {
-                    String accDetails = accountList.getAllAccountDetails();
-                    ui.viewAccount(accDetails);
-                } catch (AccountNotFoundException e) {
-                    ui.showNoAccount();
-                }
-                break;
-            case "withdraw":
-                try {
-                    accountList.withdrawMoney(args);
-                    ui.showWithdrawMessage();
-                    accountList.showBal();
-                } catch (NumberFormatException e) {
-                    ui.showNumberFormatError();
-                } catch (NegativeAmountException e) {
-                    ui.showNegativeAmountError();
-                } catch (InsufficientBalanceException e) {
-                    ui.showInsufficientBalanceMessage();
-                }
-                break;
-            case "help":
-                ui.showHelp();
-                break;
-            case "delete":
-                accountList.deleteAccount(args);
-                break;
-            default:
-                throw new CommandNotFoundException();
+        case "exit":
+            try {
+                bwu.exit();
+            } catch (IOException e) {
+                throw e;
+            }
+            break;
+        case "deposit":
+            try {
+                accountList.depositMoney(args);
+                ui.showDepositMessage();
+                accountList.showBal();
+            } catch (NumberFormatException e) {
+                ui.showNumberFormatError();
+            } catch (NullPointerException e) {
+                // Will almost never happen, but who knows
+                ui.showNullInputError();
+            } catch (NegativeAmountException e) {
+                ui.showNegativeAmountError();
+            }
+            break;
+        case "view-account":
+            try {
+                String accDetails = accountList.getAllAccountDetails();
+                ui.viewAccount(accDetails);
+            } catch (AccountNotFoundException e) {
+                ui.showNoAccount();
+            }
+            break;
+        case "withdraw":
+            try {
+                accountList.withdrawMoney(args);
+                ui.showWithdrawMessage();
+                accountList.showBal();
+            } catch (NumberFormatException e) {
+                ui.showNumberFormatError();
+            } catch (NegativeAmountException e) {
+                ui.showNegativeAmountError();
+            } catch (InsufficientBalanceException e) {
+                ui.showInsufficientBalanceMessage();
+            }
+            break;
+        case "help":
+            ui.showHelp();
+            break;
+        case "delete":
+            accountList.deleteAccount(args);
+            break;
+        default:
+            throw new CommandNotFoundException();
         }
     }
 
