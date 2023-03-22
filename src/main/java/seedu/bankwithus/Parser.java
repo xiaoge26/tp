@@ -47,66 +47,66 @@ public class Parser {
         String command = split[0];
         String args = split.length == 2 ? split[1] : "";
         switch (command) {
-        case "exit":
-            try {
-                bwu.exit();
-            } catch (IOException e) {
-                throw e;
-            }
-            break;
-        case "deposit":
-            try {
-                accountList.depositMoney(args);
-                ui.showDepositMessage();
-                accountList.showBal();
-            } catch (NumberFormatException e) {
-                ui.showNumberFormatError();
-            } catch (NullPointerException e) {
-                // Will almost never happen, but who knows
-                ui.showNullInputError();
-            } catch (NegativeAmountException e) {
-                ui.showNegativeAmountError();
-            }
-            break;
-        case "view-account":
-            try {
-                String accDetails = accountList.getAllAccountDetails();
-                ui.viewAccount(accDetails);
-            } catch (AccountNotFoundException e) {
-                ui.showNoAccount();
-            }
-            break;
-        case "withdraw":
-            try {
-                accountList.withdrawMoney(args);
-                ui.showWithdrawMessage();
-                accountList.showBal();
-            } catch (NumberFormatException e) {
-                ui.showNumberFormatError();
-            } catch (NegativeAmountException e) {
-                ui.showNegativeAmountError();
-            } catch (InsufficientBalanceException e) {
-                ui.showInsufficientBalanceMessage();
-            }
-            break;
-        case "add-account":
-            accountList.createNewAccount();
-            break;
-        case "switch-to":
-            try {
-                accountList.switchMainAccount(args);
-            } catch (NoAccountException e ){
-                ui.showNoAccount();
-            }
-            break;
-        case "help":
-            ui.showHelp();
-            break;
-        case "delete":
-            accountList.deleteAccount(args);
-            break;
-        default:
-            throw new CommandNotFoundException();
+            case "exit":
+                try {
+                    bwu.exit();
+                } catch (IOException e) {
+                    throw e;
+                }
+                break;
+            case "deposit":
+                try {
+                    accountList.depositMoney(args);
+                    ui.showDepositMessage();
+                    accountList.showBal();
+                } catch (NumberFormatException e) {
+                    ui.showNumberFormatError();
+                } catch (NullPointerException e) {
+                    // Will almost never happen, but who knows
+                    ui.showNullInputError();
+                } catch (NegativeAmountException e) {
+                    ui.showNegativeAmountError();
+                }
+                break;
+            case "view-account":
+                try {
+                    String accDetails = accountList.getAllAccountDetails();
+                    ui.viewAccount(accDetails);
+                } catch (AccountNotFoundException e) {
+                    ui.showNoAccount();
+                }
+                break;
+            case "withdraw":
+                try {
+                    accountList.withdrawMoney(args);
+                    ui.showWithdrawMessage();
+                    accountList.showBal();
+                } catch (NumberFormatException e) {
+                    ui.showNumberFormatError();
+                } catch (NegativeAmountException e) {
+                    ui.showNegativeAmountError();
+                } catch (InsufficientBalanceException e) {
+                    ui.showInsufficientBalanceMessage();
+                }
+                break;
+            case "add-account":
+                accountList.createNewAccount();
+                break;
+            case "switch-to":
+                try {
+                    accountList.switchMainAccount(args);
+                } catch (NoAccountException e) {
+                    ui.showNoAccount();
+                }
+                break;
+            case "help":
+                ui.showHelp();
+                break;
+            case "delete":
+                accountList.deleteAccount(args);
+                break;
+            default:
+                throw new CommandNotFoundException();
         }
     }
 
@@ -133,8 +133,8 @@ public class Parser {
                 }
                 float balance = Float.parseFloat(balanceString);
                 accountList.addAccount(name, balance);
-                }
-            } catch (Exception ex) {
+            }
+        } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
         scanner.close();
