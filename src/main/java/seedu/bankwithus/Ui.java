@@ -75,7 +75,7 @@ public class Ui {
 
     public void viewAccount(String accDetails) {
         String[] accounts = accDetails.split("\\n");
-        printLine();
+        System.out.println("MAIN Account:");
         for (String account : accounts) {
             String name = account.split(";")[0];
             String bal = account.split(";")[1];
@@ -95,10 +95,10 @@ public class Ui {
 
     public void showInsufficientBalanceMessage() {
         System.out.println("You do not have sufficient Balance");
+        printLine();
     }
 
     public void showHelp() {
-        printLine();
         System.out.println("help: displays the current menu");
         System.out.println("view-account: shows account name and balance");
         System.out.println("withdraw <amount>: withdraws <amount> from available balance");
@@ -155,7 +155,7 @@ public class Ui {
     }
 
     public void showNoAccountFound() {
-        System.out.println("Account is not found, please re-enter the account name");
+        System.out.println("Account is not found, please rectify the name");
         printLine();
     }
 
@@ -181,4 +181,13 @@ public class Ui {
         printLine();
     }
 
+    public void showThereIsOnlyOneAccount() {
+        System.out.println("There is only one account");
+        printLine();
+    }
+
+    public void showMainAccountSwitched() {
+        System.out.println("Main Account switched");
+        printLine();
+    }
 }

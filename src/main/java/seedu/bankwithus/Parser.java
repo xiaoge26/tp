@@ -5,7 +5,8 @@ import seedu.bankwithus.exceptions.CommandNotFoundException;
 import seedu.bankwithus.exceptions.CorruptedSaveFileException;
 import seedu.bankwithus.exceptions.InsufficientBalanceException;
 import seedu.bankwithus.exceptions.NegativeAmountException;
-import seedu.bankwithus.exceptions.SaveFileIsEmpty;
+import seedu.bankwithus.exceptions.NoAccountException;
+import seedu.bankwithus.exceptions.SaveFileIsEmptyException;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -91,6 +92,13 @@ public class Parser {
         case "add-account":
             accountList.createNewAccount();
             break;
+        case "switch-to":
+            try {
+                accountList.switchMainAccount(args);
+            } catch (NoAccountException e ){
+                ui.showNoAccount();
+            }
+            break;
         case "help":
             ui.showHelp();
             break;
@@ -110,22 +118,24 @@ public class Parser {
      * @param scanner
      * @throws CorruptedSaveFileException if any of the parameters are corrupted
      */
-    public void parseSavedFile(Scanner scanner) throws CorruptedSaveFileException, SaveFileIsEmpty {
-        String accountDetails = scanner.nextLine();
-        if (accountDetails.isBlank()) {
-            throw new SaveFileIsEmpty();
-        }
+    public void parseSavedFile(Scanner scanner) throws CorruptedSaveFileException, SaveFileIsEmptyException {
         try {
-            String[] splitDetails = accountDetails.split(";");
-            String name = splitDetails[0].trim();
-            String balanceString = splitDetails[1].trim();
-            if (name.isEmpty() || balanceString.isEmpty()) {
-                throw new Exception();
-            }
-            float balance = Float.parseFloat(balanceString);
-            accountList.addAccount(name, balance);
-        } catch (Exception e) {
-            throw new CorruptedSaveFileException();
+            while (scanner.hasNextLine()) {
+                String accountDetails = scanner.nextLine();
+                if (accountDetails.isBlank()) {
+                    throw new SaveFileIsEmptyException();
+                }
+                String[] splitDetails = accountDetails.split(";");
+                String name = splitDetails[0].trim();
+                String balanceString = splitDetails[1].trim();
+                if (name.isEmpty() || balanceString.isEmpty()) {
+                    throw new Exception();
+                }
+                float balance = Float.parseFloat(balanceString);
+                accountList.addAccount(name, balance);
+                }
+            } catch (Exception ex) {
+            throw new RuntimeException(ex);
         }
         scanner.close();
     }

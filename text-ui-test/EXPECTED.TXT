@@ -26,7 +26,6 @@ Account created!
 Name: hihi
 Balance: $1000.0
 ----------------------------
-----------------------------
 help: displays the current menu
 view-account: shows account name and balance
 withdraw <amount>: withdraws <amount> from available balance
@@ -34,23 +33,23 @@ deposit <amount>: deposits <amount> and adds deposit to balance
 exit: quits program and saves
 ----------------------------
 Not a valid command!
-----------------------------
+MAIN Account:
 Name: hihi
 Balance: $1000.0
 ----------------------------
 Negative amount entered!
 The input is not a valid number! Please try again.
-----------------------------
+MAIN Account:
 Name: hihi
 Balance: $1000.0
 ----------------------------
 New deposit added!
 You have $1100.21 remaining!
-----------------------------
+MAIN Account:
 Name: hihi
 Balance: $1100.21
 ----------------------------
-Account is not found, please re-enter the account name
+Account is not found, please rectify the name
 ----------------------------
 What's your name?
 How much would you like to add as Balance?
@@ -59,7 +58,7 @@ Account created!
 Name: sherlock
 Balance: $123778.1
 ----------------------------
-----------------------------
+MAIN Account:
 Name: hihi
 Balance: $1100.21
 ----------------------------
@@ -68,28 +67,24 @@ Balance: $123778.1
 ----------------------------
 You do not have sufficient Balance
 ----------------------------
-Name: hihi
-Balance: $1100.21
+Main Account switched
 ----------------------------
+MAIN Account:
 Name: sherlock
 Balance: $123778.1
+----------------------------
+Name: hihi
+Balance: $1100.21
 ----------------------------
 The input is not a valid number! Please try again.
+Withdrawal successful!
+You have $123678.1 remaining!
+MAIN Account:
+Name: sherlock
+Balance: $123678.1
 ----------------------------
 Name: hihi
 Balance: $1100.21
-----------------------------
-Name: sherlock
-Balance: $123778.1
-----------------------------
-Withdrawal successful!
-You have $1000.20996 remaining!
-----------------------------
-Name: hihi
-Balance: $1000.20996
-----------------------------
-Name: sherlock
-Balance: $123778.1
 ----------------------------
 Not a valid command!
 Goodbye! Hope to see you again! :)

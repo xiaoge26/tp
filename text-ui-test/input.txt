@@ -18,9 +18,9 @@ sherlock
 123778.1
 view-account
 withdraw 100000
+switch-to sherlock
 view-account
 withdraw dba
-view-account
 withdraw 100
 view-account
 

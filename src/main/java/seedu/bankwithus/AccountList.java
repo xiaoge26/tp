@@ -3,9 +3,11 @@ package seedu.bankwithus;
 import seedu.bankwithus.exceptions.AccountNotFoundException;
 import seedu.bankwithus.exceptions.InsufficientBalanceException;
 import seedu.bankwithus.exceptions.NegativeAmountException;
-import seedu.bankwithus.exceptions.SaveFileIsEmpty;
+import seedu.bankwithus.exceptions.NoAccountException;
+import seedu.bankwithus.exceptions.SaveFileIsEmptyException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class AccountList {
@@ -35,13 +37,13 @@ public class AccountList {
      * @param bwu     the main bankWithUs program
      */
     public AccountList(Scanner scanner, BankWithUs bwu) {
-        accounts = new ArrayList<Account>();
+        accounts = new ArrayList<>();
         this.ui = bwu.getUi();
         Parser parser = new Parser(this);
         try {
             parser.parseSavedFile(scanner);
         } catch (Exception e) {
-            if (e.equals(new SaveFileIsEmpty())) {
+            if (e.equals(new SaveFileIsEmptyException())) {
                 ui.showEmptyFile();
             } else {
                 ui.showCorruptedSaveFileError();
@@ -190,4 +192,22 @@ public class AccountList {
         return accounts.size();
     }
 
+    public void switchMainAccount(String accName) throws NoAccountException {
+        //swap acc to the head of AccountList
+        if (accounts.size() == 0) {
+            throw new NoAccountException();
+        } else if (accounts.size() == 1) {
+            ui.showThereIsOnlyOneAccount();
+        } else {
+            for (int i = 0; i < accounts.size(); i++) {
+                if (accounts.get(i).getAccountName().contains(accName)) {
+                    Collections.swap(accounts, i, 0);
+                    ui.showMainAccountSwitched();
+                    return;
+                }
+            }
+            ui.showNoAccountFound();
+        }
+
+    }
 }
