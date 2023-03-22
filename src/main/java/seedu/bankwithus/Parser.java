@@ -88,6 +88,9 @@ public class Parser {
                 ui.showInsufficientBalanceMessage();
             }
             break;
+        case "add-account":
+            accountList.createNewAccount();
+            break;
         case "help":
             ui.showHelp();
             break;

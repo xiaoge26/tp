@@ -74,12 +74,15 @@ public class Ui {
     }
 
     public void viewAccount(String accDetails) {
-        String name = accDetails.split(";")[0];
-        String bal = accDetails.split(";")[1];
+        String[] accounts = accDetails.split("\\n");
         printLine();
-        System.out.println("Name: " + name);
-        System.out.println("Balance: $" + bal);
-        printLine();
+        for (String account : accounts) {
+            String name = account.split(";")[0];
+            String bal = account.split(";")[1];
+            System.out.println("Name: " + name);
+            System.out.println("Balance: $" + bal);
+            printLine();
+        }
     }
 
     public void showBal(float finalBal) {
@@ -172,6 +175,7 @@ public class Ui {
 
     public void showNewAddedAccount(Account acc) {
         printLine();
+        System.out.println("Account created!");
         System.out.println("Name: " + acc.getAccountName());
         System.out.println("Balance: $" + acc.getAccountBalance());
         printLine();

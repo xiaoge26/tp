@@ -13,6 +13,10 @@ view-account
 deposit 100.21
 view-account
 delete sherlock
+add-account
+sherlock
+123778.1
+view-account
 withdraw 100000
 view-account
 withdraw dba
