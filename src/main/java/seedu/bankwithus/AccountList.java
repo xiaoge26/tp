@@ -3,6 +3,7 @@ package seedu.bankwithus;
 import seedu.bankwithus.exceptions.AccountNotFoundException;
 import seedu.bankwithus.exceptions.InsufficientBalanceException;
 import seedu.bankwithus.exceptions.NegativeAmountException;
+import seedu.bankwithus.exceptions.SaveFileIsEmpty;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -40,7 +41,11 @@ public class AccountList {
         try {
             parser.parseSavedFile(scanner);
         } catch (Exception e) {
-            ui.showEmptyFile();
+            if (e.equals(new SaveFileIsEmpty())) {
+                ui.showEmptyFile();
+            } else {
+                ui.showCorruptedSaveFileError();
+            }
             createNewAccount();
         }
     }
