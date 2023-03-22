@@ -12,7 +12,7 @@ deposit java
 view-account
 deposit 100.21
 view-account
-withdraw -1
+delete sherlock
 withdraw 100000
 view-account
 withdraw dba
