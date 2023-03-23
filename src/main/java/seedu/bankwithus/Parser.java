@@ -130,7 +130,15 @@ public class Parser {
             if (name.isEmpty() || balanceString.isEmpty()) {
                 throw new CorruptedSaveFileException();
             }
-            accountList.addAccount(name, balanceString);
+            try {
+                accountList.addAccount(name, balanceString);
+            } catch (NumberFormatException e) {
+                throw new CorruptedSaveFileException();
+            } catch (NegativeAmountException e) {
+                throw new CorruptedSaveFileException();
+            } catch (NullPointerException e) {
+                throw new CorruptedSaveFileException();
+            }
         }
         scanner.close();
         if (accountList.getSize() == 0){

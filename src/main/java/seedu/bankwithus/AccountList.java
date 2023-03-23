@@ -28,6 +28,14 @@ public class AccountList {
     }
 
     /**
+     * Instantiates AccountList for unit testing
+     */
+    public AccountList() {
+        accounts = new ArrayList<Account>();
+        this.ui = new Ui();
+    }
+
+    /**
      * Instantiates AccountList and either:
      * 1. Load the saved information in the save file into
      * the account list
@@ -108,27 +116,70 @@ public class AccountList {
             return askUserForBalance();
         }
     }
-    //@@author Sherlock-YH
+
+    public boolean isFloat(String str) {
+        try {
+            Float.parseFloat(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public boolean isNegative(String str) {
+        return Float.parseFloat(str) < 0;
+    }
+
+    public boolean isBlank(String str) {
+        return str.isBlank();
+    }
+
+
+    //@@author xiaoge26
     /**
      * Creates a new account and adds it to the AccountList.
      *
      * @param name    Name of the new account to be added
      * @param balance Balance of the new account to be added
      */
-    public void addAccount(String name, String balance) {
-        Account newAccount = new Account(name, balance);
-        accounts.add(newAccount);
-        ui.showNewAccountAdded(newAccount);
+    public void addAccount(String name, String balance) throws NumberFormatException,
+            NullPointerException, NegativeAmountException {
+        if (isBlank(name)) {
+            throw new NullPointerException();
+        } else if (isFloat(balance)) {
+            if (isNegative(balance)) {
+                throw new NegativeAmountException();
+            }
+            Account newAccount = new Account(name, balance);
+            accounts.add(newAccount);
+            ui.showNewAccountAdded(newAccount);
+        } else {
+            throw new NumberFormatException();
+        }
+
     }
-    //@@author
+
+    //@@author vishnuvk47
     /**
      * Creates a new Account for a first time user
      */
     public void createNewAccount() {
         String userName = askUserForName();
         String balance = askUserForBalance();
-        addAccount(userName, balance);
+        try {
+            addAccount(userName, balance);
+        } catch (NumberFormatException e) {
+            ui.showNumberFormatError();
+            createNewAccount();
+        } catch (NullPointerException e) {
+            ui.showBlankUserNameError();
+            createNewAccount();
+        } catch (NegativeAmountException e) {
+            ui.showNegativeAmountError();
+            createNewAccount();
+        }
     }
+
     //@@author Sherlock-YH
     /**
      * Name and balance are separated by ; prepared to be saved
@@ -147,6 +198,7 @@ public class AccountList {
             return temp.toString();
         }
     }
+
     //@@author
     public void showBal() {
         String balance = getMainAccount().getAccountBalance();
@@ -213,6 +265,13 @@ public class AccountList {
             }
             ui.showNoAccountFound();
         }
-
     }
+    public ArrayList<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(ArrayList<Account> accounts) {
+        this.accounts = accounts;
+    }
+
 }

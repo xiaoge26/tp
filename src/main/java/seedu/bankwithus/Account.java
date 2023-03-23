@@ -37,4 +37,13 @@ public class Account {
         String formatted = df.format(currentBalance - withdrawal);
         this.balance = String.valueOf(formatted);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }
