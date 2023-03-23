@@ -148,17 +148,17 @@ public class Ui {
     public void showForbiddenCharacterError() {
         System.out.println("Please do not put the chacter ';' in the name.");
     }
-
+    //@@author Sherlock-YH
     public void showAccountDeleted(String name) {
         System.out.println("Account: " + name + " deleted");
         printLine();
     }
-
+    //@@author Sherlock-YH
     public void showNoAccountFound() {
         System.out.println("Account is not found, please rectify the name");
         printLine();
     }
-
+    //@@author Sherlock-YH
     public void showAccountNotFound() {
         System.out.println("There is no account");
         printLine();
@@ -168,12 +168,12 @@ public class Ui {
         System.out.println("There is no saved account, please create a new account");
         printLine();
     }
-
+    //@@author Sherlock-YH
     public void showNumberOfAccount(int accSize) {
         System.out.println("Found " + accSize + " Account");
         printLine();
     }
-
+    //@@author Sherlock-YH
     public void showNewAccountAdded(Account acc) {
         printLine();
         System.out.println("Account created!");
@@ -181,12 +181,12 @@ public class Ui {
         System.out.println("Balance: $" + acc.getAccountBalance());
         printLine();
     }
-
+    //@@author Sherlock-YH
     public void showThereIsOnlyOneAccount() {
         System.out.println("There is only one account");
         printLine();
     }
-
+    //@@author Sherlock-YH
     public void showMainAccountSwitched() {
         System.out.println("Main Account switched");
         printLine();
