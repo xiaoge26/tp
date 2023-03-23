@@ -1,10 +1,12 @@
 package seedu.bankwithus;
 
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 
 public class Account {
     private String name;
     private String balance;
+    private WithdrawalChecker withdrawalChecker;
 
     //@@author Sherlock-YH
     /**
@@ -16,6 +18,15 @@ public class Account {
     public Account(String name, String balance) {
         this.name = name;
         this.balance = balance;
+        this.withdrawalChecker = new WithdrawalChecker();
+    }
+
+    //@@author tyuyang
+    public Account(String name, String balance, String totalAmtWithdrawn,
+            LocalDate lastWithdrawnDate) {
+        this.name = name;
+        this.balance = balance;
+        this.withdrawalChecker = new WithdrawalChecker(totalAmtWithdrawn, lastWithdrawnDate);
     }
     //@@author Sherlock-YH
     public String getAccountName() {
@@ -36,6 +47,8 @@ public class Account {
         DecimalFormat df = new DecimalFormat("#.##");
         String formatted = df.format(currentBalance - withdrawal);
         this.balance = String.valueOf(formatted);
+
+        withdrawalChecker.updateTotalAmtWithdrawn(withdrawal);
     }
 
     public String getName() {
@@ -45,5 +58,4 @@ public class Account {
     public void setName(String name) {
         this.name = name;
     }
-
 }
