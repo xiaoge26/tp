@@ -16,7 +16,7 @@ class AccountListTest {
         accountList.addAccount(name, balance);
         assertThrows(NumberFormatException.class,
                 () -> accountList.depositMoney(amountString));
-     }
+    }
 
     @Test
     void depositMoney_negativeNumber_expectException() {
@@ -50,7 +50,7 @@ class AccountListTest {
 
 
     @Test
-    void testingAddAccount() {
+    void testingAddAccount_validInput_expectNewAccount() {
         AccountList TestAccountList = new AccountList();
         TestAccountList.addAccount("Jane", "1000");
         assertEquals("Jane", TestAccountList.getMainAccount().getName());
