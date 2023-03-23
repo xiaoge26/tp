@@ -125,9 +125,9 @@ public class AccountList {
      * @param balance Balance of the new account to be added
      */
     public void addAccount(String name, String balance) {
-            Account newAccount = new Account(name, balance);
-            accounts.add(newAccount);
-            ui.showNewAccountAdded(newAccount);
+        Account newAccount = new Account(name, balance);
+        accounts.add(newAccount);
+        ui.showNewAccountAdded(newAccount);
     }
 
     //@@author vishnuvk47
