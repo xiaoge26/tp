@@ -85,8 +85,8 @@ public class Ui {
         }
     }
 
-    public void showBal(float finalBal) {
-        System.out.println("You have $" + String.valueOf(finalBal) + " remaining!");
+    public void showBal(String finalBal) {
+        System.out.println("You have $" + finalBal + " remaining!");
     }
 
     public void showNegativeAmountError() {
@@ -171,6 +171,7 @@ public class Ui {
 
     public void showNumberOfAccount(int accSize) {
         System.out.println("Found " + accSize + " Account");
+        printLine();
     }
 
     public void showNewAccountAdded(Account acc) {
