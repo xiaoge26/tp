@@ -130,10 +130,11 @@ public class Parser {
             if (name.isEmpty() || balanceString.isEmpty()) {
                 throw new CorruptedSaveFileException();
             }
-            float balance = Float.parseFloat(balanceString);
-            accountList.addAccount(name, balance);
+            accountList.addAccount(name, balanceString);
         }
-
         scanner.close();
+        if (accountList.getSize() == 0){
+            throw new SaveFileIsEmptyException();
+        }
     }
 }

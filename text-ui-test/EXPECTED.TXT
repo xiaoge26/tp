@@ -24,7 +24,7 @@ How much would you like to add as Balance?
 ----------------------------
 Account created!
 Name: hihi
-Balance: $1000.0
+Balance: $1000
 ----------------------------
 help: displays the current menu
 view-account: shows account name and balance
@@ -35,13 +35,13 @@ exit: quits program and saves
 Not a valid command!
 MAIN Account:
 Name: hihi
-Balance: $1000.0
+Balance: $1000
 ----------------------------
 Negative amount entered!
 The input is not a valid number! Please try again.
 MAIN Account:
 Name: hihi
-Balance: $1000.0
+Balance: $1000
 ----------------------------
 New deposit added!
 You have $1100.21 remaining!

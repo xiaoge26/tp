@@ -57,7 +57,7 @@ public class AccountList {
      *
      * @return
      */
-    public Account getCurrentAccount() {
+    public Account getMainAccount() {
         return accounts.get(0);
     }
 
@@ -90,16 +90,16 @@ public class AccountList {
      *
      * @return balance in the form of a float
      */
-    private float askUserForBalance() {
+    private String askUserForBalance() {
         ui.askForBalance();
         String balanceString = ui.getNextLine();
-        balanceString.trim();
+        balanceString = balanceString.trim();
         try {
             float balance = Float.parseFloat(balanceString);
             if (balance < 0) {
                 throw new NegativeAmountException();
             }
-            return balance;
+            return balanceString;
         } catch (NumberFormatException e) {
             ui.showNumberFormatError();
             return askUserForBalance();
@@ -115,7 +115,7 @@ public class AccountList {
      * @param name    Name of the new account to be added
      * @param balance Balance of the new account to be added
      */
-    public void addAccount(String name, float balance) {
+    public void addAccount(String name, String balance) {
         Account newAccount = new Account(name, balance);
         accounts.add(newAccount);
         ui.showNewAccountAdded(newAccount);
@@ -126,7 +126,7 @@ public class AccountList {
      */
     public void createNewAccount() {
         String userName = askUserForName();
-        float balance = askUserForBalance();
+        String balance = askUserForBalance();
         addAccount(userName, balance);
     }
 
@@ -149,7 +149,7 @@ public class AccountList {
     }
 
     public void showBal() {
-        float balance = getCurrentAccount().getAccountBalance();
+        String balance = getMainAccount().getAccountBalance();
         ui.showBal(balance);
     }
 
@@ -159,7 +159,7 @@ public class AccountList {
         if (depositAmount < 0) {
             throw new NegativeAmountException();
         } else {
-            getCurrentAccount().addBalance(depositAmount);
+            getMainAccount().addBalance(depositAmount);
         }
     }
 
@@ -169,11 +169,11 @@ public class AccountList {
         if (withdrawAmount < 0) {
             throw new NegativeAmountException();
         }
-        float currentBalance = getCurrentAccount().getAccountBalance();
+        float currentBalance = Float.parseFloat(getMainAccount().getAccountBalance());
         if (currentBalance < withdrawAmount) {
             throw new InsufficientBalanceException();
         } else {
-            getCurrentAccount().subtractBalance(withdrawAmount);
+            getMainAccount().subtractBalance(currentBalance,withdrawAmount);
         }
     }
 
