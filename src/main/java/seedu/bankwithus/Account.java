@@ -6,6 +6,8 @@ public class Account {
     private String name;
     private String balance;
 
+    private float amtToSave = 0;
+
     //@@author Sherlock-YH
     /**
      * Instantiates an account object
@@ -36,5 +38,13 @@ public class Account {
         DecimalFormat df = new DecimalFormat("#.##");
         String formatted = df.format(currentBalance - withdrawal);
         this.balance = String.valueOf(formatted);
+    }
+
+    public float getAmtToSave() {
+        return this.amtToSave;
+    }
+
+    public void setAmtToSave(float amt) {
+        this.amtToSave = amt;
     }
 }

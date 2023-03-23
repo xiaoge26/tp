@@ -146,7 +146,7 @@ public class Ui {
     }
 
     public void showForbiddenCharacterError() {
-        System.out.println("Please do not put the chacter ';' in the name.");
+        System.out.println("Please do not put the character ';' in the name.");
     }
     //@@author Sherlock-YH
     public void showAccountDeleted(String name) {
