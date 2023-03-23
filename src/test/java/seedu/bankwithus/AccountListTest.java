@@ -31,25 +31,25 @@ class AccountListTest {
     //This test tests the depositMoney method in AccountList.java when a large amount is deposited.
     // The expected result is that the correct amount is deposited.
     // Uncomment this test when the bug is fixed.
-//    @Test
-//    void depositMoney_largeAmount_expectDeposit() {
-//        String amountString = "12345678.85";
-//        String name = "Bob";
-//        String balance = "100.05";
-//        AccountList accountList = new AccountList();
-//        Ui ui = new Ui();
-//        accountList.addAccount(name, balance);
-//        try {
-//            accountList.depositMoney(amountString);
-//        } catch (NumberFormatException e) {
-//            ui.showNumberFormatError();
-//        } catch (NullPointerException e) {
-//            ui.showNullInputError();
-//        } catch (NegativeAmountException e) {
-//            ui.showNegativeAmountError();
-//        }
-//        assertEquals("12345778.9", accountList.getMainAccount().getAccountBalance());
-//    }
+    //    @Test
+    //    void depositMoney_largeAmount_expectDeposit() {
+    //        String amountString = "12345678.85";
+    //        String name = "Bob";
+    //        String balance = "100.05";
+    //        AccountList accountList = new AccountList();
+    //        Ui ui = new Ui();
+    //        accountList.addAccount(name, balance);
+    //        try {
+    //            accountList.depositMoney(amountString);
+    //        } catch (NumberFormatException e) {
+    //            ui.showNumberFormatError();
+    //        } catch (NullPointerException e) {
+    //            ui.showNullInputError();
+    //        } catch (NegativeAmountException e) {
+    //            ui.showNegativeAmountError();
+    //        }
+    //        assertEquals("12345778.9", accountList.getMainAccount().getAccountBalance());
+    //    }
 
 
     @Test
