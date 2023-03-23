@@ -200,4 +200,9 @@ public class Ui {
         System.out.println("Balance: $" + acc.getAccountBalance());
         printLine();
     }
+
+    public void failToMeetSaveGoal() {
+        System.out.println("Withdrawing the requested amount would lead to failing to meet your personal Save goal");
+        System.out.println("Are you sure you want to follow through? (Y/N)");
+    }
 }

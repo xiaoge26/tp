@@ -6,6 +6,7 @@ import java.time.LocalDate;
 public class Account {
     private String name;
     private String balance;
+    private SaveGoal saveGoal;
     private WithdrawalChecker withdrawalChecker;
 
     private float amtToSave = 0;
@@ -51,5 +52,12 @@ public class Account {
         this.balance = String.valueOf(formatted);
 
         withdrawalChecker.updateTotalAmtWithdrawn(withdrawal);
+    }
+
+    public void setSaveGoal(SaveGoal saveGoal) {
+        this.saveGoal = saveGoal;
+    }
+    public SaveGoal getSaveGoal() {
+        return this.saveGoal;
     }
 }

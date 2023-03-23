@@ -45,7 +45,7 @@ public class Parser {
         // Split input by space
         String[] split = input.trim().split("\\s+", 2);
         String command = split[0];
-        String args = split.length == 2 ? split[1] : "";
+        String args = split.length > 1 ? split[1] : "";
         switch (command) {
         case "exit":
             try {
@@ -103,7 +103,10 @@ public class Parser {
             ui.showHelp();
             break;
         case "save":
-
+            float toSave = Float.parseFloat(args);
+            String untilWhenStr = split[2];
+            SaveGoal saveGoal = new SaveGoal(toSave, untilWhenStr);
+            accountList.getMainAccount().setSaveGoal(saveGoal);
         case "delete":
             accountList.deleteAccount(args);
             break;
