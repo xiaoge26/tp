@@ -29,6 +29,14 @@ public class AccountList {
     }
 
     /**
+     * Instantiates AccountList for unit testing
+     */
+    public AccountList() {
+        accounts = new ArrayList<Account>();
+        this.ui = new Ui();
+    }
+
+    /**
      * Instantiates AccountList and either:
      * 1. Load the saved information in the save file into
      * the account list
@@ -69,7 +77,7 @@ public class AccountList {
      *
      * @return the userName String
      */
-    private String askUserForName() {
+    public String askUserForName() {
         ui.askForName();
         String userName = ui.getNextLine();
         userName.trim();
@@ -91,7 +99,7 @@ public class AccountList {
      *
      * @return balance in the form of a float
      */
-    private String askUserForBalance() {
+    public String askUserForBalance() {
         ui.askForBalance();
         String balanceString = ui.getNextLine();
         balanceString = balanceString.trim();
@@ -109,7 +117,8 @@ public class AccountList {
             return askUserForBalance();
         }
     }
-    //@@author Sherlock-YH
+
+    //@@author xiaoge26
     /**
      * Creates a new account and adds it to the AccountList.
      *
@@ -129,7 +138,8 @@ public class AccountList {
         accounts.add(newAccount);
         ui.showNewAccountAdded(newAccount);
     }
-    //@@author
+    
+    //@@author vishnuvk47
     /**
      * Creates a new Account for a first time user
      */
@@ -138,6 +148,7 @@ public class AccountList {
         String balance = askUserForBalance();
         addAccount(userName, balance);
     }
+
     //@@author Sherlock-YH
     /**
      * Name and balance are separated by ; prepared to be saved
@@ -158,6 +169,7 @@ public class AccountList {
             return temp.toString();
         }
     }
+
     //@@author
     public void showBal() {
         String balance = getMainAccount().getAccountBalance();
@@ -247,4 +259,13 @@ public class AccountList {
         }
         getMainAccount().getWithdrawalChecker().setWithdrawalLimit(withdrawalLimit);
     }
+    
+    public ArrayList<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(ArrayList<Account> accounts) {
+        this.accounts = accounts;
+    }
+
 }

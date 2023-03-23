@@ -119,6 +119,7 @@ public class Parser {
             throw new CommandNotFoundException();
         }
     }
+
     //@@author Sherlock-YH
     /**
      * Parses the save file. Takes in the scanner to the save file,

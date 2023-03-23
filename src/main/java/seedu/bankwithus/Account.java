@@ -57,4 +57,11 @@ public class Account {
         withdrawalChecker.updateTotalAmtWithdrawn(withdrawal);
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
