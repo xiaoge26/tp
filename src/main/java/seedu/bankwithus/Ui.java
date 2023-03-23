@@ -75,7 +75,7 @@ public class Ui {
 
     public void viewAccount(String accDetails) {
         String[] accounts = accDetails.split("\\n");
-        System.out.println("MAIN Account:");
+        System.out.println("Current Account:");
         for (String account : accounts) {
             String name = account.split(";")[0];
             String bal = account.split(";")[1];
@@ -188,7 +188,16 @@ public class Ui {
     }
     //@@author Sherlock-YH
     public void showMainAccountSwitched() {
-        System.out.println("Main Account switched");
+        printLine();
+        System.out.println("Current Account switched");
+        printLine();
+        System.out.println("Current Account is:");
+        printLine();
+    }
+
+    public void showCurrentAccount(Account acc){
+        System.out.println("Name: " + acc.getAccountName());
+        System.out.println("Balance: $" + acc.getAccountBalance());
         printLine();
     }
 }

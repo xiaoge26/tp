@@ -206,6 +206,7 @@ public class AccountList {
                 if (accounts.get(i).getAccountName().contains(accName)) {
                     Collections.swap(accounts, i, 0);
                     ui.showMainAccountSwitched();
+                    ui.showCurrentAccount(accounts.get(0));
                     return;
                 }
             }
