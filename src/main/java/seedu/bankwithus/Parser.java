@@ -126,14 +126,14 @@ public class Parser {
                 throw new SaveFileIsEmptyException();
             }
             String[] splitDetails = accountDetails.split(";");
-            String name = splitDetails[0].trim();
-            String balanceString = splitDetails[1].trim();
-            String totalAmtWithdrawn = splitDetails[2].trim();
-            String lastWithdrawnDate = splitDetails[3].trim();
-            if (name.isEmpty() || balanceString.isEmpty() || totalAmtWithdrawn.isEmpty()) {
-                throw new CorruptedSaveFileException();
-            }
             try {
+                String name = splitDetails[0].trim();
+                String balanceString = splitDetails[1].trim();
+                String totalAmtWithdrawn = splitDetails[2].trim();
+                String lastWithdrawnDate = splitDetails.length == 4 ? splitDetails[3].trim() : "";
+                if (name.isEmpty() || balanceString.isEmpty() || totalAmtWithdrawn.isEmpty()) {
+                    throw new CorruptedSaveFileException();
+                }
                 if (lastWithdrawnDate.isEmpty()) {
                     //if no history of withdrawing
                     accountList.addAccount(name, balanceString);
@@ -143,7 +143,7 @@ public class Parser {
                 }
             } catch (Exception e) {
                 throw new CorruptedSaveFileException();
-            } 
+            }
         }
         scanner.close();
         if (accountList.getSize() == 0){
