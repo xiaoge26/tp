@@ -108,6 +108,7 @@ public class Parser {
             } catch (NegativeAmountException e) {
                 ui.showNegativeAmountError();
             }
+            break;
         case "help":
             ui.showHelp();
             break;
