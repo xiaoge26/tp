@@ -224,6 +224,27 @@ public class AccountList {
             }
             ui.showNoAccountFound();
         }
+    }
 
+    //@@author tyuyang
+    /**
+     * Sets the withdrawal limit of the main account. Modifies the attribute
+     * withdrawalLimit in the WithdrawalChecker class directly
+     * 
+     * @param args the user input
+     * 
+     * @throws NegativeAmountException if input is negative
+     */
+    public void setWithdrawalLimit(String args) throws NegativeAmountException {
+        float withdrawalLimit;
+        try {
+            withdrawalLimit = Float.parseFloat(args);
+        } catch (Exception e) {
+            throw new NumberFormatException();
+        }
+        if (withdrawalLimit < 0) {
+            throw new NegativeAmountException();
+        }
+        getMainAccount().getWithdrawalChecker().setWithdrawalLimit(withdrawalLimit);
     }
 }

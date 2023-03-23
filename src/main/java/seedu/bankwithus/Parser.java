@@ -100,6 +100,14 @@ public class Parser {
                 ui.showAccountNotFound();
             }
             break;
+        case "set-wl":
+            try {
+                accountList.setWithdrawalLimit(args);
+            } catch (NumberFormatException e) {
+                ui.showNumberFormatError();
+            } catch (NegativeAmountException e) {
+                ui.showNegativeAmountError();
+            }
         case "help":
             ui.showHelp();
             break;
