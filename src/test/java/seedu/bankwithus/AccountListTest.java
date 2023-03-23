@@ -3,15 +3,10 @@ package seedu.bankwithus;
  import org.junit.jupiter.api.Test;
  import seedu.bankwithus.exceptions.NegativeAmountException;
 
- import java.io.ByteArrayInputStream;
- import java.io.InputStream;
- import java.util.Scanner;
-
  import static org.junit.jupiter.api.Assertions.assertEquals;
  import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AccountListTest {
-    Ui ui = new Ui();
 
     @Test
      void depositMoney_notANumber_expectException() {
