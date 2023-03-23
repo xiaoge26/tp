@@ -7,6 +7,7 @@ import seedu.bankwithus.exceptions.NegativeAmountException;
 import seedu.bankwithus.exceptions.NoAccountException;
 import seedu.bankwithus.exceptions.SaveFileIsEmptyException;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -120,6 +121,14 @@ public class AccountList {
         accounts.add(newAccount);
         ui.showNewAccountAdded(newAccount);
     }
+
+    //@@author tyuyang
+    public void addAccount(String name, String balance, String totalAmtWithdrawn,
+            LocalDate lastWithdrawnDate) {
+        Account newAccount = new Account(name, balance, totalAmtWithdrawn, lastWithdrawnDate);
+        accounts.add(newAccount);
+        ui.showNewAccountAdded(newAccount);
+    }
     //@@author
     /**
      * Creates a new Account for a first time user
@@ -142,6 +151,8 @@ public class AccountList {
             StringBuilder temp = new StringBuilder();
             for (Account acc : accounts) {
                 temp.append(acc.getAccountName()).append(";").append(acc.getAccountBalance());
+                //saving withdrawal information
+                temp.append(";").append(acc.getWithdrawalChecker().toString());
                 temp.append("\n");
             }
             return temp.toString();
@@ -153,6 +164,7 @@ public class AccountList {
         ui.showBal(balance);
     }
 
+    //@@author xiaoge26
     public void depositMoney(String depositAmountString) throws NumberFormatException,
             NullPointerException, NegativeAmountException {
         float depositAmount = Float.parseFloat(depositAmountString);
@@ -163,6 +175,7 @@ public class AccountList {
         }
     }
 
+    //@@author manushridiv
     public void withdrawMoney(String withdrawAmountString) throws NumberFormatException,
             NegativeAmountException, InsufficientBalanceException {
         float withdrawAmount = Float.parseFloat(withdrawAmountString);

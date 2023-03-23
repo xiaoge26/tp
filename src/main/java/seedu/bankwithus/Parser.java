@@ -9,6 +9,7 @@ import seedu.bankwithus.exceptions.NoAccountException;
 import seedu.bankwithus.exceptions.SaveFileIsEmptyException;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Parser {
@@ -127,10 +128,22 @@ public class Parser {
             String[] splitDetails = accountDetails.split(";");
             String name = splitDetails[0].trim();
             String balanceString = splitDetails[1].trim();
-            if (name.isEmpty() || balanceString.isEmpty()) {
+            String totalAmtWithdrawn = splitDetails[2].trim();
+            String lastWithdrawnDate = splitDetails[3].trim();
+            if (name.isEmpty() || balanceString.isEmpty() || totalAmtWithdrawn.isEmpty()) {
                 throw new CorruptedSaveFileException();
             }
-            accountList.addAccount(name, balanceString);
+            try {
+                if (lastWithdrawnDate.isEmpty()) {
+                    //if no history of withdrawing
+                    accountList.addAccount(name, balanceString);
+                } else {
+                    accountList.addAccount(name, balanceString, totalAmtWithdrawn, 
+                            LocalDate.parse(lastWithdrawnDate));
+                }
+            } catch (Exception e) {
+                throw new CorruptedSaveFileException();
+            } 
         }
         scanner.close();
         if (accountList.getSize() == 0){

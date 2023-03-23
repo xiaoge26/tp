@@ -57,4 +57,13 @@ public class WithdrawalChecker {
         }
         lastWithdrawnDate = currentDate;
     }
+
+    @Override
+    public String toString() {
+        if (lastWithdrawnDate == null) {
+            return totalAmtWithdrawn;
+        } else {
+            return totalAmtWithdrawn + ";" + lastWithdrawnDate.toString();
+        }
+    }
 }
