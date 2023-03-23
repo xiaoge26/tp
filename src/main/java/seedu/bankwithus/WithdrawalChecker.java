@@ -61,7 +61,7 @@ public class WithdrawalChecker {
     @Override
     public String toString() {
         if (lastWithdrawnDate == null) {
-            return totalAmtWithdrawn;
+            return totalAmtWithdrawn + ";";
         } else {
             return totalAmtWithdrawn + ";" + lastWithdrawnDate.toString();
         }
