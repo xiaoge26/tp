@@ -6,8 +6,7 @@ import java.time.LocalDate;
 public class Account {
     private String name;
     private String balance;
-    private String totalAmtWithdrawn;
-    private LocalDate lastWithdrawnDate;
+    private WithdrawalChecker withdrawalChecker;
 
     //@@author Sherlock-YH
     /**
@@ -19,6 +18,15 @@ public class Account {
     public Account(String name, String balance) {
         this.name = name;
         this.balance = balance;
+        this.withdrawalChecker = new WithdrawalChecker();
+    }
+
+    //@@author tyuyang
+    public Account(String name, String balance, String totalAmtWithdrawn,
+            LocalDate lastWithdrawnDate) {
+        this.name = name;
+        this.balance = balance;
+        this.withdrawalChecker = new WithdrawalChecker(totalAmtWithdrawn, lastWithdrawnDate);
     }
     //@@author Sherlock-YH
     public String getAccountName() {
@@ -39,28 +47,8 @@ public class Account {
         DecimalFormat df = new DecimalFormat("#.##");
         String formatted = df.format(currentBalance - withdrawal);
         this.balance = String.valueOf(formatted);
-        updateTotalAmtWithdrawn(withdrawal);
+
+        withdrawalChecker.updateTotalAmtWithdrawn(withdrawal);
     }
 
-    //@@author tyuyang
-    private void updateTotalAmtWithdrawn(float withdrawal) {
-        LocalDate currentDate = LocalDate.now();
-        DecimalFormat df = new DecimalFormat("#.##");
-        if (lastWithdrawnDate == null) {
-            lastWithdrawnDate = currentDate;
-            String formatted = df.format(withdrawal);
-            totalAmtWithdrawn = String.valueOf(formatted);
-            return;
-        }
-        assert totalAmtWithdrawn != null;
-        if (lastWithdrawnDate.getMonth() == currentDate.getMonth() && 
-                lastWithdrawnDate.getYear() == currentDate.getYear()) {
-            String formatted = df.format(Float.parseFloat(totalAmtWithdrawn) + withdrawal);
-            totalAmtWithdrawn = String.valueOf(formatted);
-        } else {
-            String formatted = df.format(withdrawal);
-            totalAmtWithdrawn = String.valueOf(formatted);
-        }
-        lastWithdrawnDate = currentDate;
-    }
 }
