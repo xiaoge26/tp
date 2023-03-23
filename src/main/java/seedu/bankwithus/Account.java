@@ -6,6 +6,7 @@ public class Account {
     private String name;
     private String balance;
 
+    //@@author Sherlock-YH
     /**
      * Instantiates an account object
      *
@@ -16,15 +17,15 @@ public class Account {
         this.name = name;
         this.balance = balance;
     }
-
+    //@@author Sherlock-YH
     public String getAccountName() {
         return name;
     }
-
+    //@@author Sherlock-YH
     public String getAccountBalance() {
         return balance;
     }
-
+    //@@author
     public void addBalance(float balanceToBeAdded) {
         DecimalFormat df = new DecimalFormat("#.##");
         String formatted = df.format(Float.parseFloat(balance) + balanceToBeAdded);

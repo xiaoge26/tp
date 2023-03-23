@@ -108,7 +108,7 @@ public class AccountList {
             return askUserForBalance();
         }
     }
-
+    //@@author Sherlock-YH
     /**
      * Creates a new account and adds it to the AccountList.
      *
@@ -120,7 +120,7 @@ public class AccountList {
         accounts.add(newAccount);
         ui.showNewAccountAdded(newAccount);
     }
-
+    //@@author
     /**
      * Creates a new Account for a first time user
      */
@@ -129,7 +129,7 @@ public class AccountList {
         String balance = askUserForBalance();
         addAccount(userName, balance);
     }
-
+    //@@author Sherlock-YH
     /**
      * Name and balance are separated by ; prepared to be saved
      *
@@ -147,7 +147,7 @@ public class AccountList {
             return temp.toString();
         }
     }
-
+    //@@author
     public void showBal() {
         String balance = getMainAccount().getAccountBalance();
         ui.showBal(balance);
@@ -177,6 +177,7 @@ public class AccountList {
         }
     }
 
+    //@@author Sherlock-YH
     public void deleteAccount(String name) {
         for (Account acc : accounts) {
             if (acc.getAccountName().contains(name)) {
@@ -188,10 +189,12 @@ public class AccountList {
         ui.showNoAccountFound();
     }
 
+    //@@author Sherlock-YH
     public int getSize() {
         return accounts.size();
     }
 
+    //@@author Sherlock-YH
     public void switchMainAccount(String accName) throws NoAccountException {
         //swap acc to the head of AccountList
         if (accounts.size() == 0) {
