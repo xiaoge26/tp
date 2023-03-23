@@ -103,6 +103,7 @@ public class Ui {
         System.out.println("view-account: shows account name and balance");
         System.out.println("withdraw <amount>: withdraws <amount> from available balance");
         System.out.println("deposit <amount>: deposits <amount> and adds deposit to balance");
+        System.out.println("set-wl <amount>: sets <amount> to be the withdrawal limit");
         System.out.println("exit: quits program and saves");
         printLine();
     }
