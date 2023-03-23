@@ -109,7 +109,7 @@ public class Parser {
             throw new CommandNotFoundException();
         }
     }
-
+    //@@author Sherlock-YH
     /**
      * Parses the save file. Takes in the scanner to the save file,
      * and splits the name and balance by ; character. Part of
@@ -130,10 +130,11 @@ public class Parser {
             if (name.isEmpty() || balanceString.isEmpty()) {
                 throw new CorruptedSaveFileException();
             }
-            float balance = Float.parseFloat(balanceString);
-            accountList.addAccount(name, balance);
+            accountList.addAccount(name, balanceString);
         }
-
         scanner.close();
+        if (accountList.getSize() == 0){
+            throw new SaveFileIsEmptyException();
+        }
     }
 }

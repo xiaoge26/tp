@@ -57,7 +57,7 @@ public class AccountList {
      *
      * @return
      */
-    public Account getCurrentAccount() {
+    public Account getMainAccount() {
         return accounts.get(0);
     }
 
@@ -90,16 +90,16 @@ public class AccountList {
      *
      * @return balance in the form of a float
      */
-    private float askUserForBalance() {
+    private String askUserForBalance() {
         ui.askForBalance();
         String balanceString = ui.getNextLine();
-        balanceString.trim();
+        balanceString = balanceString.trim();
         try {
             float balance = Float.parseFloat(balanceString);
             if (balance < 0) {
                 throw new NegativeAmountException();
             }
-            return balance;
+            return balanceString;
         } catch (NumberFormatException e) {
             ui.showNumberFormatError();
             return askUserForBalance();
@@ -108,28 +108,28 @@ public class AccountList {
             return askUserForBalance();
         }
     }
-
+    //@@author Sherlock-YH
     /**
      * Creates a new account and adds it to the AccountList.
      *
      * @param name    Name of the new account to be added
      * @param balance Balance of the new account to be added
      */
-    public void addAccount(String name, float balance) {
+    public void addAccount(String name, String balance) {
         Account newAccount = new Account(name, balance);
         accounts.add(newAccount);
         ui.showNewAccountAdded(newAccount);
     }
-
+    //@@author
     /**
      * Creates a new Account for a first time user
      */
     public void createNewAccount() {
         String userName = askUserForName();
-        float balance = askUserForBalance();
+        String balance = askUserForBalance();
         addAccount(userName, balance);
     }
-
+    //@@author Sherlock-YH
     /**
      * Name and balance are separated by ; prepared to be saved
      *
@@ -147,9 +147,9 @@ public class AccountList {
             return temp.toString();
         }
     }
-
+    //@@author
     public void showBal() {
-        float balance = getCurrentAccount().getAccountBalance();
+        String balance = getMainAccount().getAccountBalance();
         ui.showBal(balance);
     }
 
@@ -159,7 +159,7 @@ public class AccountList {
         if (depositAmount < 0) {
             throw new NegativeAmountException();
         } else {
-            getCurrentAccount().addBalance(depositAmount);
+            getMainAccount().addBalance(depositAmount);
         }
     }
 
@@ -169,14 +169,15 @@ public class AccountList {
         if (withdrawAmount < 0) {
             throw new NegativeAmountException();
         }
-        float currentBalance = getCurrentAccount().getAccountBalance();
+        float currentBalance = Float.parseFloat(getMainAccount().getAccountBalance());
         if (currentBalance < withdrawAmount) {
             throw new InsufficientBalanceException();
         } else {
-            getCurrentAccount().subtractBalance(withdrawAmount);
+            getMainAccount().subtractBalance(currentBalance,withdrawAmount);
         }
     }
 
+    //@@author Sherlock-YH
     public void deleteAccount(String name) {
         for (Account acc : accounts) {
             if (acc.getAccountName().contains(name)) {
@@ -188,10 +189,12 @@ public class AccountList {
         ui.showNoAccountFound();
     }
 
+    //@@author Sherlock-YH
     public int getSize() {
         return accounts.size();
     }
 
+    //@@author Sherlock-YH
     public void switchMainAccount(String accName) throws NoAccountException {
         //swap acc to the head of AccountList
         if (accounts.size() == 0) {
