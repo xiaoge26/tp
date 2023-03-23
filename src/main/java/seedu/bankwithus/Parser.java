@@ -109,6 +109,7 @@ public class Parser {
             throw new CommandNotFoundException();
         }
     }
+
     //@@author Sherlock-YH
     /**
      * Parses the save file. Takes in the scanner to the save file,
@@ -130,15 +131,7 @@ public class Parser {
             if (name.isEmpty() || balanceString.isEmpty()) {
                 throw new CorruptedSaveFileException();
             }
-            try {
-                accountList.addAccount(name, balanceString);
-            } catch (NumberFormatException e) {
-                throw new CorruptedSaveFileException();
-            } catch (NegativeAmountException e) {
-                throw new CorruptedSaveFileException();
-            } catch (NullPointerException e) {
-                throw new CorruptedSaveFileException();
-            }
+            accountList.addAccount(name, balanceString);
         }
         scanner.close();
         if (accountList.getSize() == 0){

@@ -76,7 +76,7 @@ public class AccountList {
      *
      * @return the userName String
      */
-    private String askUserForName() {
+    public String askUserForName() {
         ui.askForName();
         String userName = ui.getNextLine();
         userName.trim();
@@ -98,7 +98,7 @@ public class AccountList {
      *
      * @return balance in the form of a float
      */
-    private String askUserForBalance() {
+    public String askUserForBalance() {
         ui.askForBalance();
         String balanceString = ui.getNextLine();
         balanceString = balanceString.trim();
@@ -117,24 +117,6 @@ public class AccountList {
         }
     }
 
-    public boolean isFloat(String str) {
-        try {
-            Float.parseFloat(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    public boolean isNegative(String str) {
-        return Float.parseFloat(str) < 0;
-    }
-
-    public boolean isBlank(String str) {
-        return str.isBlank();
-    }
-
-
     //@@author xiaoge26
     /**
      * Creates a new account and adds it to the AccountList.
@@ -142,21 +124,10 @@ public class AccountList {
      * @param name    Name of the new account to be added
      * @param balance Balance of the new account to be added
      */
-    public void addAccount(String name, String balance) throws NumberFormatException,
-            NullPointerException, NegativeAmountException {
-        if (isBlank(name)) {
-            throw new NullPointerException();
-        } else if (isFloat(balance)) {
-            if (isNegative(balance)) {
-                throw new NegativeAmountException();
-            }
+    public void addAccount(String name, String balance) {
             Account newAccount = new Account(name, balance);
             accounts.add(newAccount);
             ui.showNewAccountAdded(newAccount);
-        } else {
-            throw new NumberFormatException();
-        }
-
     }
 
     //@@author vishnuvk47
@@ -166,18 +137,7 @@ public class AccountList {
     public void createNewAccount() {
         String userName = askUserForName();
         String balance = askUserForBalance();
-        try {
-            addAccount(userName, balance);
-        } catch (NumberFormatException e) {
-            ui.showNumberFormatError();
-            createNewAccount();
-        } catch (NullPointerException e) {
-            ui.showBlankUserNameError();
-            createNewAccount();
-        } catch (NegativeAmountException e) {
-            ui.showNegativeAmountError();
-            createNewAccount();
-        }
+        addAccount(userName, balance);
     }
 
     //@@author Sherlock-YH
