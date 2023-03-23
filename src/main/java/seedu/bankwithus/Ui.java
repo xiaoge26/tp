@@ -159,7 +159,7 @@ public class Ui {
         printLine();
     }
 
-    public void showNoAccount() {
+    public void showAccountNotFound() {
         System.out.println("There is no account");
         printLine();
     }
@@ -173,7 +173,7 @@ public class Ui {
         System.out.println("Found " + accSize + " Account");
     }
 
-    public void showNewAddedAccount(Account acc) {
+    public void showNewAccountAdded(Account acc) {
         printLine();
         System.out.println("Account created!");
         System.out.println("Name: " + acc.getAccountName());

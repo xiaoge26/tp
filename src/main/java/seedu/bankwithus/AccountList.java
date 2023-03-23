@@ -1,6 +1,7 @@
 package seedu.bankwithus;
 
 import seedu.bankwithus.exceptions.AccountNotFoundException;
+import seedu.bankwithus.exceptions.CorruptedSaveFileException;
 import seedu.bankwithus.exceptions.InsufficientBalanceException;
 import seedu.bankwithus.exceptions.NegativeAmountException;
 import seedu.bankwithus.exceptions.NoAccountException;
@@ -42,12 +43,11 @@ public class AccountList {
         Parser parser = new Parser(this);
         try {
             parser.parseSavedFile(scanner);
-        } catch (Exception e) {
-            if (e.equals(new SaveFileIsEmptyException())) {
-                ui.showEmptyFile();
-            } else {
-                ui.showCorruptedSaveFileError();
-            }
+        } catch (CorruptedSaveFileException e) {
+            ui.showCorruptedSaveFileError();
+            createNewAccount();
+        } catch (SaveFileIsEmptyException e) {
+            ui.showEmptyFile();
             createNewAccount();
         }
     }
@@ -118,7 +118,7 @@ public class AccountList {
     public void addAccount(String name, float balance) {
         Account newAccount = new Account(name, balance);
         accounts.add(newAccount);
-        ui.showNewAddedAccount(newAccount);
+        ui.showNewAccountAdded(newAccount);
     }
 
     /**

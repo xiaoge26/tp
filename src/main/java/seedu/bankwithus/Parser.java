@@ -73,7 +73,7 @@ public class Parser {
                 String accDetails = accountList.getAllAccountDetails();
                 ui.viewAccount(accDetails);
             } catch (AccountNotFoundException e) {
-                ui.showNoAccount();
+                ui.showAccountNotFound();
             }
             break;
         case "withdraw":
@@ -96,7 +96,7 @@ public class Parser {
             try {
                 accountList.switchMainAccount(args);
             } catch (NoAccountException e) {
-                ui.showNoAccount();
+                ui.showAccountNotFound();
             }
             break;
         case "help":
@@ -119,24 +119,21 @@ public class Parser {
      * @throws CorruptedSaveFileException if any of the parameters are corrupted
      */
     public void parseSavedFile(Scanner scanner) throws CorruptedSaveFileException, SaveFileIsEmptyException {
-        try {
-            while (scanner.hasNextLine()) {
-                String accountDetails = scanner.nextLine();
-                if (accountDetails.isBlank()) {
-                    throw new SaveFileIsEmptyException();
-                }
-                String[] splitDetails = accountDetails.split(";");
-                String name = splitDetails[0].trim();
-                String balanceString = splitDetails[1].trim();
-                if (name.isEmpty() || balanceString.isEmpty()) {
-                    throw new Exception();
-                }
-                float balance = Float.parseFloat(balanceString);
-                accountList.addAccount(name, balance);
+        while (scanner.hasNextLine()) {
+            String accountDetails = scanner.nextLine();
+            if (accountDetails.isBlank()) {
+                throw new SaveFileIsEmptyException();
             }
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
+            String[] splitDetails = accountDetails.split(";");
+            String name = splitDetails[0].trim();
+            String balanceString = splitDetails[1].trim();
+            if (name.isEmpty() || balanceString.isEmpty()) {
+                throw new CorruptedSaveFileException();
+            }
+            float balance = Float.parseFloat(balanceString);
+            accountList.addAccount(name, balance);
         }
+
         scanner.close();
     }
 }
