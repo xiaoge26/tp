@@ -6,7 +6,7 @@ public class Ui {
 
     private Scanner scanner;
 
-    public static void showSaveGoalCreated(String args, String untilWhenStr) {
+    public void showSaveGoalCreated(String args, String untilWhenStr) {
         System.out.println("try saving a Minimum of $"+args+" until "+untilWhenStr);
         System.out.println("Save Goal has been created, Have fun staying frugal!");
     }
@@ -23,7 +23,7 @@ public class Ui {
     }
 
     public void showNumberFormatError() {
-        System.out.println("The input is not a valid number! Please try again.");
+        System.out.println("either The amount or deadline input is not a valid number! Please try again.");
     }
 
     public void showNullInputError() {
@@ -55,9 +55,8 @@ public class Ui {
      *
      * @return
      */
-    public Scanner createScanner() {
+    public void createScanner() {
         this.scanner = new Scanner(System.in);
-        return null;
     }
 
     /**
@@ -187,7 +186,6 @@ public class Ui {
     }
     //@@author Sherlock-YH
     public void showNewAccountAdded(Account acc) {
-        printLine();
         System.out.println("Account created!");
         System.out.println("Name: " + acc.getAccountName());
         System.out.println("Balance: $" + acc.getAccountBalance());
@@ -200,7 +198,6 @@ public class Ui {
     }
     //@@author Sherlock-YH
     public void showMainAccountSwitched() {
-        printLine();
         System.out.println("Current Account switched");
         printLine();
         System.out.println("Current Account is:");
@@ -227,7 +224,6 @@ public class Ui {
     }
 
     public void showGoal(SaveGoal goal) {
-        printLine();
         System.out.println("Min amount to save: $" + Float.toString(goal.amtToSave));
         System.out.println("Deadline: "+goal.untilWhen);
         printLine();
@@ -235,5 +231,10 @@ public class Ui {
 
     public void showArgsWrongFormat() {
         System.out.println("please try again with a valid float and/or dd-mm-yy format");
+    }
+
+    public String getDeadline() {
+        System.out.println("What would be the end date for the duration of your Saving goal?");
+        return getNextLine();
     }
 }

@@ -225,7 +225,7 @@ public class AccountList {
         }
     }
 
-    public void findAccount(String name, Account acc) {
+    public void findAccountToDelete(String name, Account acc) {
         if (acc.getAccountName().contains(name)) {
             accounts.remove(acc);
             ui.showAccountDeleted(name);
@@ -238,7 +238,7 @@ public class AccountList {
     //@@author Sherlock-YH
     public void deleteAccount(String name) {
         for (Account acc : accounts) {
-            findAccount(name, acc);
+            findAccountToDelete(name, acc);
             return;
         }
         ui.showNoAccountFound();
@@ -332,6 +332,7 @@ public class AccountList {
             if (isDateFormatValid(untilWhenStr)) {
                 SaveGoal saveGoal = new SaveGoal(toSave, untilWhenStr);
                 getMainAccount().setSaveGoal(saveGoal, args, untilWhenStr);
+                ui.showSaveGoalCreated(args, untilWhenStr);
             }
         } catch (NumberFormatException e) {
             ui.showNumberFormatError();

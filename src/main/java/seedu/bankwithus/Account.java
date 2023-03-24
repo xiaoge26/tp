@@ -29,6 +29,7 @@ public class Account {
         this.name = name;
         this.balance = balance;
         this.withdrawalChecker = new WithdrawalChecker(totalAmtWithdrawn, lastWithdrawnDate);
+        this.saveGoal = new SaveGoal(0, "01-01-2001");
     }
     //@@author Sherlock-YH
     public String getAccountName() {
@@ -62,7 +63,6 @@ public class Account {
     public void setSaveGoal(SaveGoal saveGoal, String args, String untilWhenStr) {
 
         this.saveGoal = saveGoal;
-        Ui.showSaveGoalCreated(args, untilWhenStr);
     }
 
     public String getName() {

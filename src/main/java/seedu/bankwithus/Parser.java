@@ -46,7 +46,7 @@ public class Parser {
         // Split input by space
         String[] split = input.trim().split("\\s+", 3);
         String command = split[0];
-        String args = split.length > 1 ? split[1] : "";
+        String args = split.length == 2 ? split[1] : "";
         switch (command) {
         case "exit":
             try {
@@ -112,8 +112,8 @@ public class Parser {
             ui.showHelp();
             break;
         case "save":
-            if(split.length > 2) {
-                String untilWhenStr = split[2];
+            if(args.length() > 0) {
+                String untilWhenStr = ui.getDeadline();
                 accountList.handleSaveGoal(args, untilWhenStr);
             } else {
                 ui.showInsufficientArgsEntered();
