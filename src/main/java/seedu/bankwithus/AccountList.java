@@ -122,8 +122,9 @@ public class AccountList {
     /**
      * Creates a new account and adds it to the AccountList.
      *
-     * @param name    Name of the new account to be added
-     * @param balance Balance of the new account to be added
+     * @param name            Name of the new account to be added
+     * @param balance         Balance of the new account to be added
+     * @param withdrawalLimit Withdrawal limit set by the user, blank if not set
      */
     public void addAccount(String name, String balance, String withdrawalLimit) {
         Account newAccount = new Account(name, balance);
@@ -136,6 +137,15 @@ public class AccountList {
     }
 
     //@@author tyuyang
+    /**
+     * Creates a new account with withdrawal info and adds it to the AccountList
+     * 
+     * @param name              Name of the new account to be added
+     * @param balance           Balance of the new account to be added
+     * @param totalAmtWithdrawn Total amount withdrawn from the account this month
+     * @param lastWithdrawnDate Date of the last withdrawal from the account
+     * @param withdrawalLimit   Withdrawal limit set by the user, blank if not set
+     */
     public void addAccount(String name, String balance, String totalAmtWithdrawn,
             LocalDate lastWithdrawnDate, String withdrawalLimit) {
         Account newAccount = new Account(name, balance, totalAmtWithdrawn, lastWithdrawnDate);
@@ -268,6 +278,7 @@ public class AccountList {
         getMainAccount().getWithdrawalChecker().setWithdrawalLimit(withdrawalLimit);
     }
     
+    //@@author Sherlock-YH
     public ArrayList<Account> getAccounts() {
         return accounts;
     }
