@@ -110,6 +110,9 @@ public class Ui {
         System.out.println("view-account: shows account name and balance");
         System.out.println("withdraw <amount>: withdraws <amount> from available balance");
         System.out.println("deposit <amount>: deposits <amount> and adds deposit to balance");
+        System.out.println("save <amount> <date in dd-mm-yyyy format>: sets a saveGoal of <amount> until <date>");
+        System.out.println("add-account: adds a new account");
+        System.out.println("switch-to <account username>: switches to <account username> account");
         System.out.println("exit: quits program and saves");
         printLine();
     }
