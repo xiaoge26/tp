@@ -23,7 +23,7 @@ public class Ui {
     }
 
     public void showNumberFormatError() {
-        System.out.println("either The amount or deadline input is not a valid number! Please try again.");
+        System.out.println("The input is not a valid number! Please try again.");
     }
 
     public void showNullInputError() {
