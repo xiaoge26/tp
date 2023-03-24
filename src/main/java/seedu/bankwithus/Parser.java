@@ -152,15 +152,16 @@ public class Parser {
                 String balanceString = splitDetails[1].trim();
                 String totalAmtWithdrawn = splitDetails[2].trim();
                 String lastWithdrawnDate = splitDetails[3].trim();
+                String withdrawalLimit = splitDetails[4].trim();
                 if (name.isEmpty() || balanceString.isEmpty() || totalAmtWithdrawn.isEmpty()) {
                     throw new CorruptedSaveFileException();
                 }
                 if (lastWithdrawnDate.isEmpty()) {
                     //if no history of withdrawing
-                    accountList.addAccount(name, balanceString);
+                    accountList.addAccount(name, balanceString, withdrawalLimit);
                 } else {
                     accountList.addAccount(name, balanceString, totalAmtWithdrawn, 
-                            LocalDate.parse(lastWithdrawnDate));
+                            LocalDate.parse(lastWithdrawnDate), withdrawalLimit);
                 }
             } catch (Exception e) {
                 throw new CorruptedSaveFileException();

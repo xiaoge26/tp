@@ -13,7 +13,7 @@ class AccountListTest {
         String name = "Bob";
         String balance = "0";
         AccountList accountList = new AccountList();
-        accountList.addAccount(name, balance);
+        accountList.addAccount(name, balance, "");
         assertThrows(NumberFormatException.class,
                 () -> accountList.depositMoney(amountString));
     }
@@ -24,7 +24,7 @@ class AccountListTest {
         String name = "Bob";
         String balance = "100";
         AccountList accountList = new AccountList();
-        accountList.addAccount(name, balance);
+        accountList.addAccount(name, balance, "");
         assertThrows(NegativeAmountException.class,
                 () -> accountList.depositMoney(amountString));
     }
@@ -55,7 +55,7 @@ class AccountListTest {
     @Test
     void testingAddAccount_validInput_expectNewAccount() {
         AccountList TestAccountList = new AccountList();
-        TestAccountList.addAccount("Jane", "1000");
+        TestAccountList.addAccount("Jane", "1000", "");
         assertEquals("Jane", TestAccountList.getMainAccount().getName());
         assertEquals("1000", TestAccountList.getMainAccount().getAccountBalance());
     }

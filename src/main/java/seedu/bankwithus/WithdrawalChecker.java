@@ -86,13 +86,13 @@ public class WithdrawalChecker {
     public String toString() {
         String lastWithdrawnDateString;
         if (lastWithdrawnDate == null) {
-            lastWithdrawnDateString = "";
+            lastWithdrawnDateString = " ";
         } else {
             lastWithdrawnDateString = lastWithdrawnDate.toString();
         }
         String withdrawalLimitString;
         if (withdrawalLimit == null) {
-            withdrawalLimitString = "";
+            withdrawalLimitString = " ";
         } else {
             withdrawalLimitString = withdrawalLimit;
         }

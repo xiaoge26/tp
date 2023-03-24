@@ -125,16 +125,24 @@ public class AccountList {
      * @param name    Name of the new account to be added
      * @param balance Balance of the new account to be added
      */
-    public void addAccount(String name, String balance) {
+    public void addAccount(String name, String balance, String withdrawalLimit) {
         Account newAccount = new Account(name, balance);
+        if (!withdrawalLimit.isBlank()) {
+            Float withdrawalLimitFloat = Float.parseFloat(withdrawalLimit);
+            newAccount.getWithdrawalChecker().setWithdrawalLimit(withdrawalLimitFloat);
+        }
         accounts.add(newAccount);
         ui.showNewAccountAdded(newAccount);
     }
 
     //@@author tyuyang
     public void addAccount(String name, String balance, String totalAmtWithdrawn,
-            LocalDate lastWithdrawnDate) {
+            LocalDate lastWithdrawnDate, String withdrawalLimit) {
         Account newAccount = new Account(name, balance, totalAmtWithdrawn, lastWithdrawnDate);
+        if (!withdrawalLimit.isBlank()) {
+            Float withdrawalLimitFloat = Float.parseFloat(withdrawalLimit);
+            newAccount.getWithdrawalChecker().setWithdrawalLimit(withdrawalLimitFloat);
+        }
         accounts.add(newAccount);
         ui.showNewAccountAdded(newAccount);
     }
@@ -146,7 +154,7 @@ public class AccountList {
     public void createNewAccount() {
         String userName = askUserForName();
         String balance = askUserForBalance();
-        addAccount(userName, balance);
+        addAccount(userName, balance, "");
     }
 
     //@@author Sherlock-YH
