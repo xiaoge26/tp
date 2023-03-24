@@ -84,10 +84,18 @@ public class WithdrawalChecker {
 
     @Override
     public String toString() {
+        String lastWithdrawnDateString;
         if (lastWithdrawnDate == null) {
-            return totalAmtWithdrawn + ";";
+            lastWithdrawnDateString = "";
         } else {
-            return totalAmtWithdrawn + ";" + lastWithdrawnDate.toString();
+            lastWithdrawnDateString = lastWithdrawnDate.toString();
         }
+        String withdrawalLimitString;
+        if (withdrawalLimit == null) {
+            withdrawalLimitString = "";
+        } else {
+            withdrawalLimitString = withdrawalLimit;
+        }
+        return totalAmtWithdrawn + ";" + lastWithdrawnDateString + ";" + withdrawalLimitString;
     }
 }
