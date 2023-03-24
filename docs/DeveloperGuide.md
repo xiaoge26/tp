@@ -155,7 +155,7 @@ minimalism of a CLI interface, as it provides only the essential information and
 | v2.0    | user     | add a savings goal                       | so that i can keep track of my spendings in tandem with my savings goal                 |
 | v2.0    | user     | add a new account                        | so that i can categorise my accounts and manage financial better                        |
 | v2.0    | user     | switch account                           | so that i can navigate between the various accounts i have and keep track of finacnials |
-| v2.0    | user     | list all the command that can be used    | have a basic overview of the apps functionalities                                       |
+| v2.0    | user     | list all the command that can be used    | so that i can have a basic overview of the apps functionalities                         |
 
 
 ### Non-Functional Requirements
