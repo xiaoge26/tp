@@ -10,6 +10,7 @@ import seedu.bankwithus.exceptions.SaveFileIsEmptyException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -134,6 +135,14 @@ public class AccountList {
         ui.showNewAccountAdded(newAccount);
     }
 
+    //@@author tyuyang
+    public void addAccount(String name, String balance, String totalAmtWithdrawn,
+            LocalDate lastWithdrawnDate) {
+        Account newAccount = new Account(name, balance, totalAmtWithdrawn, lastWithdrawnDate);
+        accounts.add(newAccount);
+        ui.showNewAccountAdded(newAccount);
+    }
+    
     //@@author vishnuvk47
     /**
      * Creates a new Account for a first time user
@@ -157,6 +166,8 @@ public class AccountList {
             StringBuilder temp = new StringBuilder();
             for (Account acc : accounts) {
                 temp.append(acc.getAccountName()).append(";").append(acc.getAccountBalance());
+                //saving withdrawal information
+                temp.append(";").append(acc.getWithdrawalChecker().toString());
                 temp.append("\n");
             }
             return temp.toString();
@@ -191,7 +202,8 @@ public class AccountList {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return LocalDate.parse(formattedDate, format);
     }
-    //@@author
+    
+    //@@author manushridiv
     public void withdrawMoney(String withdrawAmountString) throws NumberFormatException,
             NegativeAmountException, InsufficientBalanceException {
         float withdrawAmount = Float.parseFloat(withdrawAmountString);
@@ -256,6 +268,29 @@ public class AccountList {
             ui.showNoAccountFound();
         }
     }
+
+    //@@author tyuyang
+    /**
+     * Sets the withdrawal limit of the main account. Modifies the attribute
+     * withdrawalLimit in the WithdrawalChecker class directly
+     * 
+     * @param args the user input
+     * 
+     * @throws NegativeAmountException if input is negative
+     */
+    public void setWithdrawalLimit(String args) throws NegativeAmountException {
+        float withdrawalLimit;
+        try {
+            withdrawalLimit = Float.parseFloat(args);
+        } catch (Exception e) {
+            throw new NumberFormatException();
+        }
+        if (withdrawalLimit < 0) {
+            throw new NegativeAmountException();
+        }
+        getMainAccount().getWithdrawalChecker().setWithdrawalLimit(withdrawalLimit);
+    }
+    
     public ArrayList<Account> getAccounts() {
         return accounts;
     }

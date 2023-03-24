@@ -30,6 +30,7 @@ help: displays the current menu
 view-account: shows account name and balance
 withdraw <amount>: withdraws <amount> from available balance
 deposit <amount>: deposits <amount> and adds deposit to balance
+set-wl <amount>: sets <amount> to be the withdrawal limit
 exit: quits program and saves
 ----------------------------
 Not a valid command!
