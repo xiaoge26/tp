@@ -104,6 +104,8 @@ public class Ui {
         System.out.println("withdraw <amount>: withdraws <amount> from available balance");
         System.out.println("deposit <amount>: deposits <amount> and adds deposit to balance");
         System.out.println("set-wl <amount>: sets <amount> to be the withdrawal limit");
+        System.out.println("check-wl: shows the withdrawal limit and the amount of money withdrawn");
+        System.out.println("          this month.");
         System.out.println("exit: quits program and saves");
         printLine();
     }
@@ -191,5 +193,21 @@ public class Ui {
     public void showMainAccountSwitched() {
         System.out.println("Main Account switched");
         printLine();
+    }
+    //@@author tyuyang
+    public void showWithdrawalLimitSet(String withdrawalLimit) {
+        System.out.println("Withdrawal limit set to " + withdrawalLimit + "!");
+    }
+
+    public void showWithdrawalLimit(String withdrawalLimit) {
+        if (withdrawalLimit != null) {
+            System.out.println("Withdrawal limit is currently " + withdrawalLimit + ".");
+        } else {
+            System.out.println("No withdrawal limit set!");
+        }
+    }
+
+    public void showTotalAmountWithdrawn(String totalAmtWithdrawn) {
+        System.out.println("You have withdrawn " + totalAmtWithdrawn + " this month.");
     }
 }

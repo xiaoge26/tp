@@ -268,4 +268,13 @@ public class AccountList {
         this.accounts = accounts;
     }
 
+    //@@author tyuyang
+    public String[] checkWithdrawalLimit() {
+        String[] wlInfo = new String[2];
+        WithdrawalChecker withdrawalChecker = this.getMainAccount().getWithdrawalChecker();
+        withdrawalChecker.updateTotalAmtWithdrawn(0);
+        wlInfo[0] = withdrawalChecker.getWithdrawalLimit();
+        wlInfo[1] = withdrawalChecker.getTotalAmtWithdrawn();
+        return wlInfo;
+    }
 }

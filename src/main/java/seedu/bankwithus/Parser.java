@@ -82,6 +82,7 @@ public class Parser {
                 accountList.withdrawMoney(args);
                 ui.showWithdrawMessage();
                 accountList.showBal();
+                ui.printLine();
             } catch (NumberFormatException e) {
                 ui.showNumberFormatError();
             } catch (NegativeAmountException e) {
@@ -103,11 +104,21 @@ public class Parser {
         case "set-wl":
             try {
                 accountList.setWithdrawalLimit(args);
+                String withdrawalLimit = accountList.getMainAccount()
+                        .getWithdrawalChecker().getWithdrawalLimit();
+                ui.showWithdrawalLimitSet(withdrawalLimit);
+                ui.printLine();
             } catch (NumberFormatException e) {
                 ui.showNumberFormatError();
             } catch (NegativeAmountException e) {
                 ui.showNegativeAmountError();
             }
+            break;
+        case "check-wl":
+            String[] wlInfo = accountList.checkWithdrawalLimit();
+            ui.showWithdrawalLimit(wlInfo[0]); //print wl
+            ui.showTotalAmountWithdrawn(wlInfo[1]); //print total amt withdrawn
+            ui.printLine();
             break;
         case "help":
             ui.showHelp();

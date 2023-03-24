@@ -72,6 +72,10 @@ public class WithdrawalChecker {
         lastWithdrawnDate = currentDate;
     }
 
+    public String getWithdrawalLimit() {
+        return this.withdrawalLimit;
+    }
+
     public void setWithdrawalLimit(float withdrawalLimit) {
         DecimalFormat df = new DecimalFormat("#.##");
         String formatted = df.format(withdrawalLimit);
