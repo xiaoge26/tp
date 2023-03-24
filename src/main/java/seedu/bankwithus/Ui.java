@@ -6,6 +6,10 @@ public class Ui {
 
     private Scanner scanner;
 
+    public static void showSaveGoalCreated(String args, String untilWhenStr) {
+        System.out.println("try saving a Minimum of $"+args+" until "+untilWhenStr);
+        System.out.println("Save Goal has been created, Have fun staying frugal!");
+    }
     public void showFileNotFoundError() {
         System.out.println("File not found, trying to create file.");
     }
@@ -48,9 +52,12 @@ public class Ui {
 
     /**
      * Creates a scanner in the Ui class
+     *
+     * @return
      */
-    public void createScanner() {
+    public Scanner createScanner() {
         this.scanner = new Scanner(System.in);
+        return null;
     }
 
     /**
@@ -199,6 +206,14 @@ public class Ui {
         System.out.println("Name: " + acc.getAccountName());
         System.out.println("Balance: $" + acc.getAccountBalance());
         printLine();
+    }
+
+    public void showWithdrawCancelled() {
+        System.out.println("Withdrawal has been cancelled!");
+    }
+
+    public void showInsufficientArgsEntered() {
+        System.out.println("missing one of the arguments relevant to the entered command, TRY AGAIN!");
     }
 
     public void failToMeetSaveGoal() {

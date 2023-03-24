@@ -9,6 +9,7 @@ import seedu.bankwithus.exceptions.NoAccountException;
 import seedu.bankwithus.exceptions.SaveFileIsEmptyException;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Parser {
@@ -43,7 +44,7 @@ public class Parser {
      */
     public void parseUserInput(String input) throws CommandNotFoundException, IOException {
         // Split input by space
-        String[] split = input.trim().split("\\s+", 2);
+        String[] split = input.trim().split("\\s+", 3);
         String command = split[0];
         String args = split.length > 1 ? split[1] : "";
         switch (command) {
@@ -79,7 +80,7 @@ public class Parser {
         case "withdraw":
             try {
                 accountList.withdrawMoney(args);
-                ui.showWithdrawMessage();
+                 //need to make amends here to only show if withdrawn when no savegoal
                 accountList.showBal();
             } catch (NumberFormatException e) {
                 ui.showNumberFormatError();
@@ -103,10 +104,13 @@ public class Parser {
             ui.showHelp();
             break;
         case "save":
-            float toSave = Float.parseFloat(args);
-            String untilWhenStr = split[2];
-            SaveGoal saveGoal = new SaveGoal(toSave, untilWhenStr);
-            accountList.getMainAccount().setSaveGoal(saveGoal);
+            if(split.length > 2) {
+                String untilWhenStr = split[2];
+                accountList.handleSaveGoal(args, untilWhenStr);
+            } else {
+                ui.showInsufficientArgsEntered();
+            }
+            break;
         case "delete":
             accountList.deleteAccount(args);
             break;

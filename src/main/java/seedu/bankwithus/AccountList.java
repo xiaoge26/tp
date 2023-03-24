@@ -7,9 +7,13 @@ import seedu.bankwithus.exceptions.NegativeAmountException;
 import seedu.bankwithus.exceptions.NoAccountException;
 import seedu.bankwithus.exceptions.SaveFileIsEmptyException;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+import java.util.regex.PatternSyntaxException;
 
 public class AccountList {
     private ArrayList<Account> accounts;
@@ -176,6 +180,12 @@ public class AccountList {
         }
     }
 
+    public LocalDate handleDate(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedDate = date.format(formatter);
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return LocalDate.parse(formattedDate, format);
+    }
     //@@author
     public void withdrawMoney(String withdrawAmountString) throws NumberFormatException,
             NegativeAmountException, InsufficientBalanceException {
@@ -184,10 +194,18 @@ public class AccountList {
             throw new NegativeAmountException();
         }
         float currentBalance = Float.parseFloat(getMainAccount().getAccountBalance());
+        float expectedBal = currentBalance - withdrawAmount;
+        LocalDate tdy = LocalDate.now();
+        LocalDate tdyDate = handleDate(tdy);
         if (currentBalance < withdrawAmount) {
             throw new InsufficientBalanceException();
+        } else if(getMainAccount().getSaveGoal().amtToSave > expectedBal && !getMainAccount().getSaveGoal().untilWhen.isAfter(tdyDate)) {
+            System.out.println("Withdrawing the specified amount would lead to failing to meet Save Goal");
+            System.out.println("would you like to proceed? (Y/N)");
+            handleProceed(withdrawAmount, currentBalance);
         } else {
-            getMainAccount().subtractBalance(currentBalance,withdrawAmount);
+            getMainAccount( ).subtractBalance(currentBalance,withdrawAmount);
+            ui.showWithdrawMessage();
         }
     }
 
@@ -233,6 +251,44 @@ public class AccountList {
 
     public void setAccounts(ArrayList<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    public void handleProceed(float withdrawAmount, float currentBalance) {
+        String YesOrNo = ui.getNextLine();
+        while(!(YesOrNo.equalsIgnoreCase("y") || YesOrNo.equalsIgnoreCase("n"))) {
+            System.out.println("Please enter ONLY either Y for Yes and N for No.");
+            YesOrNo = ui.getNextLine();
+        }
+        if(YesOrNo.equalsIgnoreCase("y")) {
+            getMainAccount( ).subtractBalance(currentBalance,withdrawAmount);
+            getMainAccount().setSaveGoal(new SaveGoal(0, "01-01-2001"));
+            ui.showWithdrawMessage();
+
+        } else {
+            ui.showWithdrawCancelled();
+        }
+    }
+
+    public void handleSaveGoal(String args, String untilWhenStr) {
+        try {
+            float toSave = Float.parseFloat(args);
+            if (isDateFormatValid(untilWhenStr)) {
+                SaveGoal saveGoal = new SaveGoal(toSave, untilWhenStr);
+                getMainAccount().setSaveGoal(saveGoal);
+            }
+        } catch (NumberFormatException e) {
+            ui.showNumberFormatError();
+        }
+    }
+    public boolean isDateFormatValid(String date) {
+        String regex = "\\d{2}-\\d{2}-\\d{4}";
+        try {
+            return date.matches(regex);
+        } catch ( DateTimeException e) {
+            System.out.println("Date is not in the correct format.");
+            return false;
+        }
+
     }
 
 }

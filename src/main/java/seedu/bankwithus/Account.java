@@ -22,6 +22,7 @@ public class Account {
         this.name = name;
         this.balance = balance;
         this.withdrawalChecker = new WithdrawalChecker();
+        this.saveGoal = new SaveGoal(0, "01-01-2001");
     }
 
     //@@author tyuyang
