@@ -106,6 +106,7 @@ public class Ui {
     }
 
     public void showHelp() {
+        printLine();
         System.out.println("help: displays the current menu");
         System.out.println("view-account: shows account name and balance");
         System.out.println("withdraw <amount>: withdraws <amount> from available balance");
