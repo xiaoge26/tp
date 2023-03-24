@@ -114,6 +114,7 @@ public class Ui {
         System.out.println("save <amount> <date in dd-mm-yyyy format>: sets a saveGoal of <amount> until <date>");
         System.out.println("add-account: adds a new account");
         System.out.println("switch-to <account username>: switches to <account username> account");
+        System.out.println("set-wl <amount>: sets <amount> to be the withdrawal limit");
         System.out.println("exit: quits program and saves");
         printLine();
     }

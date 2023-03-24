@@ -38,13 +38,19 @@ public class Account {
     public String getAccountBalance() {
         return balance;
     }
-    //@@author
+
+    //@@author tyuyang
+    public WithdrawalChecker getWithdrawalChecker() {
+        return withdrawalChecker;
+    }
+    //@@author xiaoge26
     public void addBalance(float balanceToBeAdded) {
         DecimalFormat df = new DecimalFormat("#.##");
         String formatted = df.format(Float.parseFloat(balance) + balanceToBeAdded);
         this.balance = String.valueOf(formatted);
     }
 
+    //@@author manushridiv
     public void subtractBalance(float currentBalance, float withdrawal) {
         DecimalFormat df = new DecimalFormat("#.##");
         String formatted = df.format(currentBalance - withdrawal);
