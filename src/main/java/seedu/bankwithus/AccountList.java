@@ -7,6 +7,7 @@ import seedu.bankwithus.exceptions.NegativeAmountException;
 import seedu.bankwithus.exceptions.NoAccountException;
 import seedu.bankwithus.exceptions.SaveFileIsEmptyException;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -25,6 +26,14 @@ public class AccountList {
         accounts = new ArrayList<Account>();
         this.ui = bwu.getUi();
         createNewAccount();
+    }
+
+    /**
+     * Instantiates AccountList for unit testing
+     */
+    public AccountList() {
+        accounts = new ArrayList<Account>();
+        this.ui = new Ui();
     }
 
     /**
@@ -68,7 +77,7 @@ public class AccountList {
      *
      * @return the userName String
      */
-    private String askUserForName() {
+    public String askUserForName() {
         ui.askForName();
         String userName = ui.getNextLine();
         userName.trim();
@@ -90,7 +99,7 @@ public class AccountList {
      *
      * @return balance in the form of a float
      */
-    private String askUserForBalance() {
+    public String askUserForBalance() {
         ui.askForBalance();
         String balanceString = ui.getNextLine();
         balanceString = balanceString.trim();
@@ -108,7 +117,8 @@ public class AccountList {
             return askUserForBalance();
         }
     }
-    //@@author Sherlock-YH
+
+    //@@author xiaoge26
     /**
      * Creates a new account and adds it to the AccountList.
      *
@@ -120,7 +130,16 @@ public class AccountList {
         accounts.add(newAccount);
         ui.showNewAccountAdded(newAccount);
     }
-    //@@author
+
+    //@@author tyuyang
+    public void addAccount(String name, String balance, String totalAmtWithdrawn,
+            LocalDate lastWithdrawnDate) {
+        Account newAccount = new Account(name, balance, totalAmtWithdrawn, lastWithdrawnDate);
+        accounts.add(newAccount);
+        ui.showNewAccountAdded(newAccount);
+    }
+    
+    //@@author vishnuvk47
     /**
      * Creates a new Account for a first time user
      */
@@ -129,6 +148,7 @@ public class AccountList {
         String balance = askUserForBalance();
         addAccount(userName, balance);
     }
+
     //@@author Sherlock-YH
     /**
      * Name and balance are separated by ; prepared to be saved
@@ -142,17 +162,21 @@ public class AccountList {
             StringBuilder temp = new StringBuilder();
             for (Account acc : accounts) {
                 temp.append(acc.getAccountName()).append(";").append(acc.getAccountBalance());
+                //saving withdrawal information
+                temp.append(";").append(acc.getWithdrawalChecker().toString());
                 temp.append("\n");
             }
             return temp.toString();
         }
     }
+
     //@@author
     public void showBal() {
         String balance = getMainAccount().getAccountBalance();
         ui.showBal(balance);
     }
 
+    //@@author xiaoge26
     public void depositMoney(String depositAmountString) throws NumberFormatException,
             NullPointerException, NegativeAmountException {
         float depositAmount = Float.parseFloat(depositAmountString);
@@ -163,6 +187,7 @@ public class AccountList {
         }
     }
 
+    //@@author manushridiv
     public void withdrawMoney(String withdrawAmountString) throws NumberFormatException,
             NegativeAmountException, InsufficientBalanceException {
         float withdrawAmount = Float.parseFloat(withdrawAmountString);
@@ -211,6 +236,36 @@ public class AccountList {
             }
             ui.showNoAccountFound();
         }
-
     }
+
+    //@@author tyuyang
+    /**
+     * Sets the withdrawal limit of the main account. Modifies the attribute
+     * withdrawalLimit in the WithdrawalChecker class directly
+     * 
+     * @param args the user input
+     * 
+     * @throws NegativeAmountException if input is negative
+     */
+    public void setWithdrawalLimit(String args) throws NegativeAmountException {
+        float withdrawalLimit;
+        try {
+            withdrawalLimit = Float.parseFloat(args);
+        } catch (Exception e) {
+            throw new NumberFormatException();
+        }
+        if (withdrawalLimit < 0) {
+            throw new NegativeAmountException();
+        }
+        getMainAccount().getWithdrawalChecker().setWithdrawalLimit(withdrawalLimit);
+    }
+    
+    public ArrayList<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(ArrayList<Account> accounts) {
+        this.accounts = accounts;
+    }
+
 }
