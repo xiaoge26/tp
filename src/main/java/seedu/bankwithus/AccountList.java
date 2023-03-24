@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
-import java.util.regex.PatternSyntaxException;
+
 
 public class AccountList {
     private ArrayList<Account> accounts;
@@ -199,9 +199,8 @@ public class AccountList {
         LocalDate tdyDate = handleDate(tdy);
         if (currentBalance < withdrawAmount) {
             throw new InsufficientBalanceException();
-        } else if(getMainAccount().getSaveGoal().amtToSave > expectedBal && !getMainAccount().getSaveGoal().untilWhen.isAfter(tdyDate)) {
-            System.out.println("Withdrawing the specified amount would lead to failing to meet Save Goal");
-            System.out.println("would you like to proceed? (Y/N)");
+        } else if(isFailsSaveGoal(expectedBal, tdyDate)) {
+            ui.failToMeetSaveGoal();
             handleProceed(withdrawAmount, currentBalance);
         } else {
             getMainAccount( ).subtractBalance(currentBalance,withdrawAmount);
@@ -254,14 +253,14 @@ public class AccountList {
     }
 
     public void handleProceed(float withdrawAmount, float currentBalance) {
-        String YesOrNo = ui.getNextLine();
-        while(!(YesOrNo.equalsIgnoreCase("y") || YesOrNo.equalsIgnoreCase("n"))) {
+        String yesOrNo = ui.getNextLine();
+        while(!(yesOrNo.equalsIgnoreCase("y") || yesOrNo.equalsIgnoreCase("n"))) {
             System.out.println("Please enter ONLY either Y for Yes and N for No.");
-            YesOrNo = ui.getNextLine();
+            yesOrNo = ui.getNextLine();
         }
-        if(YesOrNo.equalsIgnoreCase("y")) {
+        if(yesOrNo.equalsIgnoreCase("y")) {
             getMainAccount( ).subtractBalance(currentBalance,withdrawAmount);
-            getMainAccount().setSaveGoal(new SaveGoal(0, "01-01-2001"));
+            getMainAccount().saveGoal.amtToSave = 0;
             ui.showWithdrawMessage();
 
         } else {
@@ -274,21 +273,34 @@ public class AccountList {
             float toSave = Float.parseFloat(args);
             if (isDateFormatValid(untilWhenStr)) {
                 SaveGoal saveGoal = new SaveGoal(toSave, untilWhenStr);
-                getMainAccount().setSaveGoal(saveGoal);
+                getMainAccount().setSaveGoal(saveGoal, args, untilWhenStr);
             }
         } catch (NumberFormatException e) {
             ui.showNumberFormatError();
         }
     }
     public boolean isDateFormatValid(String date) {
-        String regex = "\\d{2}-\\d{2}-\\d{4}";
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         try {
-            return date.matches(regex);
-        } catch ( DateTimeException e) {
-            System.out.println("Date is not in the correct format.");
+            LocalDate.parse(date, formatter);
+            return true;
+        } catch (DateTimeException e) {
+            System.out.println("Incorrect Date format, Try again following dd-MM-YYYY format!");
             return false;
         }
 
+    }
+
+    public void showGoal() {
+        SaveGoal goal = getMainAccount().getSaveGoal();
+        ui.showGoal(goal);
+    }
+
+    public Boolean isFailsSaveGoal(float expectedBal, LocalDate tdyDate) {
+        boolean exceedsSaveGoal = getMainAccount().getSaveGoal().amtToSave > expectedBal;
+        boolean deadlinePassed = getMainAccount().getSaveGoal().untilWhen.isAfter(tdyDate);
+        return (exceedsSaveGoal && !deadlinePassed);
     }
 
 }

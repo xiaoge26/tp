@@ -4,13 +4,11 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 public class Account {
+
+    public SaveGoal saveGoal;
     private String name;
     private String balance;
-    private SaveGoal saveGoal;
     private WithdrawalChecker withdrawalChecker;
-
-    private float amtToSave = 0;
-
     //@@author Sherlock-YH
     /**
      * Instantiates an account object
@@ -55,8 +53,10 @@ public class Account {
         withdrawalChecker.updateTotalAmtWithdrawn(withdrawal);
     }
 
-    public void setSaveGoal(SaveGoal saveGoal) {
+    public void setSaveGoal(SaveGoal saveGoal, String args, String untilWhenStr) {
+
         this.saveGoal = saveGoal;
+        Ui.showSaveGoalCreated(args, untilWhenStr);
     }
     public SaveGoal getSaveGoal() {
         return this.saveGoal;

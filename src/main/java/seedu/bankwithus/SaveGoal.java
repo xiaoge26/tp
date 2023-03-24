@@ -13,7 +13,6 @@ public class SaveGoal {
         try {
             this.untilWhen = LocalDate.parse(untilWhenStr, formatter);
             this.amtToSave = amtToSave;
-            Ui.showSaveGoalCreated(Float.toString(amtToSave), untilWhenStr);
         } catch (DateTimeException e) {
             System.out.println("Incorrect Date format, Try again following dd-MM-YYYY format!");
         }

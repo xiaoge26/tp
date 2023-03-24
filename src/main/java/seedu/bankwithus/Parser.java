@@ -9,7 +9,6 @@ import seedu.bankwithus.exceptions.NoAccountException;
 import seedu.bankwithus.exceptions.SaveFileIsEmptyException;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Parser {
@@ -80,7 +79,6 @@ public class Parser {
         case "withdraw":
             try {
                 accountList.withdrawMoney(args);
-                 //need to make amends here to only show if withdrawn when no savegoal
                 accountList.showBal();
             } catch (NumberFormatException e) {
                 ui.showNumberFormatError();
@@ -110,6 +108,9 @@ public class Parser {
             } else {
                 ui.showInsufficientArgsEntered();
             }
+            break;
+        case "show-saveGoal":
+            accountList.showGoal();
             break;
         case "delete":
             accountList.deleteAccount(args);

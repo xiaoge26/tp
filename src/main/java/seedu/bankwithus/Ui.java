@@ -220,4 +220,15 @@ public class Ui {
         System.out.println("Withdrawing the requested amount would lead to failing to meet your personal Save goal");
         System.out.println("Are you sure you want to follow through? (Y/N)");
     }
+
+    public void showGoal(SaveGoal goal) {
+        printLine();
+        System.out.println("Min amount to save: $" + Float.toString(goal.amtToSave));
+        System.out.println("Deadline: "+goal.untilWhen);
+        printLine();
+    }
+
+    public void showArgsWrongFormat() {
+        System.out.println("please try again with a valid float and/or dd-mm-yy format");
+    }
 }
