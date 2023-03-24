@@ -58,6 +58,10 @@ public class Account {
         this.saveGoal = saveGoal;
         Ui.showSaveGoalCreated(args, untilWhenStr);
     }
+
+    public String getName() {
+        return this.name;
+    }
     public SaveGoal getSaveGoal() {
         return this.saveGoal;
     }
