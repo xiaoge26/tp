@@ -180,6 +180,11 @@ public class AccountList {
         }
     }
 
+    /**
+     * checks if date is in the DD-MM-YYYY format
+     * @param date
+     * @return true is date in correct format and false if not
+     */
     public LocalDate handleDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String formattedDate = date.format(formatter);
@@ -208,14 +213,21 @@ public class AccountList {
         }
     }
 
+    public void findAccount(String name, Account acc) {
+        if (acc.getAccountName().contains(name)) {
+            accounts.remove(acc);
+            ui.showAccountDeleted(name);
+            if(accounts.size() < 1) {
+                createNewAccount();
+            }
+        }
+    }
+
     //@@author Sherlock-YH
     public void deleteAccount(String name) {
         for (Account acc : accounts) {
-            if (acc.getAccountName().contains(name)) {
-                accounts.remove(acc);
-                ui.showAccountDeleted(name);
-                return;
-            }
+            findAccount(name, acc);
+            return;
         }
         ui.showNoAccountFound();
     }
@@ -252,6 +264,11 @@ public class AccountList {
         this.accounts = accounts;
     }
 
+    /**
+     * handles overwriting of saveGoal at users own discretion
+     * @param withdrawAmount
+     * @param currentBalance
+     */
     public void handleProceed(float withdrawAmount, float currentBalance) {
         String yesOrNo = ui.getNextLine();
         while(!(yesOrNo.equalsIgnoreCase("y") || yesOrNo.equalsIgnoreCase("n"))) {
@@ -268,6 +285,12 @@ public class AccountList {
         }
     }
 
+    /**
+     * primary function that handles the setting and exception handling when saveGoal is called
+     * @param args
+     * @param untilWhenStr
+     */
+
     public void handleSaveGoal(String args, String untilWhenStr) {
         try {
             float toSave = Float.parseFloat(args);
@@ -279,6 +302,12 @@ public class AccountList {
             ui.showNumberFormatError();
         }
     }
+
+    /**
+     * checks if the date is entered in teh valid DD-MM-YYYY format
+     * @param date
+     * @return True if valid format and False if invalid format
+     */
     public boolean isDateFormatValid(String date) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -292,11 +321,20 @@ public class AccountList {
 
     }
 
+    /**
+     * Prints to UI the save goal that the user has set for himself
+     */
     public void showGoal() {
         SaveGoal goal = getMainAccount().getSaveGoal();
         ui.showGoal(goal);
     }
 
+    /**
+     * checks to see if the amount being withdrawn exeeds save Goal requirements
+     * @param expectedBal
+     * @param tdyDate
+     * @return True if fails to meet save Goal and False if meets save Goal requirements
+     */
     public Boolean isFailsSaveGoal(float expectedBal, LocalDate tdyDate) {
         boolean exceedsSaveGoal = getMainAccount().getSaveGoal().amtToSave > expectedBal;
         boolean deadlinePassed = getMainAccount().getSaveGoal().untilWhen.isAfter(tdyDate);
