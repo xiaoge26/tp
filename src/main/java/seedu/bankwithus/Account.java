@@ -4,10 +4,11 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 public class Account {
+
+    public SaveGoal saveGoal;
     private String name;
     private String balance;
     private WithdrawalChecker withdrawalChecker;
-
     //@@author Sherlock-YH
     /**
      * Instantiates an account object
@@ -19,6 +20,7 @@ public class Account {
         this.name = name;
         this.balance = balance;
         this.withdrawalChecker = new WithdrawalChecker();
+        this.saveGoal = new SaveGoal(0, "01-01-2001");
     }
 
     //@@author tyuyang
@@ -27,6 +29,7 @@ public class Account {
         this.name = name;
         this.balance = balance;
         this.withdrawalChecker = new WithdrawalChecker(totalAmtWithdrawn, lastWithdrawnDate);
+        this.saveGoal = new SaveGoal(0, "01-01-2001");
     }
     //@@author Sherlock-YH
     public String getAccountName() {
@@ -57,11 +60,15 @@ public class Account {
         withdrawalChecker.updateTotalAmtWithdrawn(withdrawal);
     }
 
-    public String getName() {
-        return name;
+    public void setSaveGoal(SaveGoal saveGoal, String args, String untilWhenStr) {
+
+        this.saveGoal = saveGoal;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return this.name;
+    }
+    public SaveGoal getSaveGoal() {
+        return this.saveGoal;
     }
 }

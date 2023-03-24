@@ -80,7 +80,6 @@ public class Parser {
         case "withdraw":
             try {
                 accountList.withdrawMoney(args);
-                ui.showWithdrawMessage();
                 accountList.showBal();
             } catch (NumberFormatException e) {
                 ui.showNumberFormatError();
@@ -111,6 +110,17 @@ public class Parser {
             break;
         case "help":
             ui.showHelp();
+            break;
+        case "save":
+            if(args.length() > 0) {
+                String untilWhenStr = ui.getDeadline();
+                accountList.handleSaveGoal(args, untilWhenStr);
+            } else {
+                ui.showInsufficientArgsEntered();
+            }
+            break;
+        case "show-saveGoal":
+            accountList.showGoal();
             break;
         case "delete":
             accountList.deleteAccount(args);

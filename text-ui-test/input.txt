@@ -1,10 +1,8 @@
-
 hi;hi
 hihi
 hihi
 
 1000
-help
 view account
 view-account
 deposit -1
