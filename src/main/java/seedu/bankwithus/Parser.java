@@ -170,15 +170,26 @@ public class Parser {
                 String totalAmtWithdrawn = splitDetails[2].trim();
                 String lastWithdrawnDate = splitDetails[3].trim();
                 String withdrawalLimit = splitDetails[4].trim();
+                String amtToSave;
+                String untilWhen;
+                if (splitDetails.length > 5) {
+                    amtToSave = splitDetails[5].trim();
+                    untilWhen = splitDetails[6].trim();
+                } else {
+                    amtToSave = "0";
+                    untilWhen = "2001-01-01";
+                }
+                StringBuilder tempStr = new StringBuilder(untilWhen);
+                untilWhen = tempStr.reverse().toString();
                 if (name.isEmpty() || balanceString.isEmpty() || totalAmtWithdrawn.isEmpty()) {
                     throw new CorruptedSaveFileException();
                 }
                 if (lastWithdrawnDate.isEmpty()) {
                     //if no history of withdrawing
-                    accountList.addAccount(name, balanceString, withdrawalLimit);
+                    accountList.addAccount(name, balanceString, withdrawalLimit, amtToSave, untilWhen);
                 } else {
                     accountList.addAccount(name, balanceString, totalAmtWithdrawn, 
-                            LocalDate.parse(lastWithdrawnDate), withdrawalLimit);
+                            LocalDate.parse(lastWithdrawnDate), withdrawalLimit, amtToSave, untilWhen);
                 }
             } catch (Exception e) {
                 throw new CorruptedSaveFileException();
