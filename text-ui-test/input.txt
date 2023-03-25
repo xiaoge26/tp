@@ -21,5 +21,15 @@ view-account
 withdraw dba
 withdraw 100
 view-account
+check-wl
+set-wl -1
+set-wl bal
+check-wl
+set-wl 100
+check-wl
+withdraw 10
+check-wl
+withdraw 100
+view-account
 
 exit

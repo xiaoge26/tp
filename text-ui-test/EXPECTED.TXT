@@ -72,6 +72,40 @@ Balance: $1100.21
 The input is not a valid number! Please try again.
 Withdrawal successful!
 You have $123678.1 remaining!
+----------------------------
+Current Account:
+Name: sherlock
+Balance: $123678.1
+----------------------------
+Name: hihi
+Balance: $1100.21
+----------------------------
+No withdrawal limit set!
+You have withdrawn $100 this month.
+----------------------------
+Negative amount entered!
+The input is not a valid number! Please try again.
+No withdrawal limit set!
+You have withdrawn $100 this month.
+----------------------------
+Withdrawal limit set to 100!
+----------------------------
+Withdrawal limit is currently $100.
+You have withdrawn $100 this month.
+----------------------------
+Apologies! Your transaction did not go through as it will result
+in you exceeding your withdrawal limit!
+Withdrawal limit is currently $100.
+You have withdrawn $100 this month.
+----------------------------
+Withdrawal limit is currently $100.
+You have withdrawn $100 this month.
+----------------------------
+Apologies! Your transaction did not go through as it will result
+in you exceeding your withdrawal limit!
+Withdrawal limit is currently $100.
+You have withdrawn $100 this month.
+----------------------------
 Current Account:
 Name: sherlock
 Balance: $123678.1

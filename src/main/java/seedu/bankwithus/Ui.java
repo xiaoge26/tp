@@ -114,6 +114,8 @@ public class Ui {
         System.out.println("add-account: adds a new account");
         System.out.println("switch-to <account username>: switches to <account username> account");
         System.out.println("set-wl <amount>: sets <amount> to be the withdrawal limit");
+        System.out.println("check-wl: shows the withdrawal limit and the amount of money withdrawn");
+        System.out.println("          this month.");
         System.out.println("exit: quits program and saves");
         printLine();
     }
@@ -236,5 +238,27 @@ public class Ui {
     public String getDeadline() {
         System.out.println("What would be the end date for the duration of your Saving goal?");
         return getNextLine();
+    }
+    
+    //@@author tyuyang
+    public void showWithdrawalLimitSet(String withdrawalLimit) {
+        System.out.println("Withdrawal limit set to " + withdrawalLimit + "!");
+    }
+
+    public void showWithdrawalLimit(String withdrawalLimit) {
+        if (withdrawalLimit != null) {
+            System.out.println("Withdrawal limit is currently $" + withdrawalLimit + ".");
+        } else {
+            System.out.println("No withdrawal limit set!");
+        }
+    }
+
+    public void showTotalAmountWithdrawn(String totalAmtWithdrawn) {
+        System.out.println("You have withdrawn $" + totalAmtWithdrawn + " this month.");
+    }
+
+    public void showExceedsWithdrawalLimitError() {
+        System.out.println("Apologies! Your transaction did not go through as it will result");
+        System.out.println("in you exceeding your withdrawal limit!");
     }
 }

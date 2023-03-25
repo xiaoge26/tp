@@ -3,6 +3,7 @@ package seedu.bankwithus;
 import seedu.bankwithus.exceptions.AccountNotFoundException;
 import seedu.bankwithus.exceptions.CommandNotFoundException;
 import seedu.bankwithus.exceptions.CorruptedSaveFileException;
+import seedu.bankwithus.exceptions.ExceedsWithdrawalLimitException;
 import seedu.bankwithus.exceptions.InsufficientBalanceException;
 import seedu.bankwithus.exceptions.NegativeAmountException;
 import seedu.bankwithus.exceptions.NoAccountException;
@@ -81,12 +82,19 @@ public class Parser {
             try {
                 accountList.withdrawMoney(args);
                 accountList.showBal();
+                ui.printLine();
             } catch (NumberFormatException e) {
                 ui.showNumberFormatError();
             } catch (NegativeAmountException e) {
                 ui.showNegativeAmountError();
             } catch (InsufficientBalanceException e) {
                 ui.showInsufficientBalanceMessage();
+            } catch (ExceedsWithdrawalLimitException e) {
+                ui.showExceedsWithdrawalLimitError();
+                String[] wlInfo = accountList.checkWithdrawalLimit();
+                ui.showWithdrawalLimit(wlInfo[0]); //print wl
+                ui.showTotalAmountWithdrawn(wlInfo[1]); //print total amt withdrawn
+                ui.printLine();
             }
             break;
         case "add-account":
@@ -102,11 +110,21 @@ public class Parser {
         case "set-wl":
             try {
                 accountList.setWithdrawalLimit(args);
+                String withdrawalLimit = accountList.getMainAccount()
+                        .getWithdrawalChecker().getWithdrawalLimit();
+                ui.showWithdrawalLimitSet(withdrawalLimit);
+                ui.printLine();
             } catch (NumberFormatException e) {
                 ui.showNumberFormatError();
             } catch (NegativeAmountException e) {
                 ui.showNegativeAmountError();
             }
+            break;
+        case "check-wl":
+            String[] wlInfo = accountList.checkWithdrawalLimit();
+            ui.showWithdrawalLimit(wlInfo[0]); //print wl
+            ui.showTotalAmountWithdrawn(wlInfo[1]); //print total amt withdrawn
+            ui.printLine();
             break;
         case "help":
             ui.showHelp();
@@ -151,15 +169,16 @@ public class Parser {
                 String balanceString = splitDetails[1].trim();
                 String totalAmtWithdrawn = splitDetails[2].trim();
                 String lastWithdrawnDate = splitDetails[3].trim();
+                String withdrawalLimit = splitDetails[4].trim();
                 if (name.isEmpty() || balanceString.isEmpty() || totalAmtWithdrawn.isEmpty()) {
                     throw new CorruptedSaveFileException();
                 }
                 if (lastWithdrawnDate.isEmpty()) {
                     //if no history of withdrawing
-                    accountList.addAccount(name, balanceString);
+                    accountList.addAccount(name, balanceString, withdrawalLimit);
                 } else {
                     accountList.addAccount(name, balanceString, totalAmtWithdrawn, 
-                            LocalDate.parse(lastWithdrawnDate));
+                            LocalDate.parse(lastWithdrawnDate), withdrawalLimit);
                 }
             } catch (Exception e) {
                 throw new CorruptedSaveFileException();
