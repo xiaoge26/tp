@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import seedu.bankwithus.data.AccountList;
+import seedu.bankwithus.data.TransactionList;
 import seedu.bankwithus.exceptions.CommandNotFoundException;
 import seedu.bankwithus.parser.Parser;
 import seedu.bankwithus.storage.Storage;
@@ -16,6 +17,7 @@ public class BankWithUs {
     private Storage storage;
     private Ui ui;
     private AccountList accountList;
+    private TransactionList transactionList;
     private Parser parser;
 
     /**
@@ -72,6 +74,7 @@ public class BankWithUs {
         ui.closeScanner();
         try {
             storage.saveToFile(accountList);
+            //storage.saveTransactionsToFile(transactionList);
         } catch (IOException e) {
             ui.showIOError();
             throw e;

@@ -1,6 +1,9 @@
 package seedu.bankwithus.storage;
 
 import seedu.bankwithus.data.AccountList;
+import seedu.bankwithus.data.Transaction;
+import seedu.bankwithus.data.TransactionList;
+import seedu.bankwithus.exceptions.TransactionNotFoundException;
 import seedu.bankwithus.ui.Ui;
 import seedu.bankwithus.exceptions.AccountNotFoundException;
 
@@ -12,9 +15,12 @@ import java.util.Scanner;
 
 public class Storage {
 
-    protected File saveFile;
+    protected File accountFile;
+    protected File TransactionFile;
     private final File saveDir = new File("data");
+
     private Ui ui;
+    private static final String DELIMITER = "|";
 
     /**
      * Creates a new instance of Storage. Initialises ui and saveFile.
@@ -22,7 +28,8 @@ public class Storage {
      * @param filepath the filepath. Should be data/save.txt by default
      */
     public Storage(String filepath) {
-        this.saveFile = new File(filepath);
+        this.accountFile = new File(filepath);
+        this.TransactionFile = new File("data/transaction.txt");
         this.ui = new Ui();
     }
 
@@ -33,7 +40,7 @@ public class Storage {
      * @throws FileNotFoundException if file is not found
      */
     public Scanner load() throws FileNotFoundException {
-        return new Scanner(saveFile);
+        return new Scanner(accountFile);
     }
 
     /**
@@ -43,7 +50,7 @@ public class Storage {
      */
     public void createNewFile() throws IOException {
         saveDir.mkdir();
-        saveFile.createNewFile();
+        accountFile.createNewFile();
         ui.showFileCreated();
     }
 
@@ -54,7 +61,7 @@ public class Storage {
      * @param list The AccountList that stores all accounts
      */
     public void saveToFile(AccountList list) throws IOException {
-        FileWriter fw = new FileWriter(saveFile);
+        FileWriter fw = new FileWriter(accountFile);
         try {
             fw.write(list.getAllAccountDetails());
             fw.close();
@@ -63,4 +70,15 @@ public class Storage {
         }
     }
 
+    //@@author xiaoge26
+    /**
+     * This method saves all transaction details to data/save.txt
+     *
+     * @param transactionList The TransactionList that stores all transactions
+     */
+    public void saveTransactionsToFile(TransactionList transactionList) throws IOException {
+        FileWriter fw = new FileWriter(accountFile);
+        fw.write(TransactionEncoder.encodeTransactionList(transactionList));
+        fw.close();
+    }
 }

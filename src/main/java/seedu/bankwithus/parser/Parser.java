@@ -17,13 +17,13 @@ import seedu.bankwithus.exceptions.SaveFileIsEmptyException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Parser {
     private BankWithUs bwu;
     private AccountList accountList;
     private TransactionList transactionList;
     private Ui ui;
-
     /**
      * Instantiates a bwu Parser object
      *
@@ -69,7 +69,7 @@ public class Parser {
             try {
                 accountList.depositMoney(args);
                 Transaction transaction = new Transaction(accountList.getMainAccount().getAccountName(),
-                        args, LocalDate.now(), "deposit");
+                        "deposit", args, LocalDate.now());
                 transactionList.addTransaction(transaction);
                 ui.showDepositMessage();
                 accountList.showBal();
@@ -94,7 +94,7 @@ public class Parser {
             try {
                 accountList.withdrawMoney(args);
                 Transaction transaction = new Transaction(accountList.getMainAccount().getAccountName(),
-                        args, LocalDate.now(), "withdraw");
+                        "withdraw", args, LocalDate.now());
                 transactionList.addTransaction(transaction);
                 accountList.showBal();
                 ui.printLine();
