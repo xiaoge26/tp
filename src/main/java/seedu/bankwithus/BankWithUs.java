@@ -3,7 +3,11 @@ package seedu.bankwithus;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import seedu.bankwithus.data.AccountList;
 import seedu.bankwithus.exceptions.CommandNotFoundException;
+import seedu.bankwithus.parser.Parser;
+import seedu.bankwithus.storage.Storage;
+import seedu.bankwithus.ui.Ui;
 
 public class BankWithUs {
 

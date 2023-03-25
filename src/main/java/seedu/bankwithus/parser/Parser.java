@@ -1,5 +1,10 @@
-package seedu.bankwithus;
+package seedu.bankwithus.parser;
 
+import seedu.bankwithus.data.AccountList;
+import seedu.bankwithus.BankWithUs;
+import seedu.bankwithus.data.Transaction;
+import seedu.bankwithus.data.TransactionList;
+import seedu.bankwithus.ui.Ui;
 import seedu.bankwithus.exceptions.AccountNotFoundException;
 import seedu.bankwithus.exceptions.CommandNotFoundException;
 import seedu.bankwithus.exceptions.CorruptedSaveFileException;
