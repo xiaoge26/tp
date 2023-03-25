@@ -387,7 +387,7 @@ public class AccountList {
     }
 
     /**
-     * checks to see if the amount being withdrawn exeeds save Goal requirements
+     * checks to see if the amount being withdrawn exceeds save Goal requirements
      * @param currentBalance
      * @param withdrawAmount
      * @return True if fails to meet save Goal and False if meets save Goal requirements

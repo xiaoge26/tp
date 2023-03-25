@@ -44,6 +44,7 @@ public class Account {
     public WithdrawalChecker getWithdrawalChecker() {
         return withdrawalChecker;
     }
+
     //@@author xiaoge26
     public void addBalance(float balanceToBeAdded) {
         DecimalFormat df = new DecimalFormat("#.##");
