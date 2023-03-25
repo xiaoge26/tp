@@ -60,14 +60,16 @@ public class TransactionList {
 
     public void printTransactionListByType(String type) {
         for (int i = 0; i < size; i++) {
-            if (transactions.get(i).getType().equals(type))
-            System.out.println(transactions.get(i).toString());
+            if (transactions.get(i).getType().equals(type)) {
+                System.out.println(transactions.get(i).toString());
+            }
         }
     }
     public void printTransactionListByDate(LocalDate date) {
         for (int i = 0; i < size; i++) {
-            if (transactions.get(i).getDate().isBefore(date))
-            System.out.println(transactions.get(i).toString());
+            if (transactions.get(i).getDate().isBefore(date)) {
+                System.out.println(transactions.get(i).toString());
+            }
         }
     }
 }
