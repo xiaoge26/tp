@@ -209,6 +209,7 @@ public class AccountList {
         }
     }
 
+    //@@author vishnuvk47
     /**
      * checks if date is in the DD-MM-YYYY format
      * @param date
@@ -229,12 +230,9 @@ public class AccountList {
             throw new NegativeAmountException();
         }
         float currentBalance = Float.parseFloat(getMainAccount().getAccountBalance());
-        float expectedBal = currentBalance - withdrawAmount;
-        LocalDate tdy = LocalDate.now();
-        LocalDate tdyDate = handleDate(tdy);
         if (currentBalance < withdrawAmount) {
             throw new InsufficientBalanceException();
-        } else if(isFailsSaveGoal(expectedBal, tdyDate)) {
+        } else if(isFailsSaveGoal(currentBalance, withdrawAmount)) {
             ui.failToMeetSaveGoal();
             handleProceed(withdrawAmount, currentBalance);
         } else {
@@ -318,6 +316,7 @@ public class AccountList {
         this.accounts = accounts;
     }
 
+    //@@author vishnuvk47
     /**
      * handles overwriting of saveGoal at users own discretion
      * @param withdrawAmount
@@ -390,7 +389,10 @@ public class AccountList {
      * @param tdyDate
      * @return True if fails to meet save Goal and False if meets save Goal requirements
      */
-    public Boolean isFailsSaveGoal(float expectedBal, LocalDate tdyDate) {
+    public Boolean isFailsSaveGoal(float currentBalance, float withdrawAmount) {
+        float expectedBal = currentBalance - withdrawAmount;
+        LocalDate tdy = LocalDate.now();
+        LocalDate tdyDate = handleDate(tdy);
         boolean exceedsSaveGoal = getMainAccount().getSaveGoal().amtToSave > expectedBal;
         boolean deadlinePassed = getMainAccount().getSaveGoal().untilWhen.isAfter(tdyDate);
         return (exceedsSaveGoal && !deadlinePassed);
