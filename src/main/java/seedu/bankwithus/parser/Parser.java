@@ -4,6 +4,7 @@ import seedu.bankwithus.data.AccountList;
 import seedu.bankwithus.BankWithUs;
 import seedu.bankwithus.data.Transaction;
 import seedu.bankwithus.data.TransactionList;
+import seedu.bankwithus.storage.TransactionDecoder;
 import seedu.bankwithus.ui.Ui;
 import seedu.bankwithus.exceptions.AccountNotFoundException;
 import seedu.bankwithus.exceptions.CommandNotFoundException;
@@ -17,7 +18,6 @@ import seedu.bankwithus.exceptions.SaveFileIsEmptyException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class Parser {
     private BankWithUs bwu;
@@ -33,8 +33,7 @@ public class Parser {
         this.bwu = bwu;
         this.ui = bwu.getUi();
         this.accountList = bwu.getAccountList();
-        this.transactionList = new TransactionList();
-        //this.transactionList = bwu.getTransactionList();
+        this.transactionList = bwu.getTransactionList();
     }
 
     /**
@@ -44,7 +43,10 @@ public class Parser {
      */
     public Parser(AccountList accountList) {
         this.accountList = accountList;
-        this.transactionList = new TransactionList();
+    }
+
+    public Parser(TransactionList transactionList) {
+        this.transactionList = transactionList;
     }
 
     /**
@@ -158,7 +160,7 @@ public class Parser {
         case "delete":
             accountList.deleteAccount(args);
             break;
-        case "view-transactions":
+        case "view-transactions-all":
             transactionList.printAllTransactions();
             break;
         default:
@@ -204,6 +206,21 @@ public class Parser {
         }
         scanner.close();
         if (accountList.getSize() == 0){
+            throw new SaveFileIsEmptyException();
+        }
+    }
+
+    public void parseTransactionFile(Scanner scanner) throws CorruptedSaveFileException, SaveFileIsEmptyException {
+        while (scanner.hasNextLine()) {
+            String transactionDetails = scanner.nextLine();
+            if (transactionDetails.isBlank()) {
+                throw new SaveFileIsEmptyException();
+            }
+            Transaction temp = TransactionDecoder.decodeTransaction(transactionDetails);
+            transactionList.addTransaction(temp);
+        }
+        scanner.close();
+        if (transactionList.getSize() == 0){
             throw new SaveFileIsEmptyException();
         }
     }

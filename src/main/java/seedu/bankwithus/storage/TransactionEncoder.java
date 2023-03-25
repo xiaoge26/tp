@@ -8,9 +8,9 @@ class TransactionEncoder {
         final StringBuilder encodedTransactionBuilder = new StringBuilder();
 
         encodedTransactionBuilder.append(transaction.getAccountName());
-        encodedTransactionBuilder.append(" t/").append(transaction.getType());
-        encodedTransactionBuilder.append(" a/").append(transaction.getAmount());
-        encodedTransactionBuilder.append(" d/").append(transaction.getDateStr());
+        encodedTransactionBuilder.append(" /").append(transaction.getType());
+        encodedTransactionBuilder.append(" /").append(transaction.getAmount());
+        encodedTransactionBuilder.append(" /").append(transaction.getDateStr());
 
         return encodedTransactionBuilder.toString();
     }

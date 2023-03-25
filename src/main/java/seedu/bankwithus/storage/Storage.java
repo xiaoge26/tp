@@ -1,9 +1,7 @@
 package seedu.bankwithus.storage;
 
 import seedu.bankwithus.data.AccountList;
-import seedu.bankwithus.data.Transaction;
 import seedu.bankwithus.data.TransactionList;
-import seedu.bankwithus.exceptions.TransactionNotFoundException;
 import seedu.bankwithus.ui.Ui;
 import seedu.bankwithus.exceptions.AccountNotFoundException;
 
@@ -16,20 +14,21 @@ import java.util.Scanner;
 public class Storage {
 
     protected File accountFile;
-    protected File TransactionFile;
+    protected File transactionFile;
     private final File saveDir = new File("data");
 
     private Ui ui;
-    private static final String DELIMITER = "|";
+
 
     /**
-     * Creates a new instance of Storage. Initialises ui and saveFile.
+     * Creates a new instance of Storage. Initialises the saveFile.
      *
-     * @param filepath the filepath. Should be data/save.txt by default
+     * @param accountsFilepath the accounts filepath. Should be data/save.txt by default
+     * @param transactionsFilepath the transactions filepath. Should be data/transaction.txt by default
      */
-    public Storage(String filepath) {
-        this.accountFile = new File(filepath);
-        this.TransactionFile = new File("data/transaction.txt");
+    public Storage(String accountsFilepath, String transactionsFilepath) {
+        this.accountFile = new File(accountsFilepath);
+        this.transactionFile = new File(transactionsFilepath);
         this.ui = new Ui();
     }
 
@@ -39,20 +38,36 @@ public class Storage {
      * @return the scanner containing the contents of the saveFile
      * @throws FileNotFoundException if file is not found
      */
-    public Scanner load() throws FileNotFoundException {
+    public Scanner loadAccounts() throws FileNotFoundException {
         return new Scanner(accountFile);
     }
 
+    //@@author xiaoge26
+    public Scanner loadTransactions() throws FileNotFoundException {
+        return new Scanner(transactionFile);
+    }
+
+    //@@author
     /**
      * Creates a new saveFile if file is not found. Also creates the data directory
      *
      * @throws IOException if something goes really wrong. Should almost never happen
      */
-    public void createNewFile() throws IOException {
+    public void createNewAccountsFile() throws IOException {
         saveDir.mkdir();
         accountFile.createNewFile();
         ui.showFileCreated();
     }
+
+
+    //@@author xiaoge26
+    //Take note that it does not create a new directory if it does not exist as
+    //the data directory is created in the createNewAccountsFile() method
+    //It does not show creation message as well, as it is not necessary
+    public void createNewTransactionsFile() throws IOException {
+        transactionFile.createNewFile();
+    }
+
 
     //@@author Sherlock-YH
     /**
@@ -77,7 +92,7 @@ public class Storage {
      * @param transactionList The TransactionList that stores all transactions
      */
     public void saveTransactionsToFile(TransactionList transactionList) throws IOException {
-        FileWriter fw = new FileWriter(accountFile);
+        FileWriter fw = new FileWriter(transactionFile);
         fw.write(TransactionEncoder.encodeTransactionList(transactionList));
         fw.close();
     }
