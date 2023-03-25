@@ -82,6 +82,12 @@ public class WithdrawalChecker {
         this.withdrawalLimit = String.valueOf(formatted);
     }
 
+    /**
+     * Checks if the amount withdrawn will exceed the withdrawal limit
+     * 
+     * @param withdrawAmount the amount withdrawn
+     * @return true if will exceed, false otherwise
+     */
     public boolean willExceedWithdrawalLimit(float withdrawAmount) {
         if (totalAmtWithdrawn.isBlank() || withdrawalLimit == null) {
             return false;
