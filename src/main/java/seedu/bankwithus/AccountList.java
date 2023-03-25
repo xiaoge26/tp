@@ -7,10 +7,14 @@ import seedu.bankwithus.exceptions.NegativeAmountException;
 import seedu.bankwithus.exceptions.NoAccountException;
 import seedu.bankwithus.exceptions.SaveFileIsEmptyException;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+
 
 public class AccountList {
     private ArrayList<Account> accounts;
@@ -187,6 +191,18 @@ public class AccountList {
         }
     }
 
+    /**
+     * checks if date is in the DD-MM-YYYY format
+     * @param date
+     * @return true is date in correct format and false if not
+     */
+    public LocalDate handleDate(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedDate = date.format(formatter);
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return LocalDate.parse(formattedDate, format);
+    }
+    
     //@@author manushridiv
     public void withdrawMoney(String withdrawAmountString) throws NumberFormatException,
             NegativeAmountException, InsufficientBalanceException {
@@ -195,21 +211,35 @@ public class AccountList {
             throw new NegativeAmountException();
         }
         float currentBalance = Float.parseFloat(getMainAccount().getAccountBalance());
+        float expectedBal = currentBalance - withdrawAmount;
+        LocalDate tdy = LocalDate.now();
+        LocalDate tdyDate = handleDate(tdy);
         if (currentBalance < withdrawAmount) {
             throw new InsufficientBalanceException();
+        } else if(isFailsSaveGoal(expectedBal, tdyDate)) {
+            ui.failToMeetSaveGoal();
+            handleProceed(withdrawAmount, currentBalance);
         } else {
-            getMainAccount().subtractBalance(currentBalance,withdrawAmount);
+            getMainAccount( ).subtractBalance(currentBalance,withdrawAmount);
+            ui.showWithdrawMessage();
+        }
+    }
+
+    public void findAccountToDelete(String name, Account acc) {
+        if (acc.getAccountName().contains(name)) {
+            accounts.remove(acc);
+            ui.showAccountDeleted(name);
+            if(accounts.size() < 1) {
+                createNewAccount();
+            }
         }
     }
 
     //@@author Sherlock-YH
     public void deleteAccount(String name) {
         for (Account acc : accounts) {
-            if (acc.getAccountName().contains(name)) {
-                accounts.remove(acc);
-                ui.showAccountDeleted(name);
-                return;
-            }
+            findAccountToDelete(name, acc);
+            return;
         }
         ui.showNoAccountFound();
     }
@@ -231,6 +261,7 @@ public class AccountList {
                 if (accounts.get(i).getAccountName().contains(accName)) {
                     Collections.swap(accounts, i, 0);
                     ui.showMainAccountSwitched();
+                    ui.showCurrentAccount(accounts.get(0));
                     return;
                 }
             }
@@ -266,6 +297,84 @@ public class AccountList {
 
     public void setAccounts(ArrayList<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    /**
+     * handles overwriting of saveGoal at users own discretion
+     * @param withdrawAmount
+     * @param currentBalance
+     */
+    public void handleProceed(float withdrawAmount, float currentBalance) {
+        String yesOrNo = ui.getNextLine();
+        while(!(yesOrNo.equalsIgnoreCase("y") || yesOrNo.equalsIgnoreCase("n"))) {
+            System.out.println("Please enter ONLY either Y for Yes and N for No.");
+            yesOrNo = ui.getNextLine();
+        }
+        if(yesOrNo.equalsIgnoreCase("y")) {
+            getMainAccount( ).subtractBalance(currentBalance,withdrawAmount);
+            getMainAccount().saveGoal.amtToSave = 0;
+            ui.showWithdrawMessage();
+
+        } else {
+            ui.showWithdrawCancelled();
+        }
+    }
+
+    /**
+     * primary function that handles the setting and exception handling when saveGoal is called
+     * @param args
+     * @param untilWhenStr
+     */
+
+    public void handleSaveGoal(String args, String untilWhenStr) {
+        try {
+            float toSave = Float.parseFloat(args);
+            if (isDateFormatValid(untilWhenStr)) {
+                SaveGoal saveGoal = new SaveGoal(toSave, untilWhenStr);
+                getMainAccount().setSaveGoal(saveGoal, args, untilWhenStr);
+                ui.showSaveGoalCreated(args, untilWhenStr);
+            }
+        } catch (NumberFormatException e) {
+            ui.showNumberFormatError();
+        }
+    }
+
+    /**
+     * checks if the date is entered in teh valid DD-MM-YYYY format
+     * @param date
+     * @return True if valid format and False if invalid format
+     */
+    public boolean isDateFormatValid(String date) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        try {
+            LocalDate.parse(date, formatter);
+            return true;
+        } catch (DateTimeException e) {
+            System.out.println("Incorrect Date format, Try again following dd-MM-YYYY format!");
+            return false;
+        }
+
+    }
+
+    /**
+     * Prints to UI the save goal that the user has set for himself
+     */
+    public void showGoal() {
+        SaveGoal goal = getMainAccount().getSaveGoal();
+        ui.showGoal(goal);
+    }
+
+    /**
+     * checks to see if the amount being withdrawn exeeds save Goal requirements
+     * @param expectedBal
+     * @param tdyDate
+     * @return True if fails to meet save Goal and False if meets save Goal requirements
+     */
+    public Boolean isFailsSaveGoal(float expectedBal, LocalDate tdyDate) {
+        boolean exceedsSaveGoal = getMainAccount().getSaveGoal().amtToSave > expectedBal;
+        boolean deadlinePassed = getMainAccount().getSaveGoal().untilWhen.isAfter(tdyDate);
+        return (exceedsSaveGoal && !deadlinePassed);
     }
 
 }
