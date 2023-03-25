@@ -29,5 +29,7 @@ set-wl 100
 check-wl
 withdraw 10
 check-wl
+withdraw 100
+view-account
 
 exit

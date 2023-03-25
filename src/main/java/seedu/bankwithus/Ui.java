@@ -247,13 +247,18 @@ public class Ui {
 
     public void showWithdrawalLimit(String withdrawalLimit) {
         if (withdrawalLimit != null) {
-            System.out.println("Withdrawal limit is currently " + withdrawalLimit + ".");
+            System.out.println("Withdrawal limit is currently $" + withdrawalLimit + ".");
         } else {
             System.out.println("No withdrawal limit set!");
         }
     }
 
     public void showTotalAmountWithdrawn(String totalAmtWithdrawn) {
-        System.out.println("You have withdrawn " + totalAmtWithdrawn + " this month.");
+        System.out.println("You have withdrawn $" + totalAmtWithdrawn + " this month.");
+    }
+
+    public void showExceedsWithdrawalLimitError() {
+        System.out.println("Apologies! Your transaction did not go through as it will result");
+        System.out.println("in you exceeding your withdrawal limit!");
     }
 }

@@ -3,6 +3,7 @@ package seedu.bankwithus;
 import seedu.bankwithus.exceptions.AccountNotFoundException;
 import seedu.bankwithus.exceptions.CommandNotFoundException;
 import seedu.bankwithus.exceptions.CorruptedSaveFileException;
+import seedu.bankwithus.exceptions.ExceedsWithdrawalLimitException;
 import seedu.bankwithus.exceptions.InsufficientBalanceException;
 import seedu.bankwithus.exceptions.NegativeAmountException;
 import seedu.bankwithus.exceptions.NoAccountException;
@@ -88,6 +89,12 @@ public class Parser {
                 ui.showNegativeAmountError();
             } catch (InsufficientBalanceException e) {
                 ui.showInsufficientBalanceMessage();
+            } catch (ExceedsWithdrawalLimitException e) {
+                ui.showExceedsWithdrawalLimitError();
+                String[] wlInfo = accountList.checkWithdrawalLimit();
+                ui.showWithdrawalLimit(wlInfo[0]); //print wl
+                ui.showTotalAmountWithdrawn(wlInfo[1]); //print total amt withdrawn
+                ui.printLine();
             }
             break;
         case "add-account":

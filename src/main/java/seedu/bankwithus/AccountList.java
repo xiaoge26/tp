@@ -2,6 +2,7 @@ package seedu.bankwithus;
 
 import seedu.bankwithus.exceptions.AccountNotFoundException;
 import seedu.bankwithus.exceptions.CorruptedSaveFileException;
+import seedu.bankwithus.exceptions.ExceedsWithdrawalLimitException;
 import seedu.bankwithus.exceptions.InsufficientBalanceException;
 import seedu.bankwithus.exceptions.NegativeAmountException;
 import seedu.bankwithus.exceptions.NoAccountException;
@@ -224,7 +225,7 @@ public class AccountList {
     
     //@@author manushridiv
     public void withdrawMoney(String withdrawAmountString) throws NumberFormatException,
-            NegativeAmountException, InsufficientBalanceException {
+            NegativeAmountException, InsufficientBalanceException, ExceedsWithdrawalLimitException {
         float withdrawAmount = Float.parseFloat(withdrawAmountString);
         if (withdrawAmount < 0) {
             throw new NegativeAmountException();
@@ -232,6 +233,8 @@ public class AccountList {
         float currentBalance = Float.parseFloat(getMainAccount().getAccountBalance());
         if (currentBalance < withdrawAmount) {
             throw new InsufficientBalanceException();
+        } else if (getMainAccount().getWithdrawalChecker().willExceedWithdrawalLimit(withdrawAmount)) {
+            throw new ExceedsWithdrawalLimitException();
         } else if(isFailsSaveGoal(currentBalance, withdrawAmount)) {
             ui.failToMeetSaveGoal();
             handleProceed(withdrawAmount, currentBalance);

@@ -82,6 +82,15 @@ public class WithdrawalChecker {
         this.withdrawalLimit = String.valueOf(formatted);
     }
 
+    public boolean willExceedWithdrawalLimit(float withdrawAmount) {
+        if (totalAmtWithdrawn.isBlank() || withdrawalLimit == null) {
+            return false;
+        }
+        float totalAmtWithdrawnFloat = Float.parseFloat(totalAmtWithdrawn);
+        float withdrawalLimitFloat = Float.parseFloat(withdrawalLimit);
+        return ((totalAmtWithdrawnFloat + withdrawAmount) > withdrawalLimitFloat);
+    }
+
     @Override
     public String toString() {
         String lastWithdrawnDateString;
