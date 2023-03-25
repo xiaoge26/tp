@@ -1,7 +1,7 @@
 package seedu.bankwithus.storage;
 
-import seedu.bankwithus.data.AccountList;
-import seedu.bankwithus.data.TransactionList;
+import seedu.bankwithus.user.AccountList;
+import seedu.bankwithus.user.TransactionList;
 import seedu.bankwithus.ui.Ui;
 import seedu.bankwithus.exceptions.AccountNotFoundException;
 

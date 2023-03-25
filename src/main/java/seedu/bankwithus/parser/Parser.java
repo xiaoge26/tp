@@ -1,9 +1,9 @@
 package seedu.bankwithus.parser;
 
-import seedu.bankwithus.data.AccountList;
+import seedu.bankwithus.user.AccountList;
 import seedu.bankwithus.BankWithUs;
-import seedu.bankwithus.data.Transaction;
-import seedu.bankwithus.data.TransactionList;
+import seedu.bankwithus.user.Transaction;
+import seedu.bankwithus.user.TransactionList;
 import seedu.bankwithus.storage.TransactionDecoder;
 import seedu.bankwithus.ui.Ui;
 import seedu.bankwithus.exceptions.AccountNotFoundException;

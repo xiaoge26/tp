@@ -1,7 +1,7 @@
 package seedu.bankwithus;
 
 import org.junit.jupiter.api.Test;
-import seedu.bankwithus.data.AccountList;
+import seedu.bankwithus.user.AccountList;
 import seedu.bankwithus.exceptions.NegativeAmountException;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;

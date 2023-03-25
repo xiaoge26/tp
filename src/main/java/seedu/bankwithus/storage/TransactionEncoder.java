@@ -1,7 +1,7 @@
 package seedu.bankwithus.storage;
 
-import seedu.bankwithus.data.Transaction;
-import seedu.bankwithus.data.TransactionList;
+import seedu.bankwithus.user.Transaction;
+import seedu.bankwithus.user.TransactionList;
 
 class TransactionEncoder {
     public static String encodeTransaction(Transaction transaction) {

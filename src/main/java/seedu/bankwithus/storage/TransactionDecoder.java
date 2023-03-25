@@ -1,6 +1,6 @@
 package seedu.bankwithus.storage;
 
-import seedu.bankwithus.data.Transaction;
+import seedu.bankwithus.user.Transaction;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
