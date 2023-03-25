@@ -12,56 +12,41 @@ Welcome to:
 File not found, trying to create file.
 Savefile created successfully!
 What's your name?
-User Name cannot be blank.
-What's your name?
-Please do not put the chacter ';' in the name.
+Please do not put the character ';' in the name.
 What's your name?
 How much would you like to add as Balance?
 The input is not a valid number! Please try again.
 How much would you like to add as Balance?
 The input is not a valid number! Please try again.
 How much would you like to add as Balance?
-----------------------------
 Account created!
 Name: hihi
 Balance: $1000
 ----------------------------
-help: displays the current menu
-view-account: shows account name and balance
-withdraw <amount>: withdraws <amount> from available balance
-deposit <amount>: deposits <amount> and adds deposit to balance
-set-wl <amount>: sets <amount> to be the withdrawal limit
-check-wl: shows the withdrawal limit and the amount of money withdrawn
-          this month.
-exit: quits program and saves
-----------------------------
 Not a valid command!
-MAIN Account:
+Current Account:
 Name: hihi
 Balance: $1000
 ----------------------------
 Negative amount entered!
 The input is not a valid number! Please try again.
-MAIN Account:
+Current Account:
 Name: hihi
 Balance: $1000
 ----------------------------
 New deposit added!
 You have $1100.21 remaining!
-MAIN Account:
+Current Account:
 Name: hihi
 Balance: $1100.21
 ----------------------------
-Account is not found, please rectify the name
-----------------------------
 What's your name?
 How much would you like to add as Balance?
-----------------------------
 Account created!
 Name: sherlock
 Balance: $123778.1
 ----------------------------
-MAIN Account:
+Current Account:
 Name: hihi
 Balance: $1100.21
 ----------------------------
@@ -70,9 +55,14 @@ Balance: $123778.1
 ----------------------------
 You do not have sufficient Balance
 ----------------------------
-Main Account switched
+Current Account switched
 ----------------------------
-MAIN Account:
+Current Account is:
+----------------------------
+Name: sherlock
+Balance: $123778.1
+----------------------------
+Current Account:
 Name: sherlock
 Balance: $123778.1
 ----------------------------
@@ -82,32 +72,12 @@ Balance: $1100.21
 The input is not a valid number! Please try again.
 Withdrawal successful!
 You have $123678.1 remaining!
-----------------------------
-MAIN Account:
+Current Account:
 Name: sherlock
 Balance: $123678.1
 ----------------------------
 Name: hihi
 Balance: $1100.21
-----------------------------
-No withdrawal limit set!
-You have withdrawn 100 this month.
-----------------------------
-Negative amount entered!
-The input is not a valid number! Please try again.
-No withdrawal limit set!
-You have withdrawn 100 this month.
-----------------------------
-Withdrawal limit set to 100!
-----------------------------
-Withdrawal limit is currently 100.
-You have withdrawn 100 this month.
-----------------------------
-Withdrawal successful!
-You have $123668.1 remaining!
-----------------------------
-Withdrawal limit is currently 100.
-You have withdrawn 110 this month.
 ----------------------------
 Not a valid command!
 Goodbye! Hope to see you again! :)
