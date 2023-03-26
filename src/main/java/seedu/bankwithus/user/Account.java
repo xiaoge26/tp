@@ -1,10 +1,12 @@
-package seedu.bankwithus;
+package seedu.bankwithus.user;
+
+import seedu.bankwithus.common.SaveGoal;
+import seedu.bankwithus.common.WithdrawalChecker;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 public class Account {
-
     public SaveGoal saveGoal;
     private String name;
     private String balance;
@@ -44,6 +46,7 @@ public class Account {
     public WithdrawalChecker getWithdrawalChecker() {
         return withdrawalChecker;
     }
+
     //@@author xiaoge26
     public void addBalance(float balanceToBeAdded) {
         DecimalFormat df = new DecimalFormat("#.##");

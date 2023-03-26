@@ -1,4 +1,4 @@
-package seedu.bankwithus;
+package seedu.bankwithus.common;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -1,4 +1,7 @@
-package seedu.bankwithus;
+package seedu.bankwithus.ui;
+
+import seedu.bankwithus.user.Account;
+import seedu.bankwithus.common.SaveGoal;
 
 import java.util.Scanner;
 

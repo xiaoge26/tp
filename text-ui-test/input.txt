@@ -31,5 +31,6 @@ withdraw 10
 check-wl
 withdraw 100
 view-account
+view-transactions-all
 
 exit

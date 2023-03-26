@@ -1,5 +1,11 @@
-package seedu.bankwithus;
+package seedu.bankwithus.parser;
 
+import seedu.bankwithus.user.AccountList;
+import seedu.bankwithus.BankWithUs;
+import seedu.bankwithus.user.Transaction;
+import seedu.bankwithus.user.TransactionList;
+import seedu.bankwithus.storage.TransactionDecoder;
+import seedu.bankwithus.ui.Ui;
 import seedu.bankwithus.exceptions.AccountNotFoundException;
 import seedu.bankwithus.exceptions.CommandNotFoundException;
 import seedu.bankwithus.exceptions.CorruptedSaveFileException;
@@ -16,8 +22,8 @@ import java.util.Scanner;
 public class Parser {
     private BankWithUs bwu;
     private AccountList accountList;
+    private TransactionList transactionList;
     private Ui ui;
-
     /**
      * Instantiates a bwu Parser object
      *
@@ -27,6 +33,7 @@ public class Parser {
         this.bwu = bwu;
         this.ui = bwu.getUi();
         this.accountList = bwu.getAccountList();
+        this.transactionList = bwu.getTransactionList();
     }
 
     /**
@@ -36,6 +43,10 @@ public class Parser {
      */
     public Parser(AccountList accountList) {
         this.accountList = accountList;
+    }
+
+    public Parser(TransactionList transactionList) {
+        this.transactionList = transactionList;
     }
 
     /**
@@ -59,6 +70,8 @@ public class Parser {
         case "deposit":
             try {
                 accountList.depositMoney(args);
+                transactionList.createNewTransaction(accountList.getMainAccount().getAccountName(),
+                        "deposit", args, LocalDate.now());
                 ui.showDepositMessage();
                 accountList.showBal();
             } catch (NumberFormatException e) {
@@ -81,6 +94,8 @@ public class Parser {
         case "withdraw":
             try {
                 accountList.withdrawMoney(args);
+                transactionList.createNewTransaction(accountList.getMainAccount().getAccountName(),
+                        "withdraw", args, LocalDate.now());
                 accountList.showBal();
                 ui.printLine();
             } catch (NumberFormatException e) {
@@ -143,6 +158,9 @@ public class Parser {
         case "delete":
             accountList.deleteAccount(args);
             break;
+        case "view-transactions-all":
+            transactionList.printAllTransactions();
+            break;
         default:
             throw new CommandNotFoundException();
         }
@@ -186,6 +204,23 @@ public class Parser {
         }
         scanner.close();
         if (accountList.getSize() == 0){
+            throw new SaveFileIsEmptyException();
+        }
+    }
+
+    public void parseTransactionFile(Scanner scanner) throws CorruptedSaveFileException,
+            SaveFileIsEmptyException {
+        while (scanner.hasNextLine()) {
+            String transactionDetails = scanner.nextLine();
+            if (transactionDetails.isBlank()) {
+                throw new SaveFileIsEmptyException();
+            }
+            TransactionDecoder decoder = new TransactionDecoder();
+            Transaction temp = decoder.decodeTransaction(transactionDetails);
+            transactionList.addTransaction(temp);
+        }
+        scanner.close();
+        if (transactionList.getSize() == 0){
             throw new SaveFileIsEmptyException();
         }
     }

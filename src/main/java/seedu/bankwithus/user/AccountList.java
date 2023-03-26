@@ -1,5 +1,8 @@
-package seedu.bankwithus;
+package seedu.bankwithus.user;
 
+import seedu.bankwithus.BankWithUs;
+import seedu.bankwithus.common.SaveGoal;
+import seedu.bankwithus.common.WithdrawalChecker;
 import seedu.bankwithus.exceptions.AccountNotFoundException;
 import seedu.bankwithus.exceptions.CorruptedSaveFileException;
 import seedu.bankwithus.exceptions.ExceedsWithdrawalLimitException;
@@ -7,6 +10,8 @@ import seedu.bankwithus.exceptions.InsufficientBalanceException;
 import seedu.bankwithus.exceptions.NegativeAmountException;
 import seedu.bankwithus.exceptions.NoAccountException;
 import seedu.bankwithus.exceptions.SaveFileIsEmptyException;
+import seedu.bankwithus.parser.Parser;
+import seedu.bankwithus.ui.Ui;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -48,7 +53,7 @@ public class AccountList {
      * 2. Create a brand new account if the save file was
      * empty
      *
-     * @param scanner the scanner containing the information in the save file
+     * @param scanner the scanner that reads the save file
      * @param bwu     the main bankWithUs program
      */
     public AccountList(Scanner scanner, BankWithUs bwu) {
@@ -66,6 +71,7 @@ public class AccountList {
         }
     }
 
+    //@@author xiaoge26
     /**
      * Returns the current account.
      *
@@ -75,6 +81,7 @@ public class AccountList {
         return accounts.get(0);
     }
 
+    //@@author
     /**
      * Asks the user for the name and returns it in the form of
      * a string. Will keep looping so long as the user does not
@@ -387,7 +394,7 @@ public class AccountList {
     }
 
     /**
-     * checks to see if the amount being withdrawn exeeds save Goal requirements
+     * checks to see if the amount being withdrawn exceeds save Goal requirements
      * @param currentBalance
      * @param withdrawAmount
      * @return True if fails to meet save Goal and False if meets save Goal requirements

@@ -1,4 +1,4 @@
-package seedu.bankwithus;
+package seedu.bankwithus.common;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
