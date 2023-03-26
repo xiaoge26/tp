@@ -139,7 +139,17 @@ public class AccountList {
      * @param withdrawalLimit Withdrawal limit set by the user, blank if not set
      */
     public void addAccount(String name, String balance, String withdrawalLimit) {
-        Account newAccount = new Account(name, balance);
+        Account newAccount = new Account(name, balance, "0", "01-01-2001");
+        if (!withdrawalLimit.isBlank()) {
+            Float withdrawalLimitFloat = Float.parseFloat(withdrawalLimit);
+            newAccount.getWithdrawalChecker().setWithdrawalLimit(withdrawalLimitFloat);
+        }
+        accounts.add(newAccount);
+        ui.showNewAccountAdded(newAccount);
+    }
+
+    public void addAccount(String name, String balance, String withdrawalLimit, String amtToSave, String untilWhen) {
+        Account newAccount = new Account(name, balance, amtToSave, untilWhen);
         if (!withdrawalLimit.isBlank()) {
             Float withdrawalLimitFloat = Float.parseFloat(withdrawalLimit);
             newAccount.getWithdrawalChecker().setWithdrawalLimit(withdrawalLimitFloat);
@@ -159,8 +169,8 @@ public class AccountList {
      * @param withdrawalLimit   Withdrawal limit set by the user, blank if not set
      */
     public void addAccount(String name, String balance, String totalAmtWithdrawn,
-            LocalDate lastWithdrawnDate, String withdrawalLimit) {
-        Account newAccount = new Account(name, balance, totalAmtWithdrawn, lastWithdrawnDate);
+            LocalDate lastWithdrawnDate, String withdrawalLimit, String amtToSave, String untilWhen) {
+        Account newAccount = new Account(name, balance, totalAmtWithdrawn, lastWithdrawnDate, amtToSave, untilWhen);
         if (!withdrawalLimit.isBlank()) {
             Float withdrawalLimitFloat = Float.parseFloat(withdrawalLimit);
             newAccount.getWithdrawalChecker().setWithdrawalLimit(withdrawalLimitFloat);
@@ -194,6 +204,10 @@ public class AccountList {
                 temp.append(acc.getAccountName()).append(";").append(acc.getAccountBalance());
                 //saving withdrawal information
                 temp.append(";").append(acc.getWithdrawalChecker().toString());
+                //save Save Goal info
+                SaveGoal savings = acc.getSaveGoal();
+                temp.append(";").append(savings.amtToSave);
+                temp.append(";").append(savings.untilWhen);
                 temp.append("\n");
             }
             return temp.toString();
@@ -357,7 +371,9 @@ public class AccountList {
     public void handleSaveGoal(String args, String untilWhenStr) {
         try {
             float toSave = Float.parseFloat(args);
-            if (isDateFormatValid(untilWhenStr)) {
+            if (toSave < 0) {
+                ui.showNegativeAmountError();
+            } else if (isDateFormatValid(untilWhenStr)) {
                 SaveGoal saveGoal = new SaveGoal(toSave, untilWhenStr);
                 getMainAccount().setSaveGoal(saveGoal, args, untilWhenStr);
                 ui.showSaveGoalCreated(args, untilWhenStr);
