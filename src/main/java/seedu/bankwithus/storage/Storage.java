@@ -93,7 +93,8 @@ public class Storage {
      */
     public void saveTransactionsToFile(TransactionList transactionList) throws IOException {
         FileWriter fw = new FileWriter(transactionFile);
-        fw.write(TransactionEncoder.encodeTransactionList(transactionList));
+        TransactionEncoder transactionEncoder = new TransactionEncoder();
+        fw.write(transactionEncoder.encodeTransactionList(transactionList));
         fw.close();
     }
 }

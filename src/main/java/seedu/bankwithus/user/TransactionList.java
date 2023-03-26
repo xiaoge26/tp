@@ -33,6 +33,12 @@ public class TransactionList {
         }
     }
 
+    public void createNewTransaction(String accountName, String type, String amount, LocalDate date) {
+        Transaction transaction = new Transaction(accountName, type, amount, date);
+        transactions.add(transaction);
+        size++;
+    }
+
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
         size++;
@@ -48,28 +54,9 @@ public class TransactionList {
         return size;
     }
 
-    public void clearTransactionList() {
-        transactions.clear();
-        size = 0;
-    }
     public void printAllTransactions() {
         for (int i = 0; i < size; i++) {
             System.out.println(transactions.get(i).toString());
-        }
-    }
-
-    public void printTransactionListByType(String type) {
-        for (int i = 0; i < size; i++) {
-            if (transactions.get(i).getType().equals(type)) {
-                System.out.println(transactions.get(i).toString());
-            }
-        }
-    }
-    public void printTransactionListByDate(LocalDate date) {
-        for (int i = 0; i < size; i++) {
-            if (transactions.get(i).getDate().isBefore(date)) {
-                System.out.println(transactions.get(i).toString());
-            }
         }
     }
 }

@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
 
 public class TransactionDecoder {
 
-    public static Transaction decodeTransaction(String encodedTransaction) {
-        String[] split = encodedTransaction.split(" /");
+    public Transaction decodeTransaction(String encodedTransaction) {
+        String[] split = encodedTransaction.split(";");
         if (split.length == 4) {
             String accountName = split[0];
             String type = split[1];

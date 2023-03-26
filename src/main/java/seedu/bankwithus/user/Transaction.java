@@ -15,7 +15,7 @@ public class Transaction {
         this.accountName = accountName;
         this.type = type;
         this.amount = amount;
-        this.date = LocalDate.now();
+        this.date = date;
     }
 
     @Override

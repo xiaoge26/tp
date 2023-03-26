@@ -23,6 +23,7 @@ Account created!
 Name: hihi
 Balance: $1000
 ----------------------------
+File not found, trying to create file.
 Not a valid command!
 Current Account:
 Name: hihi

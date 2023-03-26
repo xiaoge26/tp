@@ -70,9 +70,8 @@ public class Parser {
         case "deposit":
             try {
                 accountList.depositMoney(args);
-                Transaction transaction = new Transaction(accountList.getMainAccount().getAccountName(),
+                transactionList.createNewTransaction(accountList.getMainAccount().getAccountName(),
                         "deposit", args, LocalDate.now());
-                transactionList.addTransaction(transaction);
                 ui.showDepositMessage();
                 accountList.showBal();
             } catch (NumberFormatException e) {
@@ -95,9 +94,8 @@ public class Parser {
         case "withdraw":
             try {
                 accountList.withdrawMoney(args);
-                Transaction transaction = new Transaction(accountList.getMainAccount().getAccountName(),
+                transactionList.createNewTransaction(accountList.getMainAccount().getAccountName(),
                         "withdraw", args, LocalDate.now());
-                transactionList.addTransaction(transaction);
                 accountList.showBal();
                 ui.printLine();
             } catch (NumberFormatException e) {
@@ -210,13 +208,15 @@ public class Parser {
         }
     }
 
-    public void parseTransactionFile(Scanner scanner) throws CorruptedSaveFileException, SaveFileIsEmptyException {
+    public void parseTransactionFile(Scanner scanner) throws CorruptedSaveFileException,
+            SaveFileIsEmptyException {
         while (scanner.hasNextLine()) {
             String transactionDetails = scanner.nextLine();
             if (transactionDetails.isBlank()) {
                 throw new SaveFileIsEmptyException();
             }
-            Transaction temp = TransactionDecoder.decodeTransaction(transactionDetails);
+            TransactionDecoder decoder = new TransactionDecoder();
+            Transaction temp = decoder.decodeTransaction(transactionDetails);
             transactionList.addTransaction(temp);
         }
         scanner.close();
