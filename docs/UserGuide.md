@@ -1,42 +1,212 @@
-# User Guide
+### BankWithUs User Guide
 
-## Introduction
+--------------------------------------------------------------------------------------------------------------------
 
-{Give a product intro}
+## Quick start
 
-## Quick Start
+1. Ensure you have Java `11` or above installed in your Computer.
 
-{Give steps to get started quickly}
+1. Download the latest `BankWithUs.jar` from [here](https://github.com/AY2223S2-CS2113-T13-3/tp/releases).
 
-1. Ensure that you have Java 11 or above installed.
-1. Down the latest version of `Duke` from [here](http://link.to/duke).
+2. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
-## Features 
+3. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar BankWithUs.jar` command to run the application.<br>
 
-{Give detailed description of each feature}
+4. Follow the instruction as per the CLI and create your new account. e.g. typing **`help`** and pressing Enter will open the help option.<br>
+   Some example commands you can try:
 
-### Adding a todo: `todo`
-Adds a new item to the list of todo items.
+    * `view-transactions-all` : Lists all transactions.
 
-Format: `todo n/TODO_NAME d/DEADLINE`
+    * `withdraw 300` : withdraws $300 from teh current balance.
 
-* The `DEADLINE` can be in a natural language format.
-* The `TODO_NAME` cannot contain punctuation.  
+    * `delete` : deletes the current account the user is on.
 
-Example of usage: 
+    * `deposit 100` : Deposits $100 into the users account.
 
-`todo n/Write the rest of the User Guide d/next week`
+    * `exit` : Exits the app.
 
-`todo n/Refactor the User Guide to remove passive voice d/13/04/2020`
+1. Refer to the [Features](#features) below for details of each command.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Features
+
+<div markdown="block" class="alert alert-info">
+
+**Notes about the command format:**<br>
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
+  e.g. in `deposit AMOUNT`, `AMOUNT` is a parameter which can be used as `deposit 300`.
+
+* Parameters MUST be in the specified order for the command to take appropriate effect.<br>
+
+
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `view-transactions-all`, `exit`) will be ignored.<br>
+  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+
+</div>
+
+### Viewing help : `help`
+
+Shows a list of all the commands available and what they attempt to do.
+
+Format: `help`
+
+
+### Adding an account: `add-account`
+
+Initiates Adding a new account. When calling the command there is no requirement for any parameter.
+However, once the command starts, it will lead you through the process of a new account creation
+prompting your name and balance to be stored.
+
+Format: `add-account` <br />
+CLI prompts: "Whats your name?" <br />
+your input: `NAME` <br />
+CLI prompts: "How much would you like to add as Balance?" <br />
+your input: `BALANCE` Note: Balance has to be a valid number. <br />
+
+
+Examples:
+
+```agsl
+add-account
+>>What is your name?
+Steve
+>>How much would you like to add as Balance?
+1000
+```
+
+
+### List all transactions: `view-transactions-all`
+
+Shows a list of all the transactions processed by the **current** account.
+
+Format: `view-transactions-all`
+
+Example:
+```agsl
+>>view-transactions-all
+Account Name: jenson Transaction Type: deposit Amount: 100 Date: 26/03/2023
+Account Name: jenson Transaction Type: withdraw Amount: 10 Date: 26/03/2023
+```
+
+
+### Depositing amount : `deposit`
+
+Deposits AMOUNT into the users account.
+
+Format: `deposit AMOUNT`
+
+Examples:
+`deposit 100`
+
+### switch current account: `switch-to`
+
+Switches current account to the new requested account, if it exists.
+
+Format: `switch-to NAME`
+
+* The search is case-insensitive. e.g `jane` will match `Jane`
+* Only the name is searched.
+* Only full words will be matched e.g. `Ben` will not match `Benjamin`
+
+Examples:
+```
+switch-to jenson
+```
+
+
+### Add a savings Goal to the current account: `save`
+
+Adds a savings goal to teh current account. <br />
+will raise an alert when attempting to withdraw more than the savings goal, if attempt is before deadline
+
+Format: `save AMOUNT` >> will then prompt the user for the deadline.
+
+* The amount to save has to be a number, -ve numbers alloed -- can be used to overwrite as no savings goal
+* deadline entered has to be in dd-mm-YYYY format. No other format will be entertained by the program
+* any error will only be displayed after the deadline is received and processed.
+
+Examples:
+```
+save 300
+>>What would be the end date for the duration of your Saving goal?
+11-11-2011
+>>try saving a Minimum of $300 until 11-11-2011
+>>Save Goal has been created, Have fun staying frugal!
+```
+
+### Deleting an account : `delete`
+
+
+Format: `delete`
+
+* Deletes the current account.
+* if you want to delete a different account, switch to that account and run delete.
+
+Examples:
+```
+Current Account is:
+----------------------------
+Name: jameson
+Balance: $1000
+----------------------------
+>>delete
+```
+Deletes the jameson account.
+
+
+### Withdraw : `withdraw`
+
+Withdraws AMOUNT from the users balance.
+
+Format: `withdraw AMOUNT`
+
+Example:
+```agsl
+withdraw 500
+```
+
+* cannot withdraw more than balance.
+* cannot withdraw negative or non numbers.
+
+
+### Exiting the program : `exit`
+
+Exits the program.
+
+Format: `exit`
+
+### Saving the data
+
+BankWithUs data is automatically stored when user exist the program and there is no manual inteference required.
+
+### Editing the data file
+
+Editing the savefile data is highly not recommended, and users should attempt to only do so at their own discretion.
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+If you attempt to manipulate the saveFile and corrupted data is being parsed, you will be thrown exceptions.
+if this inhibits the program from running, please delete the exisiting savefile and run program again
+</div>
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
 
-**Q**: How do I transfer my data to another computer? 
+**Q**: How do I transfer my data to another Computer?<br>
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
 
-**A**: {your answer here}
+--------------------------------------------------------------------------------------------------------------------
 
-## Command Summary
+## Command summary
 
-{Give a 'cheat sheet' of commands here}
-
-* Add todo `todo n/TODO_NAME d/DEADLINE`
+| Action                      | Format, Examples     |
+|-----------------------------|----------------------|
+| **Add an Account**          | `add-account`        |
+| **swicth to a new account** | `switch-to ACC_NAME` |
+| **Delete an account**       | `delete`             |
+| **withdraw some amount**    | `withdraw AMOUNT`    |
+| **Add a savings goal**      | `save AMOUNT`        |
+| **Add a withdraw Limit**    | `set-wl`             |
+| **Help**                    | `help`               |
