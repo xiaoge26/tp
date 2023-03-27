@@ -118,14 +118,14 @@ switch-to jenson
 
 ### Add a savings Goal to the current account: `save`
 
-Adds a savings goal to teh current account. <br />
-will raise an alert when attempting to withdraw more than the savings goal, if attempt is before deadline
+Adds a savings goal to the current account. <br />
+Will raise an alert when attempting to withdraw more than the savings goal, if attempt is before deadline
 
 Format: `save AMOUNT` >> will then prompt the user for the deadline.
 
-* The amount to save has to be a number, -ve numbers alloed -- can be used to overwrite as no savings goal
-* deadline entered has to be in dd-mm-YYYY format. No other format will be entertained by the program
-* any error will only be displayed after the deadline is received and processed.
+* The amount to save has to be a number, -ve numbers allowed -- can be used to overwrite as no savings goal
+* Deadline entered has to be in dd-mm-YYYY format. No other format will be entertained by the program
+* Any error will only be displayed after the deadline is received and processed.
 
 Examples:
 ```
@@ -169,6 +169,25 @@ withdraw 500
 
 * cannot withdraw more than balance.
 * cannot withdraw negative or non numbers.
+
+
+### View Accounts : `view-account`
+
+Shows a list of all the available accounts--account name and balance.
+
+Format: `view-account`
+
+Example:
+```
+view-account
+Current Account:
+Name: james
+Balance: $1000
+----------------------------
+Name: john
+Balance: $300
+----------------------------
+```
 
 
 ### Exiting the program : `exit`
