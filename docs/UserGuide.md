@@ -132,7 +132,7 @@ Examples:
 save 300
 >>What would be the end date for the duration of your Saving goal?
 11-11-2011
->>try saving a Minimum of $300 until 11-11-2011
+>>Try saving a minimum of $300 until 11-11-2011
 >>Save Goal has been created, Have fun staying frugal!
 ```
 
