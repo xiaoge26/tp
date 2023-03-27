@@ -114,8 +114,8 @@ public class AccountList {
     public String askUserForBalance() {
         ui.askForBalance();
         String balanceString = ui.getNextLine();
-        balanceString = balanceString.replaceFirst("^0+(?!$)", "");
         balanceString = balanceString.trim();
+        balanceString = balanceString.replaceFirst("^0+(?!$)", "");
         try {
             float balance = Float.parseFloat(balanceString);
             if (balance < 0) {
