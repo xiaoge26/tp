@@ -116,6 +116,10 @@ public class AccountList {
         String balanceString = ui.getNextLine();
         balanceString = balanceString.trim();
         balanceString = balanceString.replaceFirst("^0+(?!$)", "");
+        float bal = Float.parseFloat(balanceString);
+        if (bal < 1) {
+            balanceString = "0"+balanceString;
+        }
         try {
             float balance = Float.parseFloat(balanceString);
             if (balance < 0) {
@@ -218,7 +222,9 @@ public class AccountList {
     //@@author
     public void showBal() {
         String balance = getMainAccount().getAccountBalance();
+        float bal = Float.parseFloat(balance);
         ui.showBal(balance);
+
     }
 
     //@@author xiaoge26
