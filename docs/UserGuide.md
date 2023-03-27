@@ -8,7 +8,7 @@
 
 1. Download the latest `BankWithUs.jar` from [here](https://github.com/AY2223S2-CS2113-T13-3/tp/releases).
 
-2. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+2. Copy the file to the folder you want to use as the _home folder_ for your BankWithUs app.
 
 3. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar BankWithUs.jar` command to run the application.<br>
 
