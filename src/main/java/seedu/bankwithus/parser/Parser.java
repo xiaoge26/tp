@@ -144,7 +144,7 @@ public class Parser {
         case "help":
             ui.showHelp();
             break;
-        case "save":
+        case "set-save-goal":
             if(args.length() > 0) {
                 String untilWhenStr = ui.getDeadline();
                 accountList.handleSaveGoal(args, untilWhenStr);
