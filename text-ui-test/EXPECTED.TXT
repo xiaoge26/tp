@@ -37,6 +37,7 @@ Balance: $1000
 ----------------------------
 New deposit added!
 You have $1100.21 remaining!
+----------------------------
 Current Account:
 Name: hihi
 Balance: $1100.21
