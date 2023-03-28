@@ -162,6 +162,7 @@ public class Parser {
         case "view-transactions-all":
                 try {
                     transactionList.printAllTransactions();
+                    ui.printLine();
                 } catch (NoTransactionsFoundException e) {
                     ui.noTransactionsFoundError();
                 }
