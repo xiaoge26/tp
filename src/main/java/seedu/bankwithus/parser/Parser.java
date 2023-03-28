@@ -75,6 +75,7 @@ public class Parser {
                         "deposit", args, LocalDate.now());
                 ui.showDepositMessage();
                 accountList.showBal();
+                ui.printLine();
             } catch (NumberFormatException e) {
                 ui.showNumberFormatError();
             } catch (NullPointerException e) {

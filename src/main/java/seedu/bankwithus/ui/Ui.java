@@ -255,7 +255,7 @@ public class Ui {
     
     //@@author tyuyang
     public void showWithdrawalLimitSet(String withdrawalLimit) {
-        System.out.println("Withdrawal limit set to " + withdrawalLimit + "!");
+        System.out.println("Withdrawal limit set to $" + withdrawalLimit + "!");
     }
 
     public void showWithdrawalLimit(String withdrawalLimit) {
