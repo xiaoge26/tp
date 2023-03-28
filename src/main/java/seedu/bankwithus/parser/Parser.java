@@ -160,12 +160,12 @@ public class Parser {
             accountList.deleteAccount(args);
             break;
         case "view-transactions-all":
-                try {
-                    transactionList.printAllTransactions();
-                    ui.printLine();
-                } catch (NoTransactionsFoundException e) {
-                    ui.noTransactionsFoundError();
-                }
+            try {
+                transactionList.printAllTransactions();
+                ui.printLine();
+            } catch (NoTransactionsFoundException e) {
+                ui.noTransactionsFoundError();
+            }
             break;
         default:
             throw new CommandNotFoundException();
