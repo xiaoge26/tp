@@ -79,7 +79,7 @@ Steve
 
 ### List all transactions: `view-transactions-all`
 
-Shows a list of all the transactions processed by the **current** account.
+Shows a list of all the transactions processed by all the accounts of the user.
 
 Format: `view-transactions-all`
 
@@ -93,7 +93,7 @@ Account Name: jenson Transaction Type: withdraw Amount: 10 Date: 26/03/2023
 
 ### Depositing amount : `deposit`
 
-Deposits AMOUNT into the users account.
+Deposits AMOUNT into the *current account*.
 
 Format: `deposit AMOUNT`
 
@@ -102,7 +102,7 @@ Examples:
 
 ### switch current account: `switch-to`
 
-Switches current account to the new requested account, if it exists.
+Switches from the *current account* to the new requested account, if it exists.
 
 Format: `switch-to NAME`
 
@@ -118,7 +118,7 @@ switch-to jenson
 
 ### Add a savings Goal to the current account: `save`
 
-Adds a savings goal to the current account. <br />
+Adds a savings goal to the *current account*. <br />
 Will raise an alert when attempting to withdraw more than the savings goal, if attempt is before deadline
 
 Format: `save AMOUNT` >> will then prompt the user for the deadline.
@@ -200,14 +200,17 @@ Format: `exit`
 
 BankWithUs data is automatically stored when user exist the program and there is no manual inteference required.
 
-### Editing the data file
+### Editing the data files
 
 Editing the savefile data is highly not recommended, and users should attempt to only do so at their own discretion.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+<div class="warning" style="color: red; background-color: #f2f2f2; padding: 10px;">
+<strong>Warning:</strong> <br>
 If you attempt to manipulate the saveFile and corrupted data is being parsed, you will be thrown exceptions.
-if this inhibits the program from running, please delete the exisiting savefile and run program again
+If this inhibits the program from running, please delete the exisiting savefile and run program again
 </div>
+
+
 
 --------------------------------------------------------------------------------------------------------------------
 
