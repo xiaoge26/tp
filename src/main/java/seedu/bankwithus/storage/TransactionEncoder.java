@@ -2,7 +2,8 @@ package seedu.bankwithus.storage;
 
 import seedu.bankwithus.user.Transaction;
 import seedu.bankwithus.user.TransactionList;
-import java.util.logging.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 class TransactionEncoder {
