@@ -1,0 +1,20 @@
+@startuml
+class BankWithUs
+class Storage
+class AccountList
+class Ui
+class TransactionList
+class Parser
+BankWithUs --> Storage
+Storage --> AccountList
+Storage --> TransactionList
+BankWithUs --> Parser
+BankWithUs --> AccountList
+BankWithUs --> TransactionList
+BankWithUs --> Ui
+Parser --> Ui
+Parser --> AccountList
+Parser --> TransactionList
+AccountList --> Ui
+TransactionList --> Ui
+@enduml
