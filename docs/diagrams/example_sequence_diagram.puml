@@ -1,0 +1,14 @@
+@startuml
+actor Shawn
+participant Ui
+participant BWU
+participant Parser
+participant AccountList
+participant Account
+activate BWU
+BWU -> Ui:getN
+activate Ui
+
+
+
+@enduml
