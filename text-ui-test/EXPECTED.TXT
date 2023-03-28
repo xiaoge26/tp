@@ -89,7 +89,7 @@ The input is not a valid number! Please try again.
 No withdrawal limit set!
 You have withdrawn $100 this month.
 ----------------------------
-Withdrawal limit set to 100!
+Withdrawal limit set to $100!
 ----------------------------
 Withdrawal limit is currently $100.
 You have withdrawn $100 this month.
