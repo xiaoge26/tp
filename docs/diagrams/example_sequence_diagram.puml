@@ -6,9 +6,25 @@ participant Parser
 participant AccountList
 participant Account
 activate BWU
-BWU -> Ui:getN
+BWU -> Ui:getNextLine()
 activate Ui
-
+Shawn -> Ui:deposit 100
+Ui --> BWU:"deposit 100"
+deactivate Ui
+BWU -> BWU:line = "deposit 100"
+BWU -> Parser:parseUserInput(line)
+activate Parser
+Parser -> Parser:command = "deposit"\nargs = "100"
+alt deposit
+Parser -> AccountList:depositMoney(args)
+activate AccountList
+AccountList -> AccountList:depositAmount = \nparseFloat("args")
+AccountList -> Account:addBalance()
+activate Account
+Account -> Account:balance = "100"
+Account --> AccountList
+deactivate Account
+end
 
 
 @enduml
