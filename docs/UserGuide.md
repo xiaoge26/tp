@@ -206,8 +206,11 @@ Editing the savefile data is highly not recommended, and users should attempt to
 
 <div class="warning" style="color: red; background-color: #f2f2f2; padding: 10px;">
 <strong>Warning:</strong> <br>
-If you attempt to manipulate the saveFile and corrupted data is being parsed, you will be thrown exceptions.
-If this inhibits the program from running, please delete the exisiting savefile and run program again
+If you attempt to manipulate the data files (save.txt and transaction.txt) 
+and corrupted data is being parsed, you will be thrown exceptions.
+If this inhibits the program from running, 
+please delete the existing files and run program again. 
+Please keep in mind that this will result in irreversible data loss.
 </div>
 
 
