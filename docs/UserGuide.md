@@ -2,28 +2,28 @@
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick start
+## Quick start guide
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `BankWithUs.jar` from [here](https://github.com/AY2223S2-CS2113-T13-3/tp/releases).
+2. Download the latest `BankWithUs.jar` from [here](https://github.com/AY2223S2-CS2113-T13-3/tp/releases).
 
-2. Copy the file to the folder you want to use as the _home folder_ for your BankWithUs app.
+3. Copy the file to the folder you want to use as the _home folder_ for your BankWithUs app.
 
-3. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar BankWithUs.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar BankWithUs.jar` command to run the application.<br>
 
-4. Follow the instruction as per the CLI and create your new account. e.g. typing **`help`** and pressing Enter will open the help option.<br>
+5. Follow the instruction as per the CLI and create your new account. e.g. typing **`help`** and pressing Enter will open the help option.<br>
    Some example commands you can try:
 
-    * `view-transactions-all` : Lists all transactions.
+       * `view-transactions-all` : Lists all transactions which has been committed in the app (a record)
 
-    * `withdraw 300` : withdraws $300 from teh current balance.
+       * `withdraw 300` : withdraws $300 from the current balance. (subsitute 300 for other numbers)
 
-    * `delete` : deletes the current account the user is on.
+       * `delete` : deletes the current account which the user has initially created.
 
-    * `deposit 100` : Deposits $100 into the users account.
+       * `deposit 100` : Deposits $100 into the users account. (subsitute 100 for other numbers)
 
-    * `exit` : Exits the app.
+       * `exit` : Exits the application
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -51,8 +51,6 @@
 Shows a list of all the commands available and what they attempt to do.
 
 Format: `help`
-
-
 ### Adding an account: `add-account`
 
 Initiates Adding a new account. When calling the command there is no requirement for any parameter.
@@ -64,6 +62,8 @@ CLI prompts: "Whats your name?" <br />
 your input: `NAME` <br />
 CLI prompts: "How much would you like to add as Balance?" <br />
 your input: `BALANCE` Note: Balance has to be a valid number. <br />
+
+
 
 
 Examples:
@@ -100,6 +100,7 @@ Format: `deposit AMOUNT`
 Examples:
 `deposit 100`
 
+
 ### switch current account: `switch-to`
 
 Switches current account to the new requested account, if it exists.
@@ -109,6 +110,8 @@ Format: `switch-to NAME`
 * The search is case-insensitive. e.g `jane` will match `Jane`
 * Only the name is searched.
 * Only full words will be matched e.g. `Ben` will not match `Benjamin`
+
+
 
 Examples:
 ```

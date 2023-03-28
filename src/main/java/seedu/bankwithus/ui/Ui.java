@@ -3,6 +3,8 @@ package seedu.bankwithus.ui;
 import seedu.bankwithus.user.Account;
 import seedu.bankwithus.common.SaveGoal;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Ui {
@@ -230,7 +232,10 @@ public class Ui {
 
     public void showGoal(SaveGoal goal) {
         System.out.println("Min amount to save: $" + Float.toString(goal.amtToSave));
-        System.out.println("Deadline: "+goal.untilWhen);
+        LocalDate date = goal.untilWhen;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String untilwhen = date.format(formatter);
+        System.out.println("Deadline: "+untilwhen);
         printLine();
     }
 
