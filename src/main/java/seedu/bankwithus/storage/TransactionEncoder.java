@@ -5,7 +5,10 @@ import seedu.bankwithus.user.TransactionList;
 
 class TransactionEncoder {
     public String encodeTransaction(Transaction transaction) {
-        final StringBuilder encodedTransactionBuilder = new StringBuilder();
+
+        //minor fix in the code, buggy
+        final StringBuilder encodedTransactionBuilder;
+        encodedTransactionBuilder = new StringBuilder();
 
         encodedTransactionBuilder.append(transaction.getAccountName());
         encodedTransactionBuilder.append(";").append(transaction.getType());
