@@ -1,8 +1,15 @@
-package seedu.bankwithus;
+package seedu.bankwithus.parser;
 
+import seedu.bankwithus.user.AccountList;
+import seedu.bankwithus.BankWithUs;
+import seedu.bankwithus.user.Transaction;
+import seedu.bankwithus.user.TransactionList;
+import seedu.bankwithus.storage.TransactionDecoder;
+import seedu.bankwithus.ui.Ui;
 import seedu.bankwithus.exceptions.AccountNotFoundException;
 import seedu.bankwithus.exceptions.CommandNotFoundException;
 import seedu.bankwithus.exceptions.CorruptedSaveFileException;
+import seedu.bankwithus.exceptions.ExceedsWithdrawalLimitException;
 import seedu.bankwithus.exceptions.InsufficientBalanceException;
 import seedu.bankwithus.exceptions.NegativeAmountException;
 import seedu.bankwithus.exceptions.NoAccountException;
@@ -15,8 +22,8 @@ import java.util.Scanner;
 public class Parser {
     private BankWithUs bwu;
     private AccountList accountList;
+    private TransactionList transactionList;
     private Ui ui;
-
     /**
      * Instantiates a bwu Parser object
      *
@@ -26,6 +33,7 @@ public class Parser {
         this.bwu = bwu;
         this.ui = bwu.getUi();
         this.accountList = bwu.getAccountList();
+        this.transactionList = bwu.getTransactionList();
     }
 
     /**
@@ -35,6 +43,10 @@ public class Parser {
      */
     public Parser(AccountList accountList) {
         this.accountList = accountList;
+    }
+
+    public Parser(TransactionList transactionList) {
+        this.transactionList = transactionList;
     }
 
     /**
@@ -58,6 +70,8 @@ public class Parser {
         case "deposit":
             try {
                 accountList.depositMoney(args);
+                transactionList.createNewTransaction(accountList.getMainAccount().getAccountName(),
+                        "deposit", args, LocalDate.now());
                 ui.showDepositMessage();
                 accountList.showBal();
             } catch (NumberFormatException e) {
@@ -80,13 +94,22 @@ public class Parser {
         case "withdraw":
             try {
                 accountList.withdrawMoney(args);
+                transactionList.createNewTransaction(accountList.getMainAccount().getAccountName(),
+                        "withdraw", args, LocalDate.now());
                 accountList.showBal();
+                ui.printLine();
             } catch (NumberFormatException e) {
                 ui.showNumberFormatError();
             } catch (NegativeAmountException e) {
                 ui.showNegativeAmountError();
             } catch (InsufficientBalanceException e) {
                 ui.showInsufficientBalanceMessage();
+            } catch (ExceedsWithdrawalLimitException e) {
+                ui.showExceedsWithdrawalLimitError();
+                String[] wlInfo = accountList.checkWithdrawalLimit();
+                ui.showWithdrawalLimit(wlInfo[0]); //print wl
+                ui.showTotalAmountWithdrawn(wlInfo[1]); //print total amt withdrawn
+                ui.printLine();
             }
             break;
         case "add-account":
@@ -102,11 +125,21 @@ public class Parser {
         case "set-wl":
             try {
                 accountList.setWithdrawalLimit(args);
+                String withdrawalLimit = accountList.getMainAccount()
+                        .getWithdrawalChecker().getWithdrawalLimit();
+                ui.showWithdrawalLimitSet(withdrawalLimit);
+                ui.printLine();
             } catch (NumberFormatException e) {
                 ui.showNumberFormatError();
             } catch (NegativeAmountException e) {
                 ui.showNegativeAmountError();
             }
+            break;
+        case "check-wl":
+            String[] wlInfo = accountList.checkWithdrawalLimit();
+            ui.showWithdrawalLimit(wlInfo[0]); //print wl
+            ui.showTotalAmountWithdrawn(wlInfo[1]); //print total amt withdrawn
+            ui.printLine();
             break;
         case "help":
             ui.showHelp();
@@ -124,6 +157,9 @@ public class Parser {
             break;
         case "delete":
             accountList.deleteAccount(args);
+            break;
+        case "view-transactions-all":
+            transactionList.printAllTransactions();
             break;
         default:
             throw new CommandNotFoundException();
@@ -151,15 +187,27 @@ public class Parser {
                 String balanceString = splitDetails[1].trim();
                 String totalAmtWithdrawn = splitDetails[2].trim();
                 String lastWithdrawnDate = splitDetails[3].trim();
+                String withdrawalLimit = splitDetails[4].trim();
+                String amtToSave;
+                String untilWhen;
+                if (splitDetails.length > 5) {
+                    amtToSave = splitDetails[5].trim();
+                    untilWhen = splitDetails[6].trim();
+                } else {
+                    amtToSave = "0";
+                    untilWhen = "2001-01-01";
+                }
+                StringBuilder tempStr = new StringBuilder(untilWhen);
+                untilWhen = tempStr.reverse().toString();
                 if (name.isEmpty() || balanceString.isEmpty() || totalAmtWithdrawn.isEmpty()) {
                     throw new CorruptedSaveFileException();
                 }
                 if (lastWithdrawnDate.isEmpty()) {
                     //if no history of withdrawing
-                    accountList.addAccount(name, balanceString);
+                    accountList.addAccount(name, balanceString, withdrawalLimit, amtToSave, untilWhen);
                 } else {
                     accountList.addAccount(name, balanceString, totalAmtWithdrawn, 
-                            LocalDate.parse(lastWithdrawnDate));
+                            LocalDate.parse(lastWithdrawnDate), withdrawalLimit, amtToSave, untilWhen);
                 }
             } catch (Exception e) {
                 throw new CorruptedSaveFileException();
@@ -167,6 +215,23 @@ public class Parser {
         }
         scanner.close();
         if (accountList.getSize() == 0){
+            throw new SaveFileIsEmptyException();
+        }
+    }
+
+    public void parseTransactionFile(Scanner scanner) throws CorruptedSaveFileException,
+            SaveFileIsEmptyException {
+        while (scanner.hasNextLine()) {
+            String transactionDetails = scanner.nextLine();
+            if (transactionDetails.isBlank()) {
+                throw new SaveFileIsEmptyException();
+            }
+            TransactionDecoder decoder = new TransactionDecoder();
+            Transaction temp = decoder.decodeTransaction(transactionDetails);
+            transactionList.addTransaction(temp);
+        }
+        scanner.close();
+        if (transactionList.getSize() == 0){
             throw new SaveFileIsEmptyException();
         }
     }

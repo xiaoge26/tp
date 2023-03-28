@@ -1,11 +1,17 @@
-package seedu.bankwithus;
+package seedu.bankwithus.user;
 
+import seedu.bankwithus.BankWithUs;
+import seedu.bankwithus.common.SaveGoal;
+import seedu.bankwithus.common.WithdrawalChecker;
 import seedu.bankwithus.exceptions.AccountNotFoundException;
 import seedu.bankwithus.exceptions.CorruptedSaveFileException;
+import seedu.bankwithus.exceptions.ExceedsWithdrawalLimitException;
 import seedu.bankwithus.exceptions.InsufficientBalanceException;
 import seedu.bankwithus.exceptions.NegativeAmountException;
 import seedu.bankwithus.exceptions.NoAccountException;
 import seedu.bankwithus.exceptions.SaveFileIsEmptyException;
+import seedu.bankwithus.parser.Parser;
+import seedu.bankwithus.ui.Ui;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -47,7 +53,7 @@ public class AccountList {
      * 2. Create a brand new account if the save file was
      * empty
      *
-     * @param scanner the scanner containing the information in the save file
+     * @param scanner the scanner that reads the save file
      * @param bwu     the main bankWithUs program
      */
     public AccountList(Scanner scanner, BankWithUs bwu) {
@@ -65,6 +71,7 @@ public class AccountList {
         }
     }
 
+    //@@author xiaoge26
     /**
      * Returns the current account.
      *
@@ -74,6 +81,7 @@ public class AccountList {
         return accounts.get(0);
     }
 
+    //@@author
     /**
      * Asks the user for the name and returns it in the form of
      * a string. Will keep looping so long as the user does not
@@ -107,8 +115,12 @@ public class AccountList {
         ui.askForBalance();
         String balanceString = ui.getNextLine();
         balanceString = balanceString.trim();
+        balanceString = balanceString.replaceFirst("^0+(?!$)", "");
         try {
             float balance = Float.parseFloat(balanceString);
+            if (balance < 1) {
+                balanceString = "0"+balanceString;
+            }
             if (balance < 0) {
                 throw new NegativeAmountException();
             }
@@ -126,19 +138,47 @@ public class AccountList {
     /**
      * Creates a new account and adds it to the AccountList.
      *
-     * @param name    Name of the new account to be added
-     * @param balance Balance of the new account to be added
+     * @param name            Name of the new account to be added
+     * @param balance         Balance of the new account to be added
+     * @param withdrawalLimit Withdrawal limit set by the user, blank if not set
      */
-    public void addAccount(String name, String balance) {
-        Account newAccount = new Account(name, balance);
+    public void addAccount(String name, String balance, String withdrawalLimit) {
+        Account newAccount = new Account(name, balance, "0", "01-01-2001");
+        if (!withdrawalLimit.isBlank()) {
+            Float withdrawalLimitFloat = Float.parseFloat(withdrawalLimit);
+            newAccount.getWithdrawalChecker().setWithdrawalLimit(withdrawalLimitFloat);
+        }
+        accounts.add(newAccount);
+        ui.showNewAccountAdded(newAccount);
+    }
+
+    public void addAccount(String name, String balance, String withdrawalLimit, String amtToSave, String untilWhen) {
+        Account newAccount = new Account(name, balance, amtToSave, untilWhen);
+        if (!withdrawalLimit.isBlank()) {
+            Float withdrawalLimitFloat = Float.parseFloat(withdrawalLimit);
+            newAccount.getWithdrawalChecker().setWithdrawalLimit(withdrawalLimitFloat);
+        }
         accounts.add(newAccount);
         ui.showNewAccountAdded(newAccount);
     }
 
     //@@author tyuyang
+    /**
+     * Creates a new account with withdrawal info and adds it to the AccountList
+     * 
+     * @param name              Name of the new account to be added
+     * @param balance           Balance of the new account to be added
+     * @param totalAmtWithdrawn Total amount withdrawn from the account this month
+     * @param lastWithdrawnDate Date of the last withdrawal from the account
+     * @param withdrawalLimit   Withdrawal limit set by the user, blank if not set
+     */
     public void addAccount(String name, String balance, String totalAmtWithdrawn,
-            LocalDate lastWithdrawnDate) {
-        Account newAccount = new Account(name, balance, totalAmtWithdrawn, lastWithdrawnDate);
+            LocalDate lastWithdrawnDate, String withdrawalLimit, String amtToSave, String untilWhen) {
+        Account newAccount = new Account(name, balance, totalAmtWithdrawn, lastWithdrawnDate, amtToSave, untilWhen);
+        if (!withdrawalLimit.isBlank()) {
+            Float withdrawalLimitFloat = Float.parseFloat(withdrawalLimit);
+            newAccount.getWithdrawalChecker().setWithdrawalLimit(withdrawalLimitFloat);
+        }
         accounts.add(newAccount);
         ui.showNewAccountAdded(newAccount);
     }
@@ -150,7 +190,7 @@ public class AccountList {
     public void createNewAccount() {
         String userName = askUserForName();
         String balance = askUserForBalance();
-        addAccount(userName, balance);
+        addAccount(userName, balance, "");
     }
 
     //@@author Sherlock-YH
@@ -168,6 +208,10 @@ public class AccountList {
                 temp.append(acc.getAccountName()).append(";").append(acc.getAccountBalance());
                 //saving withdrawal information
                 temp.append(";").append(acc.getWithdrawalChecker().toString());
+                //save Save Goal info
+                SaveGoal savings = acc.getSaveGoal();
+                temp.append(";").append(savings.amtToSave);
+                temp.append(";").append(savings.untilWhen);
                 temp.append("\n");
             }
             return temp.toString();
@@ -177,7 +221,9 @@ public class AccountList {
     //@@author
     public void showBal() {
         String balance = getMainAccount().getAccountBalance();
+        float bal = Float.parseFloat(balance);
         ui.showBal(balance);
+
     }
 
     //@@author xiaoge26
@@ -191,6 +237,7 @@ public class AccountList {
         }
     }
 
+    //@@author vishnuvk47
     /**
      * checks if date is in the DD-MM-YYYY format
      * @param date
@@ -205,18 +252,17 @@ public class AccountList {
     
     //@@author manushridiv
     public void withdrawMoney(String withdrawAmountString) throws NumberFormatException,
-            NegativeAmountException, InsufficientBalanceException {
+            NegativeAmountException, InsufficientBalanceException, ExceedsWithdrawalLimitException {
         float withdrawAmount = Float.parseFloat(withdrawAmountString);
         if (withdrawAmount < 0) {
             throw new NegativeAmountException();
         }
         float currentBalance = Float.parseFloat(getMainAccount().getAccountBalance());
-        float expectedBal = currentBalance - withdrawAmount;
-        LocalDate tdy = LocalDate.now();
-        LocalDate tdyDate = handleDate(tdy);
         if (currentBalance < withdrawAmount) {
             throw new InsufficientBalanceException();
-        } else if(isFailsSaveGoal(expectedBal, tdyDate)) {
+        } else if (getMainAccount().getWithdrawalChecker().willExceedWithdrawalLimit(withdrawAmount)) {
+            throw new ExceedsWithdrawalLimitException();
+        } else if(isFailsSaveGoal(currentBalance, withdrawAmount)) {
             ui.failToMeetSaveGoal();
             handleProceed(withdrawAmount, currentBalance);
         } else {
@@ -291,6 +337,7 @@ public class AccountList {
         getMainAccount().getWithdrawalChecker().setWithdrawalLimit(withdrawalLimit);
     }
     
+    //@@author Sherlock-YH
     public ArrayList<Account> getAccounts() {
         return accounts;
     }
@@ -299,6 +346,7 @@ public class AccountList {
         this.accounts = accounts;
     }
 
+    //@@author vishnuvk47
     /**
      * handles overwriting of saveGoal at users own discretion
      * @param withdrawAmount
@@ -329,7 +377,9 @@ public class AccountList {
     public void handleSaveGoal(String args, String untilWhenStr) {
         try {
             float toSave = Float.parseFloat(args);
-            if (isDateFormatValid(untilWhenStr)) {
+            if (toSave < 0) {
+                ui.showNegativeAmountError();
+            } else if (isDateFormatValid(untilWhenStr)) {
                 SaveGoal saveGoal = new SaveGoal(toSave, untilWhenStr);
                 getMainAccount().setSaveGoal(saveGoal, args, untilWhenStr);
                 ui.showSaveGoalCreated(args, untilWhenStr);
@@ -366,15 +416,27 @@ public class AccountList {
     }
 
     /**
-     * checks to see if the amount being withdrawn exeeds save Goal requirements
-     * @param expectedBal
-     * @param tdyDate
+     * checks to see if the amount being withdrawn exceeds save Goal requirements
+     * @param currentBalance
+     * @param withdrawAmount
      * @return True if fails to meet save Goal and False if meets save Goal requirements
      */
-    public Boolean isFailsSaveGoal(float expectedBal, LocalDate tdyDate) {
+    public Boolean isFailsSaveGoal(float currentBalance, float withdrawAmount) {
+        float expectedBal = currentBalance - withdrawAmount;
+        LocalDate tdy = LocalDate.now();
+        LocalDate tdyDate = handleDate(tdy);
         boolean exceedsSaveGoal = getMainAccount().getSaveGoal().amtToSave > expectedBal;
         boolean deadlinePassed = getMainAccount().getSaveGoal().untilWhen.isAfter(tdyDate);
         return (exceedsSaveGoal && !deadlinePassed);
     }
 
+    //@@author tyuyang
+    public String[] checkWithdrawalLimit() {
+        String[] wlInfo = new String[2];
+        WithdrawalChecker withdrawalChecker = this.getMainAccount().getWithdrawalChecker();
+        withdrawalChecker.updateTotalAmtWithdrawn(0);
+        wlInfo[0] = withdrawalChecker.getWithdrawalLimit();
+        wlInfo[1] = withdrawalChecker.getTotalAmtWithdrawn();
+        return wlInfo;
+    }
 }

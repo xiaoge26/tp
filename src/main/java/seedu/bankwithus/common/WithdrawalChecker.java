@@ -1,4 +1,4 @@
-package seedu.bankwithus;
+package seedu.bankwithus.common;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -72,18 +72,45 @@ public class WithdrawalChecker {
         lastWithdrawnDate = currentDate;
     }
 
+    public String getWithdrawalLimit() {
+        return this.withdrawalLimit;
+    }
+
     public void setWithdrawalLimit(float withdrawalLimit) {
         DecimalFormat df = new DecimalFormat("#.##");
         String formatted = df.format(withdrawalLimit);
         this.withdrawalLimit = String.valueOf(formatted);
     }
 
+    /**
+     * Checks if the amount withdrawn will exceed the withdrawal limit
+     * 
+     * @param withdrawAmount the amount withdrawn
+     * @return true if will exceed, false otherwise
+     */
+    public boolean willExceedWithdrawalLimit(float withdrawAmount) {
+        if (totalAmtWithdrawn.isBlank() || withdrawalLimit == null) {
+            return false;
+        }
+        float totalAmtWithdrawnFloat = Float.parseFloat(totalAmtWithdrawn);
+        float withdrawalLimitFloat = Float.parseFloat(withdrawalLimit);
+        return ((totalAmtWithdrawnFloat + withdrawAmount) > withdrawalLimitFloat);
+    }
+
     @Override
     public String toString() {
+        String lastWithdrawnDateString;
         if (lastWithdrawnDate == null) {
-            return totalAmtWithdrawn + ";";
+            lastWithdrawnDateString = " ";
         } else {
-            return totalAmtWithdrawn + ";" + lastWithdrawnDate.toString();
+            lastWithdrawnDateString = lastWithdrawnDate.toString();
         }
+        String withdrawalLimitString;
+        if (withdrawalLimit == null) {
+            withdrawalLimitString = " ";
+        } else {
+            withdrawalLimitString = withdrawalLimit;
+        }
+        return totalAmtWithdrawn + ";" + lastWithdrawnDateString + ";" + withdrawalLimitString;
     }
 }

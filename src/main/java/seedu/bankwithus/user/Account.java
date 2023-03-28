@@ -1,10 +1,12 @@
-package seedu.bankwithus;
+package seedu.bankwithus.user;
+
+import seedu.bankwithus.common.SaveGoal;
+import seedu.bankwithus.common.WithdrawalChecker;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 public class Account {
-
     public SaveGoal saveGoal;
     private String name;
     private String balance;
@@ -16,20 +18,20 @@ public class Account {
      * @param name    initialise in the name of the account
      * @param balance initialise the balance of the account
      */
-    public Account(String name, String balance) {
+    public Account(String name, String balance, String amtToSave, String untilWhen) {
         this.name = name;
         this.balance = balance;
         this.withdrawalChecker = new WithdrawalChecker();
-        this.saveGoal = new SaveGoal(0, "01-01-2001");
+        this.saveGoal = new SaveGoal(Float.parseFloat(amtToSave), untilWhen);
     }
 
     //@@author tyuyang
     public Account(String name, String balance, String totalAmtWithdrawn,
-            LocalDate lastWithdrawnDate) {
+            LocalDate lastWithdrawnDate, String amtToSave, String untilWhen) {
         this.name = name;
         this.balance = balance;
         this.withdrawalChecker = new WithdrawalChecker(totalAmtWithdrawn, lastWithdrawnDate);
-        this.saveGoal = new SaveGoal(0, "01-01-2001");
+        this.saveGoal = new SaveGoal(Float.parseFloat(amtToSave), untilWhen);
     }
     //@@author Sherlock-YH
     public String getAccountName() {
@@ -44,6 +46,7 @@ public class Account {
     public WithdrawalChecker getWithdrawalChecker() {
         return withdrawalChecker;
     }
+
     //@@author xiaoge26
     public void addBalance(float balanceToBeAdded) {
         DecimalFormat df = new DecimalFormat("#.##");
@@ -60,6 +63,7 @@ public class Account {
         withdrawalChecker.updateTotalAmtWithdrawn(withdrawal);
     }
 
+    //@@author vishnuvk47
     public void setSaveGoal(SaveGoal saveGoal, String args, String untilWhenStr) {
 
         this.saveGoal = saveGoal;

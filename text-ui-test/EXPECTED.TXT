@@ -23,6 +23,7 @@ Account created!
 Name: hihi
 Balance: $1000
 ----------------------------
+File not found, trying to create file.
 Not a valid command!
 Current Account:
 Name: hihi
@@ -72,6 +73,7 @@ Balance: $1100.21
 The input is not a valid number! Please try again.
 Withdrawal successful!
 You have $123678.1 remaining!
+----------------------------
 Current Account:
 Name: sherlock
 Balance: $123678.1
@@ -79,5 +81,40 @@ Balance: $123678.1
 Name: hihi
 Balance: $1100.21
 ----------------------------
+No withdrawal limit set!
+You have withdrawn $100 this month.
+----------------------------
+Negative amount entered!
+The input is not a valid number! Please try again.
+No withdrawal limit set!
+You have withdrawn $100 this month.
+----------------------------
+Withdrawal limit set to 100!
+----------------------------
+Withdrawal limit is currently $100.
+You have withdrawn $100 this month.
+----------------------------
+Apologies! Your transaction did not go through as it will result
+in you exceeding your withdrawal limit!
+Withdrawal limit is currently $100.
+You have withdrawn $100 this month.
+----------------------------
+Withdrawal limit is currently $100.
+You have withdrawn $100 this month.
+----------------------------
+Apologies! Your transaction did not go through as it will result
+in you exceeding your withdrawal limit!
+Withdrawal limit is currently $100.
+You have withdrawn $100 this month.
+----------------------------
+Current Account:
+Name: sherlock
+Balance: $123678.1
+----------------------------
+Name: hihi
+Balance: $1100.21
+----------------------------
+Account Name: hihi Transaction Type: deposit Amount: 100.21 Date: 27/03/2023
+Account Name: sherlock Transaction Type: withdraw Amount: 100 Date: 27/03/2023
 Not a valid command!
 Goodbye! Hope to see you again! :)

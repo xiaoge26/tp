@@ -7,8 +7,9 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class BankWithUsTest {
+    //This may need to be changed later
     @Test
     public void bankWithUs_emptyInput_exceptionThrown() {
-        assertThrows(IOException.class, () -> new BankWithUs(""));
+        assertThrows(IOException.class, () -> new BankWithUs("", ""));
     }
 }
