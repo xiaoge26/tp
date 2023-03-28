@@ -153,7 +153,7 @@ public class Parser {
                 ui.showInsufficientArgsEntered();
             }
             break;
-        case "show-saveGoal":
+        case "show-save-goal":
             accountList.showGoal();
             break;
         case "delete":
