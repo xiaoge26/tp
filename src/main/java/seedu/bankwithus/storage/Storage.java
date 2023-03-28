@@ -17,8 +17,6 @@ public class Storage {
     protected File transactionFile;
     private final File saveDir = new File("data");
 
-    private Ui ui;
-
 
     /**
      * Creates a new instance of Storage. Initialises the saveFile.
@@ -29,7 +27,6 @@ public class Storage {
     public Storage(String accountsFilepath, String transactionsFilepath) {
         this.accountFile = new File(accountsFilepath);
         this.transactionFile = new File(transactionsFilepath);
-        this.ui = new Ui();
     }
 
     /**
@@ -56,7 +53,6 @@ public class Storage {
     public void createNewAccountsFile() throws IOException {
         saveDir.mkdir();
         accountFile.createNewFile();
-        ui.showFileCreated();
     }
 
 
