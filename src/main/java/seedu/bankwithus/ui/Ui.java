@@ -269,4 +269,9 @@ public class Ui {
         System.out.println("Apologies! Your transaction did not go through as it will result");
         System.out.println("in you exceeding your withdrawal limit!");
     }
+
+    public void noTransactionsFoundError() {
+        System.out.println("No transactions found!");
+        printLine();
+    }
 }
