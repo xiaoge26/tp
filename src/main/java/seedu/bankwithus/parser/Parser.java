@@ -75,6 +75,7 @@ public class Parser {
                         "deposit", args, LocalDate.now());
                 ui.showDepositMessage();
                 accountList.showBal();
+                ui.printLine();
             } catch (NumberFormatException e) {
                 ui.showNumberFormatError();
             } catch (NullPointerException e) {
@@ -153,7 +154,7 @@ public class Parser {
                 ui.showInsufficientArgsEntered();
             }
             break;
-        case "show-saveGoal":
+        case "show-save-goal":
             accountList.showGoal();
             break;
         case "delete":

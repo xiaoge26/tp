@@ -112,15 +112,20 @@ public class Ui {
     public void showHelp() {
         printLine();
         System.out.println("help: displays the current menu");
-        System.out.println("view-account: shows account name and balance");
+        System.out.println("view-account: shows all the accounts' name and balance");
         System.out.println("withdraw <amount>: withdraws <amount> from available balance");
         System.out.println("deposit <amount>: deposits <amount> and adds deposit to balance");
-        System.out.println("save <amount> <date in dd-mm-yyyy format>: sets a saveGoal of <amount> until <date>");
+        System.out.println("set-save-goal <amount> <date in dd-mm-yyyy format>: sets a saveGoal of <amount>"
+                + " until <date>");
+        System.out.println("show-save-goal: shows the current save goal and the deadline");
         System.out.println("add-account: adds a new account");
         System.out.println("switch-to <account username>: switches to <account username> account");
+        System.out.println("delete <account username>: deletes the account with username <account " 
+                + "username>");
         System.out.println("set-wl <amount>: sets <amount> to be the withdrawal limit");
-        System.out.println("check-wl: shows the withdrawal limit and the amount of money withdrawn");
-        System.out.println("          this month.");
+        System.out.println("check-wl: shows the withdrawal limit and the amount of money withdrawn " 
+                + "this month");
+        System.out.println("view-transactions-all: views all transactions across all accounts");
         System.out.println("exit: quits program and saves");
         printLine();
     }
@@ -250,7 +255,7 @@ public class Ui {
     
     //@@author tyuyang
     public void showWithdrawalLimitSet(String withdrawalLimit) {
-        System.out.println("Withdrawal limit set to " + withdrawalLimit + "!");
+        System.out.println("Withdrawal limit set to $" + withdrawalLimit + "!");
     }
 
     public void showWithdrawalLimit(String withdrawalLimit) {
