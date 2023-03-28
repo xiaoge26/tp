@@ -2,7 +2,6 @@ package seedu.bankwithus.storage;
 
 import seedu.bankwithus.user.AccountList;
 import seedu.bankwithus.user.TransactionList;
-import seedu.bankwithus.ui.Ui;
 import seedu.bankwithus.exceptions.AccountNotFoundException;
 
 import java.io.File;
