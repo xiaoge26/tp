@@ -52,7 +52,7 @@ public class TransactionList {
     public Transaction getTransaction(int index) {
         return transactions.get(index);
     }
-    
+
     public int getSize() {
         return size;
     }
