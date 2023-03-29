@@ -36,6 +36,7 @@ public class TransactionList {
 
     public void createNewTransaction(String accountName, String type, String amount, LocalDate date) {
         Transaction transaction = new Transaction(accountName, type, amount, date);
+        assert transaction != null;
         transactions.add(transaction);
         size++;
     }

@@ -2,8 +2,13 @@ package seedu.bankwithus.storage;
 
 import seedu.bankwithus.user.Transaction;
 import seedu.bankwithus.user.TransactionList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 class TransactionEncoder {
+    private static final Logger logger =
+            Logger.getLogger(TransactionEncoder.class.getName());
     public String encodeTransaction(Transaction transaction) {
 
         //minor fix in the code, buggy
@@ -19,6 +24,7 @@ class TransactionEncoder {
     }
 
     public String encodeTransactionList(TransactionList transactionList) {
+        logger.log(Level.INFO, "Encoding TransactionList");
         if (transactionList.getSize() == 0) {
             return "";
         } else {
