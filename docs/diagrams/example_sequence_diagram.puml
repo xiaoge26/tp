@@ -1,4 +1,4 @@
-@startuml
+@startuml deposit100SeqDiagram
 actor Shawn
 participant Ui
 participant BWU

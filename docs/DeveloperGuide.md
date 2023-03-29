@@ -46,6 +46,13 @@
 ### Design
 
 ### Architecture
+<img src="images/MainArchitecture.png" width="280" />
+
+**Interactions**
+
+The sequence diagram below shows how components interact with each other when the user issues the command `deposit 100`.
+
+<img src="images/deposit100SeqDiagram.png" width="280" />
 
 
 ### UI-Component
