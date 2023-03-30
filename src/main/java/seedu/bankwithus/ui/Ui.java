@@ -46,6 +46,9 @@ public class Ui {
     public void showAddAccountMessage() {
         System.out.println("Account created!");
     }
+    public void showNoTransactionsFoundMessage () {
+        System.out.println("No transactions found!");
+    }
 
     public void showDepositMessage() {
         System.out.println("New deposit added!");

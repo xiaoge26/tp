@@ -30,6 +30,8 @@ public class TransactionList {
         } catch (CorruptedSaveFileException e) {
             ui.showCorruptedSaveFileError();
         } catch (SaveFileIsEmptyException e) {
+            //shows "No transactions found!" as this catch block
+            ui.showNoTransactionsFoundMessage();
         }
     }
 
