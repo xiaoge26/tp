@@ -1,0 +1,22 @@
+@startuml MainArchitecture
+class BankWithUs
+class Storage
+class AccountList
+class Ui
+class TransactionList
+class Parser
+BankWithUs --> Storage
+AccountList ..> Storage
+TransactionList ..> Storage
+BankWithUs --> Parser
+BankWithUs --> AccountList
+AccountList ..> BankWithUs
+BankWithUs --> TransactionList
+BankWithUs --> Ui
+Parser --> Ui
+Parser <--> AccountList
+Parser <--> TransactionList
+AccountList --> Ui
+TransactionList --> Ui
+
+@enduml

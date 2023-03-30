@@ -13,6 +13,7 @@ import seedu.bankwithus.exceptions.ExceedsWithdrawalLimitException;
 import seedu.bankwithus.exceptions.InsufficientBalanceException;
 import seedu.bankwithus.exceptions.NegativeAmountException;
 import seedu.bankwithus.exceptions.NoAccountException;
+import seedu.bankwithus.exceptions.NoTransactionsFoundException;
 import seedu.bankwithus.exceptions.SaveFileIsEmptyException;
 
 import java.io.IOException;
@@ -74,6 +75,7 @@ public class Parser {
                         "deposit", args, LocalDate.now());
                 ui.showDepositMessage();
                 accountList.showBal();
+                ui.printLine();
             } catch (NumberFormatException e) {
                 ui.showNumberFormatError();
             } catch (NullPointerException e) {
@@ -144,7 +146,7 @@ public class Parser {
         case "help":
             ui.showHelp();
             break;
-        case "save":
+        case "set-save-goal":
             if(args.length() > 0) {
                 String untilWhenStr = ui.getDeadline();
                 accountList.handleSaveGoal(args, untilWhenStr);
@@ -152,14 +154,19 @@ public class Parser {
                 ui.showInsufficientArgsEntered();
             }
             break;
-        case "show-saveGoal":
+        case "show-save-goal":
             accountList.showGoal();
             break;
         case "delete":
             accountList.deleteAccount(args);
             break;
         case "view-transactions-all":
-            transactionList.printAllTransactions();
+            try {
+                transactionList.printAllTransactions();
+                ui.printLine();
+            } catch (NoTransactionsFoundException e) {
+                ui.noTransactionsFoundError();
+            }
             break;
         default:
             throw new CommandNotFoundException();

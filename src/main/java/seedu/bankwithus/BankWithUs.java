@@ -48,6 +48,7 @@ public class BankWithUs {
             ui.showFileNotFoundError();
             try {
                 storage.createNewAccountsFile();
+                ui.showFileCreated();
             } catch (IOException ioE) {
                 ui.showIOError();
                 throw ioE;

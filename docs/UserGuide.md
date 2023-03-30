@@ -2,28 +2,28 @@
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick start
+## Quick start guide
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `BankWithUs.jar` from [here](https://github.com/AY2223S2-CS2113-T13-3/tp/releases).
+2. Download the latest `BankWithUs.jar` from [here](https://github.com/AY2223S2-CS2113-T13-3/tp/releases).
 
-2. Copy the file to the folder you want to use as the _home folder_ for your BankWithUs app.
+3. Copy the file to the folder you want to use as the _home folder_ for your BankWithUs app.
 
-3. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar BankWithUs.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar BankWithUs.jar` command to run the application.<br>
 
-4. Follow the instruction as per the CLI and create your new account. e.g. typing **`help`** and pressing Enter will open the help option.<br>
+5. Follow the instruction as per the CLI and create your new account. e.g. typing **`help`** and pressing Enter will open the help option.<br>
    Some example commands you can try:
 
-    * `view-transactions-all` : Lists all transactions.
+       * `view-transactions-all` : Lists all recorded transactions
 
-    * `withdraw 300` : withdraws $300 from teh current balance.
+       * `withdraw 300` : Withdraws $300 from the current balance. (Subsitute 300 for other numbers)
 
-    * `delete` : deletes the current account the user is on.
+       * `delete` : Deletes the current account which the user has initially created.
 
-    * `deposit 100` : Deposits $100 into the users account.
+       * `deposit 100` : Deposits $100 into the users account. (Subsitute 100 for other numbers)
 
-    * `exit` : Exits the app.
+       * `exit` : Exits the application
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -36,7 +36,7 @@
 **Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `deposit AMOUNT`, `AMOUNT` is a parameter which can be used as `deposit 300`.
+  e.g. in `deposit AMOUNT`, `AMOUNT` is a parameter. `deposit 300` is an example of a valid command syntax.
 
 * Parameters MUST be in the specified order for the command to take appropriate effect.<br>
 
@@ -48,22 +48,41 @@
 
 ### Viewing help : `help`
 
-Shows a list of all the commands available and what they attempt to do.
+Shows a list of all the commands available and what they do.
 
 Format: `help`
 
+Example:
+```
+>>help
+----------------------------
+help: displays the current menu
+view-account: shows all the accounts' name and balance
+withdraw <amount>: withdraws <amount> from available balance
+deposit <amount>: deposits <amount> and adds deposit to balance
+set-save-goal <amount> <date in dd-mm-yyyy format>: sets a saveGoal of <amount> until <date>
+show-save-goal: shows the current save goal and the deadline
+add-account: adds a new account
+switch-to <account username>: switches to <account username> account
+delete <account username>: deletes the account with username <account username>
+set-wl <amount>: sets <amount> to be the withdrawal limit
+check-wl: shows the withdrawal limit and the amount of money withdrawn this month
+view-transactions-all: views all transactions across all accounts
+exit: quits program and saves
+```
 
 ### Adding an account: `add-account`
 
-Initiates Adding a new account. When calling the command there is no requirement for any parameter.
-However, once the command starts, it will lead you through the process of a new account creation
-prompting your name and balance to be stored.
+Initiates the process of adding a new account. The user is not required to input any parameters when calling the command.
+However, once the command starts, it will prompt the user for their name and initial balance.
 
 Format: `add-account` <br />
 CLI prompts: "Whats your name?" <br />
 your input: `NAME` <br />
 CLI prompts: "How much would you like to add as Balance?" <br />
 your input: `BALANCE` Note: Balance has to be a valid number. <br />
+
+
 
 
 Examples:
@@ -74,12 +93,112 @@ add-account
 Steve
 >>How much would you like to add as Balance?
 1000
+Account created!
+Name: Steve
+Balance: $1000
+```
+
+### Switch current account: `switch-to`
+
+Switches from the *current account* to the new requested account, if it exists.
+
+Format: `switch-to NAME`
+
+* The search is not case-sensitive. e.g `jane` will match `Jane`
+* Only the name is searched.
+* Only full words will be matched e.g. `Ben` will not match `Benjamin`
+
+
+
+Examples:
+```
+switch-to jenson
+Current Account switched
+----------------------------
+Current Account is:
+----------------------------
+Name: jenson
+Balance: $90
 ```
 
 
+### Deleting an account : `delete`
+
+
+Format: `delete`
+
+* Deletes the current account.
+* If you want to delete a different account, switch to that account and run delete.
+
+Examples:
+```
+Current Account is:
+----------------------------
+Name: jameson
+Balance: $1000
+----------------------------
+>>delete
+```
+Deletes the jameson account.
+
+### View Accounts : `view-account`
+
+Shows a list of all the available accounts with their account name and balance.
+
+Format: `view-account`
+
+Example:
+```
+view-account
+Current Account:
+Name: james
+Balance: $1000
+----------------------------
+Name: john
+Balance: $300
+```
+
+### Depositing amount : `deposit`
+
+Deposits AMOUNT into the *current account*.
+
+Format: `deposit AMOUNT`
+
+Example:
+```agsl
+deposit 100
+New deposit added!
+You have $190 remaining!
+```
+
+* Cannot deposit negative numbers.
+* Cannot deposit arguments that are not numbers.
+
+Attempting to do so will show error messages.
+
+
+### Withdraw : `withdraw`
+
+Withdraws AMOUNT from the users balance.
+
+Format: `withdraw AMOUNT`
+
+Example:
+```agsl
+withdraw 500
+```
+
+* Cannot withdraw more than balance.
+* Cannot withdraw negative numbers.
+* Cannot withdraw arguments that are not numbers.
+
+Attempting to do so will show error messages.
+
+See [saving goals](#add-a-savings-goal-to-the-current-account-save) and [withdrawal limit]() for more information.
+
 ### List all transactions: `view-transactions-all`
 
-Shows a list of all the transactions processed by the **current** account.
+Shows a list of all the transactions processed by all the accounts of the user.
 
 Format: `view-transactions-all`
 
@@ -90,35 +209,9 @@ Account Name: jenson Transaction Type: deposit Amount: 100 Date: 26/03/2023
 Account Name: jenson Transaction Type: withdraw Amount: 10 Date: 26/03/2023
 ```
 
-
-### Depositing amount : `deposit`
-
-Deposits AMOUNT into the users account.
-
-Format: `deposit AMOUNT`
-
-Examples:
-`deposit 100`
-
-### switch current account: `switch-to`
-
-Switches current account to the new requested account, if it exists.
-
-Format: `switch-to NAME`
-
-* The search is case-insensitive. e.g `jane` will match `Jane`
-* Only the name is searched.
-* Only full words will be matched e.g. `Ben` will not match `Benjamin`
-
-Examples:
-```
-switch-to jenson
-```
-
-
 ### Add a savings Goal to the current account: `save`
 
-Adds a savings goal to the current account. <br />
+Adds a savings goal to the *current account*. <br />
 Will raise an alert when attempting to withdraw more than the savings goal, if attempt is before deadline
 
 Format: `save AMOUNT` >> will then prompt the user for the deadline.
@@ -136,59 +229,49 @@ save 300
 >>Save Goal has been created, Have fun staying frugal!
 ```
 
-### Deleting an account : `delete`
+### Set a withdrawal limit: `set-wl`
 
+Adds a withdrawal limit to the *current account*. <br />
+Will prevent the user from making the withdrawal if it will result in them exceeding the withdrawal limit in the current month. The amount of withdrawals will reset at the beginning of every month.
 
-Format: `delete`
+Format: `set-wl AMOUNT` will set `AMOUNT` as the withdrawal limit.
 
-* Deletes the current account.
-* if you want to delete a different account, switch to that account and run delete.
+* AMOUNT must be a valid number. If AMOUNT is not valid, an error message will be shown.
 
-Examples:
 ```
-Current Account is:
+set-wl 100
+Withdrawal limit set to $100!
 ----------------------------
-Name: jameson
-Balance: $1000
-----------------------------
->>delete
-```
-Deletes the jameson account.
-
-
-### Withdraw : `withdraw`
-
-Withdraws AMOUNT from the users balance.
-
-Format: `withdraw AMOUNT`
-
-Example:
-```agsl
-withdraw 500
+withdraw 1000
+Apologies! Your transaction did not go through as it will result
+in you exceeding your withdrawal limit!
+Withdrawal limit is currently $100.
+You have withdrawn $0 this month.
 ```
 
-* cannot withdraw more than balance.
-* cannot withdraw negative or non numbers.
+### Check the current withdrawal limit: `check-wl`
 
+Shows the current withdrawal limit and the total amount of money withdrawn in the current month.
 
-### View Accounts : `view-account`
-
-Shows a list of all the available accounts--account name and balance.
-
-Format: `view-account`
+Format: `check-wl`
 
 Example:
 ```
-view-account
-Current Account:
-Name: james
-Balance: $1000
+set-wl 100
+Withdrawal limit set to $100!
 ----------------------------
-Name: john
-Balance: $300
+check-wl
+Withdrawal limit is currently $100
+You have withdrawn $0 this month.
 ----------------------------
+withdraw 50
+Withdrawal successful!
+You have $9950 remaining!
+----------------------------
+check-wl
+Withdrawal limit is currently $100.
+You have withdrawn $50 this month.
 ```
-
 
 ### Exiting the program : `exit`
 
@@ -198,16 +281,22 @@ Format: `exit`
 
 ### Saving the data
 
-BankWithUs data is automatically stored when user exist the program and there is no manual inteference required.
+BankWithUs data is automatically stored when user exits the program. No manual inteference is required.
 
-### Editing the data file
+### Editing the data files
 
-Editing the savefile data is highly not recommended, and users should attempt to only do so at their own discretion.
+Please do not edit the data files.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If you attempt to manipulate the saveFile and corrupted data is being parsed, you will be thrown exceptions.
-if this inhibits the program from running, please delete the exisiting savefile and run program again
+<div class="warning" style="color: red; background-color: #f2f2f2; padding: 10px;">
+<strong>Warning:</strong> <br>
+If you attempt to manipulate the data files (save.txt and transaction.txt) 
+and corrupted data is being parsed, you will be thrown exceptions.
+If this inhibits the program from running, 
+please delete the existing files and run program again. 
+Please keep in mind that this will result in irreversible data loss.
 </div>
+
+
 
 --------------------------------------------------------------------------------------------------------------------
 

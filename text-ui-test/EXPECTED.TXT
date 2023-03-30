@@ -37,6 +37,7 @@ Balance: $1000
 ----------------------------
 New deposit added!
 You have $1100.21 remaining!
+----------------------------
 Current Account:
 Name: hihi
 Balance: $1100.21
@@ -89,7 +90,7 @@ The input is not a valid number! Please try again.
 No withdrawal limit set!
 You have withdrawn $100 this month.
 ----------------------------
-Withdrawal limit set to 100!
+Withdrawal limit set to $100!
 ----------------------------
 Withdrawal limit is currently $100.
 You have withdrawn $100 this month.
@@ -114,7 +115,8 @@ Balance: $123678.1
 Name: hihi
 Balance: $1100.21
 ----------------------------
-Account Name: hihi Transaction Type: deposit Amount: 100.21 Date: 27/03/2023
-Account Name: sherlock Transaction Type: withdraw Amount: 100 Date: 27/03/2023
+Account Name: hihi Transaction Type: deposit Amount: 100.21 Date: 29/03/2023
+Account Name: sherlock Transaction Type: withdraw Amount: 100 Date: 29/03/2023
+----------------------------
 Not a valid command!
 Goodbye! Hope to see you again! :)

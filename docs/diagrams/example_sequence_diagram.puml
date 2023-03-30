@@ -1,0 +1,74 @@
+@startuml deposit100SeqDiagram
+actor Shawn
+participant Ui
+participant BWU
+participant Parser
+participant AccountList
+participant Account
+participant TransactionList
+participant Transaction
+activate Ui
+activate BWU
+activate Parser
+activate AccountList
+activate Account
+activate TransactionList
+loop if exit not entered
+BWU -> Ui:getNextLine()
+activate Ui
+Shawn -> Ui:deposit 100
+Ui --> BWU:"deposit 100"
+deactivate Ui
+BWU -> Parser:parseUserInput(line)
+activate Parser
+alt deposit
+Parser -> AccountList:depositMoney(args)
+activate AccountList
+AccountList -> Account:addBalance()
+activate Account
+Account -> Account:balance += 100
+Account --> AccountList
+deactivate Account
+AccountList --> Parser
+deactivate AccountList
+Parser -> TransactionList:createNewTransaction()
+activate TransactionList
+TransactionList -> Transaction:new Transaction()
+activate Transaction
+Transaction --> TransactionList
+deactivate Transaction
+TransactionList -> TransactionList:add(transaction)
+activate TransactionList
+TransactionList --> TransactionList
+deactivate TransactionList
+TransactionList --> Parser
+deactivate TransactionList
+Parser -> Ui:showDepositMessage()
+activate Ui
+Ui -> Shawn: New deposit added!
+Ui --> Parser
+deactivate Ui
+Parser -> AccountList:showBal()
+activate AccountList
+AccountList -> Account:getMainAccount()
+Account -> Account:getAccountBalance()
+activate Account
+Account --> AccountList
+deactivate Account
+AccountList -> Ui:showBal()
+activate Ui
+Ui -> Shawn:You have $140 remaining!
+Ui --> AccountList
+deactivate Ui
+AccountList --> Parser
+deactivate AccountList
+Parser -> Ui:printLine()
+activate Ui
+Ui -> Shawn:------------------------
+Ui --> Parser
+deactivate Ui
+end
+Parser --> BWU
+deactivate Parser
+end
+@enduml
