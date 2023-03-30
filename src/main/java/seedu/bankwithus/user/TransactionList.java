@@ -30,7 +30,8 @@ public class TransactionList {
         } catch (CorruptedSaveFileException e) {
             ui.showCorruptedSaveFileError();
         } catch (SaveFileIsEmptyException e) {
-            ui.showEmptyFile();
+            //shows "No transactions found!" as this catch block
+            ui.showNoTransactionsFoundMessage();
         }
     }
 
@@ -52,6 +53,7 @@ public class TransactionList {
     public Transaction getTransaction(int index) {
         return transactions.get(index);
     }
+
     public int getSize() {
         return size;
     }
