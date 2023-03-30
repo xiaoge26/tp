@@ -59,7 +59,8 @@ public class BankWithUs {
         try {
             transactionList = new TransactionList(storage.loadTransactions());
         } catch (FileNotFoundException e) {
-            // If transactionFile not created, show nothing
+            // If transactionFile not created
+            ui.showFileNotFoundError();
             try {
                 storage.createNewTransactionsFile();
             } catch (IOException ioE) {

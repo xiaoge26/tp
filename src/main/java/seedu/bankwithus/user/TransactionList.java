@@ -30,7 +30,6 @@ public class TransactionList {
         } catch (CorruptedSaveFileException e) {
             ui.showCorruptedSaveFileError();
         } catch (SaveFileIsEmptyException e) {
-            ui.showEmptyFile();
         }
     }
 
