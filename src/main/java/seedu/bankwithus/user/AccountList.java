@@ -75,9 +75,7 @@ public class AccountList {
 
     //@@author xiaoge26
     /**
-     * Returns the current account.
-     *
-     * @return
+     * @return - Returns the current account.
      */
     public Account getMainAccount() {
         return accounts.get(0);
@@ -280,11 +278,11 @@ public class AccountList {
      * Also checks if user meets their withdrawal limit and save goal requirement
      * Checks if a Valid withdrawal occured
      * @param withdrawAmountString - amount to be withdrawn
+     * @return true if money was withdrawn successfully and false otherwise
      * @throws NumberFormatException
      * @throws NegativeAmountException
      * @throws InsufficientBalanceException
      * @throws ExceedsWithdrawalLimitException
-     * @return true if money was withdrawn successfully and false otherwise
      */
     //@@author manushridiv
     public Boolean hasWithdrawMoney(String withdrawAmountString) throws NumberFormatException,
