@@ -118,7 +118,7 @@ public class AccountList {
         balanceString = balanceString.replaceFirst("^0+(?!$)", "");
         try {
             float balance = Float.parseFloat(balanceString);
-            if (balance < 1) {
+            if (balance < 1 && balance != 0) {
                 balanceString = "0" + balanceString;
             }
             if (balance < 0) {
@@ -429,6 +429,7 @@ public class AccountList {
         }
     }
 
+    //@@author Vishnu
     /**
      * Primary function that handles the setting and exception handling when saveGoal is called
      * @param args
@@ -449,6 +450,7 @@ public class AccountList {
         }
     }
 
+    //@@author Vishnu
     /**
      * Checks if the date is entered in teh valid DD-MM-YYYY format
      * @param date
