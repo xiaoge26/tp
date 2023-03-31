@@ -93,9 +93,11 @@ public class Parser {
             break;
         case "withdraw":
             try {
-                accountList.withdrawMoney(args);
-                transactionList.createNewTransaction(accountList.getMainAccount().getAccountName(),
-                        "withdraw", args, LocalDate.now());
+                boolean hasWithdrawn =  accountList.hasWithdrawMoney(args);
+                if(hasWithdrawn) {
+                    transactionList.createNewTransaction(accountList.getMainAccount().getAccountName(),
+                            "withdraw", args, LocalDate.now());
+                }
                 accountList.showBal();
                 ui.printLine();
             } catch (NumberFormatException e) {

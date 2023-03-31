@@ -271,14 +271,16 @@ public class AccountList {
     /**
      * Withdraws a user specified amount from the current account
      * Also checks if user meets their withdrawal limit and save goal requirement
+     * Checks if a Valid withdrawal occured
      * @param withdrawAmountString - amount to be withdrawn
      * @throws NumberFormatException
      * @throws NegativeAmountException
      * @throws InsufficientBalanceException
      * @throws ExceedsWithdrawalLimitException
+     * @return true if money was withdrawn successfully and false otherwise
      */
     //@@author manushridiv
-    public void withdrawMoney(String withdrawAmountString) throws NumberFormatException,
+    public Boolean hasWithdrawMoney(String withdrawAmountString) throws NumberFormatException,
             NegativeAmountException, InsufficientBalanceException, ExceedsWithdrawalLimitException {
         float withdrawAmount = Float.parseFloat(withdrawAmountString);
         if (withdrawAmount < 0) {
@@ -291,10 +293,11 @@ public class AccountList {
             throw new ExceedsWithdrawalLimitException();
         } else if(willFailsSaveGoal(currentBalance, withdrawAmount)) {
             ui.failToMeetSaveGoal();
-            handleProceed(withdrawAmount, currentBalance);
+            return handleProceed(withdrawAmount, currentBalance);
         } else {
             getMainAccount( ).subtractBalance(currentBalance,withdrawAmount);
             ui.showWithdrawMessage();
+            return true;
         }
     }
 
@@ -304,14 +307,16 @@ public class AccountList {
      * @param name - name of the account to delet
      * @param acc - the account to be checked if it matches the account name to be deleted
      */
-    public void findAccountToDelete(String name, Account acc) {
-        if (acc.getAccountName().contains(name)) {
+    public Boolean foundAccountToDelete(String name, Account acc) {
+        if (acc.getAccountName().equals(name)) {
             accounts.remove(acc);
             ui.showAccountDeleted(name);
             if(accounts.size() < 1) {
                 createNewAccount();
             }
+            return true;
         }
+        return false;
     }
 
     /**
@@ -320,12 +325,19 @@ public class AccountList {
      */
     //@@author Sherlock-YH
     public void deleteAccount(String name) {
-        for (Account acc : accounts) {
-            findAccountToDelete(name, acc);
-            return;
+        boolean accountDeleted = false;
+        for (int i = 0; i < accounts.size(); i++) {
+            if(foundAccountToDelete(name, accounts.get(i))) {
+                accountDeleted = true;
+                i--;
+            }
         }
-        ui.showNoAccountFound();
+        if (!accountDeleted) {
+            ui.showNoAccountFound();
+        }
     }
+
+
 
     //@@author Sherlock-YH
     public int getSize() {
@@ -394,7 +406,7 @@ public class AccountList {
      * @param withdrawAmount
      * @param currentBalance
      */
-    public void handleProceed(float withdrawAmount, float currentBalance) {
+    public Boolean handleProceed(float withdrawAmount, float currentBalance) {
         String yesOrNo = ui.getNextLine();
         while(!(yesOrNo.equalsIgnoreCase("y") || yesOrNo.equalsIgnoreCase("n"))) {
             System.out.println("Please enter ONLY either Y for Yes and N for No.");
@@ -404,9 +416,11 @@ public class AccountList {
             getMainAccount( ).subtractBalance(currentBalance,withdrawAmount);
             getMainAccount().saveGoal.amtToSave = 0;
             ui.showWithdrawMessage();
+            return true;
 
         } else {
             ui.showWithdrawCancelled();
+            return false;
         }
     }
 
