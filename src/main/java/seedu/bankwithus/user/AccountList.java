@@ -84,7 +84,7 @@ public class AccountList {
     //@@author
     /**
      * Asks the user for the name and returns it in the form of
-     * S string. Will keep looping so long as the user does not
+     * a string. Will keep looping so long as the user does not
      * Give a valid name
      *
      * @return the userName String
@@ -105,8 +105,8 @@ public class AccountList {
     }
 
     /**
-     * Asks the user for their initial balance and returns it as a
-     * Float. Will keep looping so long as the user does not give
+     * Asks the user for their initial balance and returns it as a float
+     * Will keep looping so long as the user does not give
      * A valid balance.
      *
      * @return balance in the form of a float
@@ -264,7 +264,7 @@ public class AccountList {
     /**
      * Formats the date into the dd-MM-yyyy format
      * @param date
-     * @return teh date in the dd-MM-yyyy format
+     * @return the date in the dd-MM-yyyy format
      */
     public LocalDate handleDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -350,7 +350,7 @@ public class AccountList {
     }
 
     /**
-     * Method that allows that handles switching between users
+     * Method that handles switching between users
      * @param accName - account to be switched into
      * @throws NoAccountException
      */

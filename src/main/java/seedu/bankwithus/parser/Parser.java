@@ -170,9 +170,9 @@ public class Parser {
 
     //@@author Sherlock-YH
     /**
-     * Parses the save file. Takes in the scanner to the save file,
-     * Splits the name and balance by ; character. Part of
-     * AccountList parser, not bwu parser
+     * Parses the save file. Takes in the scanner to the save file.
+     * Splits the name and balance by ; character.
+     * Part of AccountList parser, not bwu parser
      *
      * @param scanner
      * @throws CorruptedSaveFileException if any of the parameters are corrupted
