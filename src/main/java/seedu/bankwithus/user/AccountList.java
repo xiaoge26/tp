@@ -19,12 +19,14 @@ import java.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Scanner;
 
 
 public class AccountList {
     private ArrayList<Account> accounts;
     private Ui ui;
+    private HashMap<String, Boolean> doesNameExist = new HashMap<String, Boolean>();
 
     /**
      * Instantiates AccountList and creates a new account.
@@ -197,6 +199,11 @@ public class AccountList {
      */
     public void createNewAccount() {
         String userName = askUserForName();
+        while (doesNameExist.containsKey(userName) && doesNameExist.get(userName)) {
+            ui.accountAlreadyExists();
+            userName = askUserForName();
+        }
+        doesNameExist.put(userName, true);
         String balance = askUserForBalance();
         addAccount(userName, balance, "");
     }

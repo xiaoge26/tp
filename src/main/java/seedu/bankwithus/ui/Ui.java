@@ -264,4 +264,8 @@ public class Ui {
         System.out.println("Apologies! Your transaction did not go through as it will result");
         System.out.println("in you exceeding your withdrawal limit!");
     }
+
+    public void accountAlreadyExists() {
+        System.out.println("Account already exist, try again!");
+    }
 }
