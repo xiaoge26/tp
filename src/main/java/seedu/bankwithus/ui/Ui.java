@@ -278,7 +278,7 @@ public class Ui {
         System.out.println("in you exceeding your withdrawal limit!");
     }
     public void accountAlreadyExists() {
-        System.out.println("Account already exist, try again!");
+        System.out.println("Account already exists, try again!");
     }
     public void noTransactionsFoundError() {
         System.out.println("No transactions found!");
