@@ -10,7 +10,7 @@ public class Ui {
     private Scanner scanner;
 
     public void showSaveGoalCreated(String args, String untilWhenStr) {
-        System.out.println("Try saving a minimum of $"+args+" until "+untilWhenStr);
+        System.out.println("Try saving a minimum of $" + args + " until " + untilWhenStr);
         System.out.println("Save Goal has been created, Have fun staying frugal!");
     }
     public void showFileNotFoundError() {

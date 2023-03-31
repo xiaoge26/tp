@@ -119,7 +119,7 @@ public class AccountList {
         try {
             float balance = Float.parseFloat(balanceString);
             if (balance < 1) {
-                balanceString = "0"+balanceString;
+                balanceString = "0" + balanceString;
             }
             if (balance < 0) {
                 throw new NegativeAmountException();
@@ -239,9 +239,9 @@ public class AccountList {
 
     //@@author vishnuvk47
     /**
-     * checks if date is in the DD-MM-YYYY format
+     * Formats the date into the dd-MM-yyyy format
      * @param date
-     * @return true is date in correct format and false if not
+     * @return teh date in the dd-MM-yyyy format
      */
     public LocalDate handleDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -262,7 +262,7 @@ public class AccountList {
             throw new InsufficientBalanceException();
         } else if (getMainAccount().getWithdrawalChecker().willExceedWithdrawalLimit(withdrawAmount)) {
             throw new ExceedsWithdrawalLimitException();
-        } else if(isFailsSaveGoal(currentBalance, withdrawAmount)) {
+        } else if(willFailsSaveGoal(currentBalance, withdrawAmount)) {
             ui.failToMeetSaveGoal();
             handleProceed(withdrawAmount, currentBalance);
         } else {
@@ -373,7 +373,6 @@ public class AccountList {
      * @param args
      * @param untilWhenStr
      */
-
     public void handleSaveGoal(String args, String untilWhenStr) {
         try {
             float toSave = Float.parseFloat(args);
@@ -412,7 +411,11 @@ public class AccountList {
      */
     public void showGoal() {
         SaveGoal goal = getMainAccount().getSaveGoal();
-        ui.showGoal(goal);
+        if(goal.amtToSave <= 0) {
+            System.out.println("you do not have any Save Goal");
+        } else {
+            ui.showGoal(goal);
+        }
     }
 
     /**
@@ -421,7 +424,7 @@ public class AccountList {
      * @param withdrawAmount
      * @return True if fails to meet save Goal and False if meets save Goal requirements
      */
-    public Boolean isFailsSaveGoal(float currentBalance, float withdrawAmount) {
+    public Boolean willFailsSaveGoal(float currentBalance, float withdrawAmount) {
         float expectedBal = currentBalance - withdrawAmount;
         LocalDate tdy = LocalDate.now();
         LocalDate tdyDate = handleDate(tdy);
