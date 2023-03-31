@@ -363,7 +363,7 @@ public class AccountList {
             ui.showThereIsOnlyOneAccount();
         } else {
             for (int i = 0; i < accounts.size(); i++) {
-                if (accounts.get(i).getAccountName().contains(accName)) {
+                if (accounts.get(i).getAccountName().equals(accName)) {
                     Collections.swap(accounts, i, 0);
                     ui.showMainAccountSwitched();
                     ui.showCurrentAccount(accounts.get(0));
