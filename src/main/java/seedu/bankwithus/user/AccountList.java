@@ -84,8 +84,8 @@ public class AccountList {
     //@@author
     /**
      * Asks the user for the name and returns it in the form of
-     * a string. Will keep looping so long as the user does not
-     * give a valid name
+     * S string. Will keep looping so long as the user does not
+     * Give a valid name
      *
      * @return the userName String
      */
@@ -106,8 +106,8 @@ public class AccountList {
 
     /**
      * Asks the user for their initial balance and returns it as a
-     * float. Will keep looping so long as the user does not give
-     * a valid balance.
+     * Float. Will keep looping so long as the user does not give
+     * A valid balance.
      *
      * @return balance in the form of a float
      */
@@ -152,6 +152,14 @@ public class AccountList {
         ui.showNewAccountAdded(newAccount);
     }
 
+    /**
+     * Simple method that adds an account
+     * @param name - Name of the account
+     * @param balance -The available balance
+     * @param withdrawalLimit - withdrawal limit to be set
+     * @param amtToSave - save Goal amount
+     * @param untilWhen - deadline for save goal amount
+     */
     public void addAccount(String name, String balance, String withdrawalLimit, String amtToSave, String untilWhen) {
         Account newAccount = new Account(name, balance, amtToSave, untilWhen);
         if (!withdrawalLimit.isBlank()) {
@@ -218,6 +226,9 @@ public class AccountList {
         }
     }
 
+    /**
+     * Prints to the UI the available balance of the current user
+     */
     //@@author
     public void showBal() {
         String balance = getMainAccount().getAccountBalance();
@@ -226,6 +237,13 @@ public class AccountList {
 
     }
 
+    /**
+     * Deposits a user specified amount to the current account's balance
+     * @param depositAmountString - amount to be deposited
+     * @throws NumberFormatException
+     * @throws NullPointerException
+     * @throws NegativeAmountException
+     */
     //@@author xiaoge26
     public void depositMoney(String depositAmountString) throws NumberFormatException,
             NullPointerException, NegativeAmountException {
@@ -249,7 +267,16 @@ public class AccountList {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return LocalDate.parse(formattedDate, format);
     }
-    
+
+    /**
+     * Withdraws a user specified amount from the current account
+     * Also checks if user meets their withdrawal limit and save goal requirement
+     * @param withdrawAmountString - amount to be withdrawn
+     * @throws NumberFormatException
+     * @throws NegativeAmountException
+     * @throws InsufficientBalanceException
+     * @throws ExceedsWithdrawalLimitException
+     */
     //@@author manushridiv
     public void withdrawMoney(String withdrawAmountString) throws NumberFormatException,
             NegativeAmountException, InsufficientBalanceException, ExceedsWithdrawalLimitException {
@@ -271,6 +298,12 @@ public class AccountList {
         }
     }
 
+    /**
+     * Finds the respective account to be deleted at users request
+     * Forces users to create a new account if no account remains after deletion executes
+     * @param name - name of the account to delet
+     * @param acc - the account to be checked if it matches the account name to be deleted
+     */
     public void findAccountToDelete(String name, Account acc) {
         if (acc.getAccountName().contains(name)) {
             accounts.remove(acc);
@@ -281,6 +314,10 @@ public class AccountList {
         }
     }
 
+    /**
+     * Baseline method for the delete account command
+     * @param name - name of the account to be deleted
+     */
     //@@author Sherlock-YH
     public void deleteAccount(String name) {
         for (Account acc : accounts) {
@@ -295,6 +332,11 @@ public class AccountList {
         return accounts.size();
     }
 
+    /**
+     * Method that allows that handles switching between users
+     * @param accName - account to be switched into
+     * @throws NoAccountException
+     */
     //@@author Sherlock-YH
     public void switchMainAccount(String accName) throws NoAccountException {
         //swap acc to the head of AccountList
@@ -318,7 +360,7 @@ public class AccountList {
     //@@author tyuyang
     /**
      * Sets the withdrawal limit of the main account. Modifies the attribute
-     * withdrawalLimit in the WithdrawalChecker class directly
+     * WithdrawalLimit in the WithdrawalChecker class directly
      * 
      * @param args the user input
      * 
@@ -348,7 +390,7 @@ public class AccountList {
 
     //@@author vishnuvk47
     /**
-     * handles overwriting of saveGoal at users own discretion
+     * Handles overwriting of saveGoal at users own discretion
      * @param withdrawAmount
      * @param currentBalance
      */
@@ -369,7 +411,7 @@ public class AccountList {
     }
 
     /**
-     * primary function that handles the setting and exception handling when saveGoal is called
+     * Primary function that handles the setting and exception handling when saveGoal is called
      * @param args
      * @param untilWhenStr
      */
@@ -389,7 +431,7 @@ public class AccountList {
     }
 
     /**
-     * checks if the date is entered in teh valid DD-MM-YYYY format
+     * Checks if the date is entered in teh valid DD-MM-YYYY format
      * @param date
      * @return True if valid format and False if invalid format
      */
@@ -419,7 +461,7 @@ public class AccountList {
     }
 
     /**
-     * checks to see if the amount being withdrawn exceeds save Goal requirements
+     * Checks to see if the amount being withdrawn exceeds save Goal requirements
      * @param currentBalance
      * @param withdrawAmount
      * @return True if fails to meet save Goal and False if meets save Goal requirements

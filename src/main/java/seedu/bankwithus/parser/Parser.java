@@ -169,8 +169,8 @@ public class Parser {
     //@@author Sherlock-YH
     /**
      * Parses the save file. Takes in the scanner to the save file,
-     * and splits the name and balance by ; character. Part of
-     * accountList parser, not bwu parser
+     * Splits the name and balance by ; character. Part of
+     * AccountList parser, not bwu parser
      *
      * @param scanner
      * @throws CorruptedSaveFileException if any of the parameters are corrupted
@@ -219,6 +219,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Reads the transaction data from the transaction save file
+     * @param scanner
+     * @throws CorruptedSaveFileException
+     * @throws SaveFileIsEmptyException
+     */
     public void parseTransactionFile(Scanner scanner) throws CorruptedSaveFileException,
             SaveFileIsEmptyException {
         while (scanner.hasNextLine()) {
