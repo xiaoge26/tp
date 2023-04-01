@@ -66,6 +66,9 @@ public class AccountList {
         Parser parser = new Parser(this);
         try {
             parser.parseSavedFile(scanner);
+            for(Account acc : accounts) {
+                doesNameExist.put(acc.getName(), true);
+            }
         } catch (CorruptedSaveFileException e) {
             ui.showCorruptedSaveFileError();
             createNewAccount();
