@@ -26,7 +26,7 @@ public class Parser {
     private TransactionList transactionList;
     private Ui ui;
     /**
-     * Instantiates a bwu Parser object
+     * Instantiates a bwu Parser object.
      *
      * @param bwu the main bankWithUs program
      */
@@ -38,7 +38,7 @@ public class Parser {
     }
 
     /**
-     * Instatiates a accountList Parser object
+     * Instantiates a accountList Parser object.
      *
      * @param accountList the accountList
      */
@@ -179,7 +179,7 @@ public class Parser {
     /**
      * Parses the save file. Takes in the scanner to the save file.
      * Splits the name and balance by ; character.
-     * Part of AccountList parser, not bwu parser
+     * Part of AccountList parser, not bwu parser.
      *
      * @param scanner
      * @throws CorruptedSaveFileException if any of the parameters are corrupted
@@ -229,7 +229,7 @@ public class Parser {
     }
 
     /**
-     * Reads the transaction data from the transaction save file
+     * Reads the transaction data from the transaction save file.
      * @param scanner
      * @throws CorruptedSaveFileException
      * @throws SaveFileIsEmptyException

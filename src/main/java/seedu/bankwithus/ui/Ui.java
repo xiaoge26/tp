@@ -59,7 +59,7 @@ public class Ui {
     }
 
     /**
-     * Creates a scanner in the Ui class
+     * Creates a scanner in the Ui class.
      *
      * @return
      */
@@ -68,7 +68,7 @@ public class Ui {
     }
 
     /**
-     * Gets the next line of user input
+     * Gets the next line of user input.
      *
      * @return the next of user input
      */
@@ -77,7 +77,7 @@ public class Ui {
     }
 
     /**
-     * Closes the scanner
+     * Closes the scanner.
      */
     public void closeScanner() {
         this.scanner.close();
