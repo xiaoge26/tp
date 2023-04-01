@@ -22,6 +22,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import static java.lang.Math.abs;
+
 
 public class AccountList {
     private ArrayList<Account> accounts;
@@ -118,12 +120,15 @@ public class AccountList {
         balanceString = balanceString.replaceFirst("^0+(?!$)", "");
         try {
             float balance = Float.parseFloat(balanceString);
-            if (balance < 1 && balance != 0) {
-                balanceString = "0" + balanceString;
-            }
             if (balance < 0) {
                 throw new NegativeAmountException();
             }
+            if (balance < 1 && abs(balance) != 0) {
+                balanceString = "0" + balanceString;
+                return balanceString;
+            }
+            float absBalance = abs(balance); //to strip -ve sign if user enters -0.
+            balanceString = Float.toString(absBalance);
             return balanceString;
         } catch (NumberFormatException e) {
             ui.showNumberFormatError();
