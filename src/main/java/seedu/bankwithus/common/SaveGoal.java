@@ -4,6 +4,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+//@@author vishnuvk47
 public class SaveGoal {
     public float amtToSave;
     public LocalDate untilWhen;
@@ -18,5 +19,8 @@ public class SaveGoal {
         }
     }
 
-
+    public SaveGoal(float amtToSave, LocalDate untilWhen) {
+        this.amtToSave = amtToSave;
+        this.untilWhen = untilWhen;
+    }
 }
