@@ -31,12 +31,13 @@ class AccountListTest {
                 () -> accountList.depositMoney(amountString));
     }
 
+    //@@author vishnuvk47
     @Test
     void withdrawNegativeAmount() {
         AccountList accountList = new AccountList();
         accountList.addAccount("James", "1000", "");
         assertThrows(NegativeAmountException.class, () -> {
-            accountList.hasWithdrawMoney("-100");
+            accountList.withdrawMoney("-100");
         });
     }
 
@@ -45,7 +46,7 @@ class AccountListTest {
         AccountList accountList = new AccountList();
         accountList.addAccount("James", "1000", "");
         assertThrows(NegativeAmountException.class, () -> {
-            accountList.hasWithdrawMoney("-21.67");
+            accountList.withdrawMoney("-21.67");
         });
     }
 

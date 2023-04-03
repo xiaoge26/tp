@@ -10,6 +10,7 @@ import seedu.bankwithus.exceptions.InsufficientBalanceException;
 import seedu.bankwithus.exceptions.NegativeAmountException;
 import seedu.bankwithus.exceptions.NoAccountException;
 import seedu.bankwithus.exceptions.SaveFileIsEmptyException;
+import seedu.bankwithus.exceptions.WithdrawalCancelledException;
 import seedu.bankwithus.parser.Parser;
 import seedu.bankwithus.ui.Ui;
 
@@ -151,7 +152,7 @@ public class AccountList {
      * @param withdrawalLimit Withdrawal limit set by the user, blank if not set
      */
     public void addAccount(String name, String balance, String withdrawalLimit) {
-        Account newAccount = new Account(name, balance, "0", "01-01-2001");
+        Account newAccount = new Account(name, balance, "0", LocalDate.parse("2001-01-01"));
         if (!withdrawalLimit.isBlank()) {
             Float withdrawalLimitFloat = Float.parseFloat(withdrawalLimit);
             newAccount.getWithdrawalChecker().setWithdrawalLimit(withdrawalLimitFloat);
@@ -168,7 +169,7 @@ public class AccountList {
      * @param amtToSave - save Goal amount
      * @param untilWhen - deadline for save goal amount
      */
-    public void addAccount(String name, String balance, String withdrawalLimit, String amtToSave, String untilWhen) {
+    public void addAccount(String name, String balance, String withdrawalLimit, String amtToSave, LocalDate untilWhen) {
         Account newAccount = new Account(name, balance, amtToSave, untilWhen);
         if (!withdrawalLimit.isBlank()) {
             Float withdrawalLimitFloat = Float.parseFloat(withdrawalLimit);
@@ -189,7 +190,7 @@ public class AccountList {
      * @param withdrawalLimit   Withdrawal limit set by the user, blank if not set
      */
     public void addAccount(String name, String balance, String totalAmtWithdrawn,
-            LocalDate lastWithdrawnDate, String withdrawalLimit, String amtToSave, String untilWhen) {
+            LocalDate lastWithdrawnDate, String withdrawalLimit, String amtToSave, LocalDate untilWhen) {
         Account newAccount = new Account(name, balance, totalAmtWithdrawn, lastWithdrawnDate, amtToSave, untilWhen);
         if (!withdrawalLimit.isBlank()) {
             Float withdrawalLimitFloat = Float.parseFloat(withdrawalLimit);
@@ -284,17 +285,18 @@ public class AccountList {
     /**
      * Withdraws a user specified amount from the current account.
      * Also checks if user meets their withdrawal limit and save goal requirement.
-     * Checks if a Valid withdrawal occurred.
+     * Throws exceptions if withdrawal does not go through.
      * @param withdrawAmountString - amount to be withdrawn
-     * @return true if money was withdrawn successfully and false otherwise
      * @throws NumberFormatException
      * @throws NegativeAmountException
      * @throws InsufficientBalanceException
      * @throws ExceedsWithdrawalLimitException
+     * @throws WithdrawalCancelledException
      */
     //@@author manushridiv
-    public Boolean hasWithdrawMoney(String withdrawAmountString) throws NumberFormatException,
-            NegativeAmountException, InsufficientBalanceException, ExceedsWithdrawalLimitException {
+    public void withdrawMoney(String withdrawAmountString) throws NumberFormatException,
+            NegativeAmountException, InsufficientBalanceException, ExceedsWithdrawalLimitException, 
+            WithdrawalCancelledException {
         float withdrawAmount = Float.parseFloat(withdrawAmountString);
         if (withdrawAmount < 0) {
             throw new NegativeAmountException();
@@ -306,11 +308,10 @@ public class AccountList {
             throw new ExceedsWithdrawalLimitException();
         } else if(willFailsSaveGoal(currentBalance, withdrawAmount)) {
             ui.failToMeetSaveGoal();
-            return handleProceed(withdrawAmount, currentBalance);
+            handleProceed(withdrawAmount, currentBalance);
         } else {
             getMainAccount( ).subtractBalance(currentBalance,withdrawAmount);
             ui.showWithdrawMessage();
-            return true;
         }
     }
 
@@ -419,21 +420,20 @@ public class AccountList {
      * @param withdrawAmount
      * @param currentBalance
      */
-    public Boolean handleProceed(float withdrawAmount, float currentBalance) {
+    public void handleProceed(float withdrawAmount, float currentBalance) throws 
+            WithdrawalCancelledException {
         String yesOrNo = ui.getNextLine();
         while(!(yesOrNo.equalsIgnoreCase("y") || yesOrNo.equalsIgnoreCase("n"))) {
             System.out.println("Please enter ONLY either Y for Yes and N for No.");
             yesOrNo = ui.getNextLine();
         }
+
         if(yesOrNo.equalsIgnoreCase("y")) {
             getMainAccount( ).subtractBalance(currentBalance,withdrawAmount);
             getMainAccount().saveGoal.amtToSave = 0;
             ui.showWithdrawMessage();
-            return true;
-
         } else {
-            ui.showWithdrawCancelled();
-            return false;
+            throw new WithdrawalCancelledException();
         }
     }
 

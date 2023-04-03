@@ -15,6 +15,7 @@ import seedu.bankwithus.exceptions.NegativeAmountException;
 import seedu.bankwithus.exceptions.NoAccountException;
 import seedu.bankwithus.exceptions.NoTransactionsFoundException;
 import seedu.bankwithus.exceptions.SaveFileIsEmptyException;
+import seedu.bankwithus.exceptions.WithdrawalCancelledException;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -95,11 +96,9 @@ public class Parser {
             break;
         case "withdraw":
             try {
-                boolean hasWithdrawn =  accountList.hasWithdrawMoney(args);
-                if(hasWithdrawn) {
-                    transactionList.createNewTransaction(accountList.getMainAccount().getAccountName(),
-                            "withdraw", args, LocalDate.now());
-                }
+                accountList.withdrawMoney(args);
+                transactionList.createNewTransaction(accountList.getMainAccount().getAccountName(),
+                        "withdraw", args, LocalDate.now());
                 accountList.showBal();
                 ui.printLine();
             } catch (NumberFormatException e) {
@@ -113,6 +112,9 @@ public class Parser {
                 String[] wlInfo = accountList.checkWithdrawalLimit();
                 ui.showWithdrawalLimit(wlInfo[0]); //print wl
                 ui.showTotalAmountWithdrawn(wlInfo[1]); //print total amt withdrawn
+                ui.printLine();
+            } catch (WithdrawalCancelledException e) {
+                ui.showWithdrawCancelled();
                 ui.printLine();
             }
             break;
@@ -198,16 +200,15 @@ public class Parser {
                 String lastWithdrawnDate = splitDetails[3].trim();
                 String withdrawalLimit = splitDetails[4].trim();
                 String amtToSave;
-                String untilWhen;
+                String untilWhenStr;
                 if (splitDetails.length > 5) {
                     amtToSave = splitDetails[5].trim();
-                    untilWhen = splitDetails[6].trim();
+                    untilWhenStr = splitDetails[6].trim();
                 } else {
                     amtToSave = "0";
-                    untilWhen = "2001-01-01";
+                    untilWhenStr = "2001-01-01";
                 }
-                StringBuilder tempStr = new StringBuilder(untilWhen);
-                untilWhen = tempStr.reverse().toString();
+                LocalDate untilWhen = LocalDate.parse(untilWhenStr);
                 if (name.isEmpty() || balanceString.isEmpty() || totalAmtWithdrawn.isEmpty()) {
                     throw new CorruptedSaveFileException();
                 }
