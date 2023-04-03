@@ -200,16 +200,15 @@ public class Parser {
                 String lastWithdrawnDate = splitDetails[3].trim();
                 String withdrawalLimit = splitDetails[4].trim();
                 String amtToSave;
-                String untilWhen;
+                String untilWhenStr;
                 if (splitDetails.length > 5) {
                     amtToSave = splitDetails[5].trim();
-                    untilWhen = splitDetails[6].trim();
+                    untilWhenStr = splitDetails[6].trim();
                 } else {
                     amtToSave = "0";
-                    untilWhen = "2001-01-01";
+                    untilWhenStr = "2001-01-01";
                 }
-                StringBuilder tempStr = new StringBuilder(untilWhen);
-                untilWhen = tempStr.reverse().toString();
+                LocalDate untilWhen = LocalDate.parse(untilWhenStr);
                 if (name.isEmpty() || balanceString.isEmpty() || totalAmtWithdrawn.isEmpty()) {
                     throw new CorruptedSaveFileException();
                 }

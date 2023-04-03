@@ -152,7 +152,7 @@ public class AccountList {
      * @param withdrawalLimit Withdrawal limit set by the user, blank if not set
      */
     public void addAccount(String name, String balance, String withdrawalLimit) {
-        Account newAccount = new Account(name, balance, "0", "01-01-2001");
+        Account newAccount = new Account(name, balance, "0", LocalDate.parse("2001-01-01"));
         if (!withdrawalLimit.isBlank()) {
             Float withdrawalLimitFloat = Float.parseFloat(withdrawalLimit);
             newAccount.getWithdrawalChecker().setWithdrawalLimit(withdrawalLimitFloat);
@@ -169,7 +169,7 @@ public class AccountList {
      * @param amtToSave - save Goal amount
      * @param untilWhen - deadline for save goal amount
      */
-    public void addAccount(String name, String balance, String withdrawalLimit, String amtToSave, String untilWhen) {
+    public void addAccount(String name, String balance, String withdrawalLimit, String amtToSave, LocalDate untilWhen) {
         Account newAccount = new Account(name, balance, amtToSave, untilWhen);
         if (!withdrawalLimit.isBlank()) {
             Float withdrawalLimitFloat = Float.parseFloat(withdrawalLimit);
@@ -190,7 +190,7 @@ public class AccountList {
      * @param withdrawalLimit   Withdrawal limit set by the user, blank if not set
      */
     public void addAccount(String name, String balance, String totalAmtWithdrawn,
-            LocalDate lastWithdrawnDate, String withdrawalLimit, String amtToSave, String untilWhen) {
+            LocalDate lastWithdrawnDate, String withdrawalLimit, String amtToSave, LocalDate untilWhen) {
         Account newAccount = new Account(name, balance, totalAmtWithdrawn, lastWithdrawnDate, amtToSave, untilWhen);
         if (!withdrawalLimit.isBlank()) {
             Float withdrawalLimitFloat = Float.parseFloat(withdrawalLimit);

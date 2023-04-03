@@ -18,7 +18,7 @@ public class Account {
      * @param name    initialise in the name of the account
      * @param balance initialise the balance of the account
      */
-    public Account(String name, String balance, String amtToSave, String untilWhen) {
+    public Account(String name, String balance, String amtToSave, LocalDate untilWhen) {
         this.name = name;
         this.balance = balance;
         this.withdrawalChecker = new WithdrawalChecker();
@@ -27,7 +27,7 @@ public class Account {
 
     //@@author tyuyang
     public Account(String name, String balance, String totalAmtWithdrawn,
-            LocalDate lastWithdrawnDate, String amtToSave, String untilWhen) {
+            LocalDate lastWithdrawnDate, String amtToSave, LocalDate untilWhen) {
         this.name = name;
         this.balance = balance;
         this.withdrawalChecker = new WithdrawalChecker(totalAmtWithdrawn, lastWithdrawnDate);
