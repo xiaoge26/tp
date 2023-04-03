@@ -36,7 +36,7 @@ class AccountListTest {
         AccountList accountList = new AccountList();
         accountList.addAccount("James", "1000", "");
         assertThrows(NegativeAmountException.class, () -> {
-            accountList.withdrawMoney("-100");
+            accountList.hasWithdrawMoney("-100");
         });
     }
 
@@ -45,7 +45,7 @@ class AccountListTest {
         AccountList accountList = new AccountList();
         accountList.addAccount("James", "1000", "");
         assertThrows(NegativeAmountException.class, () -> {
-            accountList.withdrawMoney("-21.67");
+            accountList.hasWithdrawMoney("-21.67");
         });
     }
 
