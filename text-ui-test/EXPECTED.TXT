@@ -102,6 +102,12 @@ in you exceeding your withdrawal limit!
 Withdrawal limit is currently $100.
 You have withdrawn $100 this month.
 ----------------------------
+There are more than two decimal places!
+Please re-enter the command
+----------------------------
+New deposit added!
+You have $123678.2 remaining!
+----------------------------
 Withdrawal limit is currently $100.
 You have withdrawn $100 this month.
 ----------------------------
@@ -112,13 +118,14 @@ You have withdrawn $100 this month.
 ----------------------------
 Current Account:
 Name: sherlock
-Balance: $123678.1
+Balance: $123678.2
 ----------------------------
 Name: hihi
 Balance: $1100.21
 ----------------------------
 Account Name: hihi Transaction Type: deposit Amount: 100.21 Date: 03/04/2023
 Account Name: sherlock Transaction Type: withdraw Amount: 100 Date: 03/04/2023
+Account Name: sherlock Transaction Type: deposit Amount: 0.1 Date: 03/04/2023
 ----------------------------
 Not a valid command!
 Goodbye! Hope to see you again! :)
