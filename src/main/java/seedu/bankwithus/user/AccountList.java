@@ -292,10 +292,12 @@ public class AccountList {
      * @throws NegativeAmountException
      * @throws InsufficientBalanceException
      * @throws ExceedsWithdrawalLimitException
+     * @throws WithdrawalCancelledException
      */
     //@@author manushridiv
-    public Boolean hasWithdrawMoney(String withdrawAmountString) throws NumberFormatException,
-            NegativeAmountException, InsufficientBalanceException, ExceedsWithdrawalLimitException {
+    public void withdrawMoney(String withdrawAmountString) throws NumberFormatException,
+            NegativeAmountException, InsufficientBalanceException, ExceedsWithdrawalLimitException, 
+            WithdrawalCancelledException {
         float withdrawAmount = Float.parseFloat(withdrawAmountString);
         if (withdrawAmount < 0) {
             throw new NegativeAmountException();
@@ -307,11 +309,10 @@ public class AccountList {
             throw new ExceedsWithdrawalLimitException();
         } else if(willFailsSaveGoal(currentBalance, withdrawAmount)) {
             ui.failToMeetSaveGoal();
-            return handleProceed(withdrawAmount, currentBalance);
+            handleProceed(withdrawAmount, currentBalance);
         } else {
             getMainAccount( ).subtractBalance(currentBalance,withdrawAmount);
             ui.showWithdrawMessage();
-            return true;
         }
     }
 
@@ -427,11 +428,11 @@ public class AccountList {
             System.out.println("Please enter ONLY either Y for Yes and N for No.");
             yesOrNo = ui.getNextLine();
         }
+
         if(yesOrNo.equalsIgnoreCase("y")) {
             getMainAccount( ).subtractBalance(currentBalance,withdrawAmount);
             getMainAccount().saveGoal.amtToSave = 0;
             ui.showWithdrawMessage();
-
         } else {
             ui.showWithdrawCancelled();
             throw new WithdrawalCancelledException();
