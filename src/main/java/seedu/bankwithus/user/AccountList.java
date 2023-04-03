@@ -434,7 +434,6 @@ public class AccountList {
             getMainAccount().saveGoal.amtToSave = 0;
             ui.showWithdrawMessage();
         } else {
-            ui.showWithdrawCancelled();
             throw new WithdrawalCancelledException();
         }
     }
