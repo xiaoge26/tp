@@ -1,6 +1,7 @@
 package seedu.bankwithus;
 
 import org.junit.jupiter.api.Test;
+import seedu.bankwithus.exceptions.MoreThanTwoDecimalPlace;
 import seedu.bankwithus.user.AccountList;
 import seedu.bankwithus.exceptions.NegativeAmountException;
 
@@ -29,6 +30,32 @@ class AccountListTest {
         accountList.addAccount(name, balance, "");
         assertThrows(NegativeAmountException.class,
                 () -> accountList.depositMoney(amountString));
+    }
+
+    //@@author Sherlock-YH
+    @Test
+    void depositMoney_moreThanTwoDecimalPlaces_expectException() {
+        String amountString = "1000.111";
+        String name = "SHhhh";
+        String balance = "1234";
+        AccountList accountList = new AccountList();
+        accountList.addAccount(name, balance, "");
+        assertThrows(MoreThanTwoDecimalPlace.class,
+                () -> accountList.depositMoney(amountString));
+
+    }
+
+    //@@author Sherlock-YH
+    @Test
+    void withdrawMoney_moreThanTwoDecimalPlaces_expectException() {
+        String amountString = "0.111";
+        String name = "SHhhh";
+        String balance = "12333";
+        AccountList accountList = new AccountList();
+        accountList.addAccount(name, balance, "");
+        assertThrows(MoreThanTwoDecimalPlace.class,
+                () -> accountList.withdrawMoney(amountString));
+
     }
 
     //@@author vishnuvk47
