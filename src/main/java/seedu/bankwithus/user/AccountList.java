@@ -285,9 +285,8 @@ public class AccountList {
     /**
      * Withdraws a user specified amount from the current account.
      * Also checks if user meets their withdrawal limit and save goal requirement.
-     * Checks if a Valid withdrawal occurred.
+     * Throws exceptions if withdrawal does not go through.
      * @param withdrawAmountString - amount to be withdrawn
-     * @return true if money was withdrawn successfully and false otherwise
      * @throws NumberFormatException
      * @throws NegativeAmountException
      * @throws InsufficientBalanceException
