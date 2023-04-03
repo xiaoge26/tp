@@ -10,6 +10,7 @@ import seedu.bankwithus.exceptions.InsufficientBalanceException;
 import seedu.bankwithus.exceptions.NegativeAmountException;
 import seedu.bankwithus.exceptions.NoAccountException;
 import seedu.bankwithus.exceptions.SaveFileIsEmptyException;
+import seedu.bankwithus.exceptions.WithdrawalCancelledException;
 import seedu.bankwithus.parser.Parser;
 import seedu.bankwithus.ui.Ui;
 
@@ -419,7 +420,8 @@ public class AccountList {
      * @param withdrawAmount
      * @param currentBalance
      */
-    public Boolean handleProceed(float withdrawAmount, float currentBalance) {
+    public void handleProceed(float withdrawAmount, float currentBalance) throws 
+            WithdrawalCancelledException {
         String yesOrNo = ui.getNextLine();
         while(!(yesOrNo.equalsIgnoreCase("y") || yesOrNo.equalsIgnoreCase("n"))) {
             System.out.println("Please enter ONLY either Y for Yes and N for No.");
@@ -429,11 +431,10 @@ public class AccountList {
             getMainAccount( ).subtractBalance(currentBalance,withdrawAmount);
             getMainAccount().saveGoal.amtToSave = 0;
             ui.showWithdrawMessage();
-            return true;
 
         } else {
             ui.showWithdrawCancelled();
-            return false;
+            throw new WithdrawalCancelledException();
         }
     }
 
