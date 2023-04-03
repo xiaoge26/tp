@@ -12,7 +12,7 @@ public class Ui {
     private Scanner scanner;
 
     public void showSaveGoalCreated(String args, String untilWhenStr) {
-        System.out.println("Try saving a minimum of $"+args+" until "+untilWhenStr);
+        System.out.println("Try saving a minimum of $" + args + " until " + untilWhenStr);
         System.out.println("Save Goal has been created, Have fun staying frugal!");
     }
     public void showFileNotFoundError() {
@@ -59,7 +59,7 @@ public class Ui {
     }
 
     /**
-     * Creates a scanner in the Ui class
+     * Creates a scanner in the Ui class.
      *
      * @return
      */
@@ -68,7 +68,7 @@ public class Ui {
     }
 
     /**
-     * Gets the next line of user input
+     * Gets the next line of user input.
      *
      * @return the next of user input
      */
@@ -77,7 +77,7 @@ public class Ui {
     }
 
     /**
-     * Closes the scanner
+     * Closes the scanner.
      */
     public void closeScanner() {
         this.scanner.close();
@@ -277,7 +277,9 @@ public class Ui {
         System.out.println("Apologies! Your transaction did not go through as it will result");
         System.out.println("in you exceeding your withdrawal limit!");
     }
-
+    public void accountAlreadyExists() {
+        System.out.println("Account already exists, try again!");
+    }
     public void noTransactionsFoundError() {
         System.out.println("No transactions found!");
         printLine();

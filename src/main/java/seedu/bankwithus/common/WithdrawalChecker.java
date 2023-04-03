@@ -12,7 +12,7 @@ public class WithdrawalChecker {
     private Logger logger = Logger.getLogger("Foo");
 
     /**
-     * Instantiates withdrawalChecker without any amount withdrawn
+     * Instantiates withdrawalChecker without any amount withdrawn.
      */
     public WithdrawalChecker() {
         logger.log(Level.FINE, "Default WithdrawalChecker contructor called");
@@ -22,7 +22,7 @@ public class WithdrawalChecker {
 
     /**
      * Instantiates withdrawalChecker with amount withdrawn and 
-     * last known withdrawal date
+     * last known withdrawal date.
      * @param totalAmtWithdrawn amount withdrawn
      * @param lastWithdrawnDate last known withdrawal date
      */
@@ -83,7 +83,7 @@ public class WithdrawalChecker {
     }
 
     /**
-     * Checks if the amount withdrawn will exceed the withdrawal limit
+     * Checks if the amount withdrawn will exceed the withdrawal limit.
      * 
      * @param withdrawAmount the amount withdrawn
      * @return true if will exceed, false otherwise
