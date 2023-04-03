@@ -15,7 +15,6 @@ import seedu.bankwithus.exceptions.WithdrawalCancelledException;
 import seedu.bankwithus.parser.Parser;
 import seedu.bankwithus.ui.Ui;
 
-import java.math.BigDecimal;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
