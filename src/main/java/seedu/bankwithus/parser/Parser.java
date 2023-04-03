@@ -1,5 +1,6 @@
 package seedu.bankwithus.parser;
 
+import seedu.bankwithus.exceptions.MoreThanTwoDecimalPlace;
 import seedu.bankwithus.user.AccountList;
 import seedu.bankwithus.BankWithUs;
 import seedu.bankwithus.user.Transaction;
@@ -84,6 +85,8 @@ public class Parser {
                 ui.showNullInputError();
             } catch (NegativeAmountException e) {
                 ui.showNegativeAmountError();
+            } catch (MoreThanTwoDecimalPlace e) {
+                ui.showDecimalPlacesError();
             }
             break;
         case "view-account":
@@ -116,6 +119,8 @@ public class Parser {
             } catch (WithdrawalCancelledException e) {
                 ui.showWithdrawCancelled();
                 ui.printLine();
+            } catch (MoreThanTwoDecimalPlace e) {
+                ui.showDecimalPlacesError();
             }
             break;
         case "add-account":
