@@ -5,7 +5,6 @@ import seedu.bankwithus.common.WithdrawalChecker;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 public class Account {
@@ -22,7 +21,7 @@ public class Account {
      */
     public Account(String name, String balance, String amtToSave, LocalDate untilWhen) {
         this.name = name;
-        this.balance = new BigDecimal(balance).setScale(2, RoundingMode.CEILING);;
+        this.balance = new BigDecimal(balance).setScale(2, RoundingMode.CEILING);
         this.withdrawalChecker = new WithdrawalChecker();
         this.saveGoal = new SaveGoal(new BigDecimal(amtToSave), untilWhen);
     }
@@ -57,7 +56,7 @@ public class Account {
     //@@author manushridiv
     public void subtractBalance(BigDecimal currentBalance, BigDecimal withdrawal) {
         this.balance = currentBalance.subtract(withdrawal);
-//        withdrawalChecker.updateTotalAmtWithdrawn(withdrawal); //check later
+        withdrawalChecker.updateTotalAmtWithdrawn(withdrawal); //check later
     }
 
     //@@author vishnuvk47
