@@ -245,19 +245,19 @@ public class Parser {
     public void parseTransactionFile(Scanner scanner) throws CorruptedTransactionFileException,
             TransactionFileIsEmptyException {
         boolean isCorrupted = false;
-            while (scanner.hasNextLine()) {
-                String transactionDetails = scanner.nextLine();
-                try {
-                    if (transactionDetails.isBlank()) {
-                        throw new SaveFileIsEmptyException();
-                    }
-                    TransactionDecoder decoder = new TransactionDecoder();
-                    Transaction temp = decoder.decodeTransaction(transactionDetails);
-                    transactionList.addTransaction(temp);
-                } catch (Exception e) {
-                    isCorrupted = true;
+        while (scanner.hasNextLine()) {
+            String transactionDetails = scanner.nextLine();
+            try {
+                if (transactionDetails.isBlank()) {
+                    throw new SaveFileIsEmptyException();
                 }
+                TransactionDecoder decoder = new TransactionDecoder();
+                Transaction temp = decoder.decodeTransaction(transactionDetails);
+                transactionList.addTransaction(temp);
+            } catch (Exception e) {
+                isCorrupted = true;
             }
+        }
         if (isCorrupted) {
             throw new CorruptedTransactionFileException();
         }
