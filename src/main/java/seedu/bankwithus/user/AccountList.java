@@ -256,9 +256,9 @@ public class AccountList {
         String balance = getMainAccount().getAccountBalance();
         float bal = Float.parseFloat(balance);
         ui.showBal(balance);
-
     }
 
+    //@@author xiaoge26
     /**
      * Deposits a user specified amount to the current account's balance.
      *
@@ -267,7 +267,6 @@ public class AccountList {
      * @throws NullPointerException
      * @throws NegativeAmountException
      */
-    //@@author xiaoge26
     public void depositMoney(String depositAmountString) throws NumberFormatException,
             NullPointerException, NegativeAmountException, MoreThanTwoDecimalPlace {
         float depositAmount = Float.parseFloat(depositAmountString);
