@@ -1,15 +1,16 @@
 package seedu.bankwithus.common;
 
+import java.math.BigDecimal;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 //@@author vishnuvk47
 public class SaveGoal {
-    public float amtToSave;
+    public BigDecimal amtToSave;
     public LocalDate untilWhen;
 
-    public SaveGoal(float amtToSave, String untilWhenStr) {
+    public SaveGoal(BigDecimal amtToSave, String untilWhenStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         try {
             this.untilWhen = LocalDate.parse(untilWhenStr, formatter);
@@ -19,7 +20,7 @@ public class SaveGoal {
         }
     }
 
-    public SaveGoal(float amtToSave, LocalDate untilWhen) {
+    public SaveGoal(BigDecimal amtToSave, LocalDate untilWhen) {
         this.amtToSave = amtToSave;
         this.untilWhen = untilWhen;
     }
