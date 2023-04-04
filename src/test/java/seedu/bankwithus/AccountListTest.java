@@ -5,6 +5,8 @@ import seedu.bankwithus.exceptions.MoreThanTwoDecimalPlace;
 import seedu.bankwithus.user.AccountList;
 import seedu.bankwithus.exceptions.NegativeAmountException;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -83,7 +85,7 @@ class AccountListTest {
         AccountList testAccountList = new AccountList();
         testAccountList.addAccount("Jane", "1000", "");
         assertEquals("Jane", testAccountList.getMainAccount().getName());
-        assertEquals("1000", testAccountList.getMainAccount().getAccountBalance());
+        assertEquals(new BigDecimal("1000.00"), testAccountList.getMainAccount().getAccountBalance());
     }
 
     //@@author tyuyang

@@ -3,6 +3,8 @@ package seedu.bankwithus.ui;
 import seedu.bankwithus.user.Account;
 import seedu.bankwithus.common.SaveGoal;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -99,8 +101,8 @@ public class Ui {
         }
     }
 
-    public void showBal(String finalBal) {
-        System.out.println("You have $" + finalBal + " remaining!");
+    public void showBal(BigDecimal finalBal) {
+        System.out.println("You have $" + finalBal.setScale(2, RoundingMode.CEILING) + " remaining!");
     }
 
     public void showNegativeAmountError() {
@@ -242,7 +244,7 @@ public class Ui {
     }
 
     public void showGoal(SaveGoal goal) {
-        System.out.println("Min amount to save: $" + Float.toString(goal.amtToSave));
+        System.out.println("Min amount to save: $" + goal.amtToSave);
         LocalDate date = goal.untilWhen;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String untilwhen = date.format(formatter);
