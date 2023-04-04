@@ -27,7 +27,9 @@ set-wl bal
 check-wl
 set-wl 100
 check-wl
-withdraw 10
+withdraw 10.111
+deposit 9.112
+deposit 0.1
 check-wl
 withdraw 100
 view-account

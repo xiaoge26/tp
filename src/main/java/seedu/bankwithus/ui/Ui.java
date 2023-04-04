@@ -284,4 +284,10 @@ public class Ui {
         System.out.println("No transactions found!");
         printLine();
     }
+
+    //@@author Sherlock-YH
+    public void showDecimalPlacesError(){
+        System.out.println("There are more than two decimal places!\n" + "Please re-enter the command");
+        printLine();
+    }
 }
