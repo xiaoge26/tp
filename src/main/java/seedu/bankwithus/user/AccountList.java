@@ -311,7 +311,7 @@ public class AccountList {
             NegativeAmountException, InsufficientBalanceException, ExceedsWithdrawalLimitException,
             WithdrawalCancelledException, MoreThanTwoDecimalPlace {
         float withdrawAmount = Float.parseFloat(withdrawAmountString);
-        BigDecimal amtToDraw = new BigDecimal(withdrawAmount);
+        BigDecimal amtToDraw = new BigDecimal(withdrawAmountString);
         if (withdrawAmount < 0) {
             throw new NegativeAmountException();
         }
