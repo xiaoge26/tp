@@ -1,8 +1,8 @@
 package seedu.bankwithus.user;
 
-import seedu.bankwithus.exceptions.CorruptedSaveFileException;
+import seedu.bankwithus.exceptions.CorruptedTransactionFileException;
 import seedu.bankwithus.exceptions.NoTransactionsFoundException;
-import seedu.bankwithus.exceptions.SaveFileIsEmptyException;
+import seedu.bankwithus.exceptions.TransactionFileIsEmptyException;
 import seedu.bankwithus.parser.Parser;
 import seedu.bankwithus.ui.Ui;
 
@@ -27,9 +27,9 @@ public class TransactionList {
         Parser parser = new Parser(this);
         try {
             parser.parseTransactionFile(scanner);
-        } catch (CorruptedSaveFileException e) {
-            ui.showCorruptedSaveFileError();
-        } catch (SaveFileIsEmptyException e) {
+        } catch (CorruptedTransactionFileException e) {
+            ui.showCorruptedTransactionFileError();
+        } catch (TransactionFileIsEmptyException e) {
             //shows "No transactions found!" as this catch block
             ui.showNoTransactionsFoundMessage();
         }

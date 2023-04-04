@@ -170,6 +170,9 @@ public class Ui {
     public void showCorruptedSaveFileError() {
         System.out.println("Save file is corrupted!!! Creating new account...");
     }
+    public void showCorruptedTransactionFileError() {
+        System.out.println("Transaction file is corrupted!!! Deleting the corrupted entries...");
+    }
 
     public void showForbiddenCharacterError() {
         System.out.println("Please do not put the character ';' in the name.");
