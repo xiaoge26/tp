@@ -343,10 +343,8 @@ public class AccountList {
     public Boolean foundAccountToDelete(String name, Account acc) {
         if (acc.getAccountName().equals(name)) {
             accounts.remove(acc);
+            doesNameExist.remove(name);
             ui.showAccountDeleted(name);
-            if (accounts.size() < 1) {
-                createNewAccount();
-            }
             return true;
         }
         return false;
@@ -368,6 +366,9 @@ public class AccountList {
         }
         if (!accountDeleted) {
             ui.showNoAccountFound();
+        }
+        if (accounts.size() < 1) {
+            createNewAccount();
         }
     }
 
