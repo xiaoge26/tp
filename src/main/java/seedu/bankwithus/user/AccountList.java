@@ -254,9 +254,9 @@ public class AccountList {
     public void showBal() {
         BigDecimal balance = getMainAccount().getAccountBalance();
         ui.showBal(balance);
-
     }
 
+    //@@author xiaoge26
     /**
      * Deposits a user specified amount to the current account's balance.
      *
@@ -265,7 +265,6 @@ public class AccountList {
      * @throws NullPointerException
      * @throws NegativeAmountException
      */
-    //@@author xiaoge26
     public void depositMoney(String depositAmountString) throws NumberFormatException,
             NullPointerException, NegativeAmountException, MoreThanTwoDecimalPlace {
         float depositAmount = Float.parseFloat(depositAmountString);//floats are still used, but only for comparison
@@ -312,7 +311,7 @@ public class AccountList {
             NegativeAmountException, InsufficientBalanceException, ExceedsWithdrawalLimitException,
             WithdrawalCancelledException, MoreThanTwoDecimalPlace {
         float withdrawAmount = Float.parseFloat(withdrawAmountString);
-        BigDecimal amtToDraw = new BigDecimal(withdrawAmount);
+        BigDecimal amtToDraw = new BigDecimal(withdrawAmountString);
         if (withdrawAmount < 0) {
             throw new NegativeAmountException();
         }

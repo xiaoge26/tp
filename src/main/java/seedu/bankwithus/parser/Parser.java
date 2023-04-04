@@ -1,6 +1,8 @@
 package seedu.bankwithus.parser;
 
+import seedu.bankwithus.exceptions.CorruptedTransactionFileException;
 import seedu.bankwithus.exceptions.MoreThanTwoDecimalPlace;
+import seedu.bankwithus.exceptions.TransactionFileIsEmptyException;
 import seedu.bankwithus.user.AccountList;
 import seedu.bankwithus.BankWithUs;
 import seedu.bankwithus.user.Transaction;
@@ -240,20 +242,28 @@ public class Parser {
      * @throws CorruptedSaveFileException
      * @throws SaveFileIsEmptyException
      */
-    public void parseTransactionFile(Scanner scanner) throws CorruptedSaveFileException,
-            SaveFileIsEmptyException {
+    public void parseTransactionFile(Scanner scanner) throws CorruptedTransactionFileException,
+            TransactionFileIsEmptyException {
+        boolean isCorrupted = false;
         while (scanner.hasNextLine()) {
             String transactionDetails = scanner.nextLine();
-            if (transactionDetails.isBlank()) {
-                throw new SaveFileIsEmptyException();
+            try {
+                if (transactionDetails.isBlank()) {
+                    throw new SaveFileIsEmptyException();
+                }
+                TransactionDecoder decoder = new TransactionDecoder();
+                Transaction temp = decoder.decodeTransaction(transactionDetails);
+                transactionList.addTransaction(temp);
+            } catch (Exception e) {
+                isCorrupted = true;
             }
-            TransactionDecoder decoder = new TransactionDecoder();
-            Transaction temp = decoder.decodeTransaction(transactionDetails);
-            transactionList.addTransaction(temp);
+        }
+        if (isCorrupted) {
+            throw new CorruptedTransactionFileException();
         }
         scanner.close();
-        if (transactionList.getSize() == 0){
-            throw new SaveFileIsEmptyException();
+        if (transactionList.getSize() == 0) {
+            throw new TransactionFileIsEmptyException();
         }
     }
 }
