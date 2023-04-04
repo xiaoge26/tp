@@ -273,7 +273,7 @@ public class AccountList {
         if (depositAmount < 0) {
             throw new NegativeAmountException();
         } else {
-            if (isMoreThanTwoDecimalPlaces(depositAmount)) {
+            if (isMoreThanTwoDecimalPlaces(depositAmountString)) {
                 throw new MoreThanTwoDecimalPlace();
             }
             getMainAccount().addBalance(amtToDeposit);
@@ -324,7 +324,7 @@ public class AccountList {
         } else if (willFailsSaveGoal(currentBalance, amtToDraw)) {
             ui.failToMeetSaveGoal();
             handleProceed(amtToDraw, currentBalance);
-        } else if (isMoreThanTwoDecimalPlaces(withdrawAmount)) {
+        } else if (isMoreThanTwoDecimalPlaces(withdrawAmountString)) {
             throw new MoreThanTwoDecimalPlace();
         } else {
             getMainAccount().subtractBalance(currentBalance, amtToDraw);
@@ -542,14 +542,12 @@ public class AccountList {
     }
 
     //@@author Sherlock-YH
-    public static boolean isMoreThanTwoDecimalPlaces(float num) {
-        String numStr = Float.toString(num);
-        int decimalIndex = numStr.indexOf('.');
-        if (decimalIndex == -1) {
+    public static boolean isMoreThanTwoDecimalPlaces(String num) {
+        int decPosition = num.indexOf(".");
+        if (decPosition == -1) {
             // No decimal point found, so the number has zero decimal places
             return false;
         }
-        int numDecimals = numStr.length() - decimalIndex - 1;
-        return numDecimals > 2;
+        return (num.length() - (decPosition + 1) > 2);
     }
 }
