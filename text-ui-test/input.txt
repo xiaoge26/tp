@@ -9,6 +9,7 @@ deposit -1
 deposit java
 view-account
 deposit 100.21
+withdraw
 view-account
 delete sherlock
 add-account

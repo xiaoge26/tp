@@ -2,6 +2,7 @@ package seedu.bankwithus.parser;
 
 import seedu.bankwithus.exceptions.CorruptedTransactionFileException;
 import seedu.bankwithus.exceptions.MoreThanTwoDecimalPlace;
+import seedu.bankwithus.exceptions.NoValueInputException;
 import seedu.bankwithus.exceptions.TransactionFileIsEmptyException;
 import seedu.bankwithus.user.AccountList;
 import seedu.bankwithus.BankWithUs;
@@ -123,6 +124,8 @@ public class Parser {
                 ui.printLine();
             } catch (MoreThanTwoDecimalPlace e) {
                 ui.showDecimalPlacesError();
+            } catch (NoValueInputException e) {
+                ui.showNoValueInput();
             }
             break;
         case "add-account":
