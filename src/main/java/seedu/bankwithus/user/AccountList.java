@@ -346,9 +346,7 @@ public class AccountList {
         if (acc.getAccountName().equals(name)) {
             accounts.remove(acc);
             ui.showAccountDeleted(name);
-            if (accounts.size() < 1) {
-                createNewAccount();
-            }
+            doesNameExist.remove(name);
             return true;
         }
         return false;
