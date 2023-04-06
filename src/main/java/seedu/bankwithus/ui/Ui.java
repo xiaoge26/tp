@@ -295,4 +295,10 @@ public class Ui {
         System.out.println("There are more than two decimal places!\n" + "Please re-enter the command");
         printLine();
     }
+
+    //@@author Sherlock-YH
+    public void showNoValueInput() {
+        System.out.println("You did not enter any value. Please re-enter");
+        printLine();
+    }
 }

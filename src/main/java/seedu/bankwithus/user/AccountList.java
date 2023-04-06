@@ -10,6 +10,7 @@ import seedu.bankwithus.exceptions.InsufficientBalanceException;
 import seedu.bankwithus.exceptions.MoreThanTwoDecimalPlace;
 import seedu.bankwithus.exceptions.NegativeAmountException;
 import seedu.bankwithus.exceptions.NoAccountException;
+import seedu.bankwithus.exceptions.NoValueInputException;
 import seedu.bankwithus.exceptions.SaveFileIsEmptyException;
 import seedu.bankwithus.exceptions.WithdrawalCancelledException;
 import seedu.bankwithus.parser.Parser;
@@ -309,7 +310,10 @@ public class AccountList {
     //@@author manushridiv
     public void withdrawMoney(String withdrawAmountString) throws NumberFormatException,
             NegativeAmountException, InsufficientBalanceException, ExceedsWithdrawalLimitException,
-            WithdrawalCancelledException, MoreThanTwoDecimalPlace {
+            WithdrawalCancelledException, MoreThanTwoDecimalPlace, NoValueInputException {
+        if (withdrawAmountString.trim().isBlank()){
+            throw new NoValueInputException();
+        }
         float withdrawAmount = Float.parseFloat(withdrawAmountString);
         BigDecimal amtToDraw = new BigDecimal(withdrawAmountString);
         if (withdrawAmount < 0) {
