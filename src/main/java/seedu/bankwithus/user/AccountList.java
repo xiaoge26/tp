@@ -258,13 +258,14 @@ public class AccountList {
     }
 
     //@@author xiaoge26
+
     /**
-     * Deposits a user specified amount to the current account's balance.
-     *
-     * @param depositAmountString - amount to be deposited
-     * @throws NumberFormatException
-     * @throws NullPointerException
-     * @throws NegativeAmountException
+     * Deposits money into the current account.
+     * @param depositAmountString the amount to be deposited
+     * @throws NumberFormatException if the amount is not a number
+     * @throws NullPointerException if the amount is null
+     * @throws NegativeAmountException if the amount is negative
+     * @throws MoreThanTwoDecimalPlace if the amount has more than 2 decimal places
      */
     public void depositMoney(String depositAmountString) throws NumberFormatException,
             NullPointerException, NegativeAmountException, MoreThanTwoDecimalPlace {
@@ -346,7 +347,9 @@ public class AccountList {
         if (acc.getAccountName().equals(name)) {
             accounts.remove(acc);
             ui.showAccountDeleted(name);
+            doesNameExist.remove(name);
             if (accounts.size() < 1) {
+                ui.showAddAccountPrompt();
                 createNewAccount();
             }
             return true;

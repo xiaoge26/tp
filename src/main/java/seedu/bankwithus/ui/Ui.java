@@ -301,4 +301,10 @@ public class Ui {
         System.out.println("You did not enter any value. Please re-enter");
         printLine();
     }
+
+    //@@author xiaoge26
+    //This is shown when the user deleted all the accounts.
+    public void showAddAccountPrompt() {
+        System.out.println("You don't have any account now, please create a new account");
+    }
 }
