@@ -57,9 +57,6 @@ You may want to refer to our User Guide for the list of commands <br />
 
 ## Design & implementation
 
-
-### Design
-
 ### Architecture
 <img src="images/MainArchitecture.png" width="280" /> <br />
 The  Architecture Diagram given above explains the high-level design of the App.
@@ -145,12 +142,6 @@ The `TransactionList` component:
 that contains the various different transactions that the user has
 * Contains methods to add, delete and view transactions
 
----
-
-## Implementation
-* [Account related Feature](#account-feature)
-* [SaveGoal related Feature](#savegoal-feature)
-* [Transaction Related Feature](#transaction-feature)
 
 ---
 
