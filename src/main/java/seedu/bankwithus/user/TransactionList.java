@@ -59,6 +59,11 @@ public class TransactionList {
         size++;
     }
 
+    /**
+     * Adds a transaction to the transaction list.
+     *
+     * @param transaction the transaction to be added
+     */
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
         size++;
@@ -75,12 +80,44 @@ public class TransactionList {
         return size;
     }
 
+    /**
+     * Prints all transactions in the transaction list.
+     *
+     * @throws NoTransactionsFoundException thrown when there are no transactions in the transaction list
+     */
     public void printAllTransactions() throws NoTransactionsFoundException {
         if (size == 0) {
             throw new NoTransactionsFoundException();
         }
         for (int i = 0; i < size; i++) {
-            System.out.println(transactions.get(i).toString());
+            System.out.println(i + 1 + ". " + transactions.get(i).toString());
+        }
+    }
+
+    /**
+     * Deletes a transaction from the transaction list.
+     * @param args the index of the transaction to be deleted
+     */
+    public void deleteTransaction(String args) throws NoTransactionsFoundException,
+            NumberFormatException, IndexOutOfBoundsException {
+        Ui ui = new Ui();
+        if (size == 0) {
+            throw new NoTransactionsFoundException();
+        } else if (Integer.parseInt(args) > size || Integer.parseInt(args) < 1) {
+            throw new IndexOutOfBoundsException();
+        } else {
+            try {
+                int index = Integer.parseInt(args) - 1;
+                transactions.remove(index);
+                size--;
+                ui.showTransactionDeletedMessage();
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException();
+            } catch (IndexOutOfBoundsException e) {
+                throw new IndexOutOfBoundsException();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

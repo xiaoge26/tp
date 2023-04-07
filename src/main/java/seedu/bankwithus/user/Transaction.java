@@ -34,9 +34,6 @@ public class Transaction {
         return amount;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
     public String getDateStr() {
         return date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }

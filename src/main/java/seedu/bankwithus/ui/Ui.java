@@ -131,6 +131,8 @@ public class Ui {
         System.out.println("check-wl: shows the withdrawal limit and the amount of money withdrawn " 
                 + "this month");
         System.out.println("view-transactions-all: views all transactions across all accounts");
+        System.out.println("delete_transaction <transaction index>: " +
+                "deletes the transaction with the given transaction index");
         System.out.println("exit: quits program and saves");
         printLine();
     }
@@ -303,8 +305,17 @@ public class Ui {
     }
 
     //@@author xiaoge26
+
     //This is shown when the user deleted all the accounts.
     public void showAddAccountPrompt() {
         System.out.println("You don't have any account now, please create a new account");
+        printLine();
+    }
+    public void showIndexOutOfBoundsError() {
+        System.out.println("Index out of bounds, please try again");
+        printLine();
+    }
+    public void showTransactionDeletedMessage() {
+        System.out.println("Transaction deleted successfully");
     }
 }
