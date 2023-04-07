@@ -4,6 +4,7 @@ import seedu.bankwithus.exceptions.CorruptedTransactionFileException;
 import seedu.bankwithus.exceptions.MoreThanTwoDecimalPlace;
 import seedu.bankwithus.exceptions.NoValueInputException;
 import seedu.bankwithus.exceptions.TransactionFileIsEmptyException;
+import seedu.bankwithus.user.Account;
 import seedu.bankwithus.user.AccountList;
 import seedu.bankwithus.BankWithUs;
 import seedu.bankwithus.user.Transaction;
@@ -200,6 +201,9 @@ public class Parser {
                 ui.showIndexOutOfBoundsError();
             }
             break;
+        case "view-current":
+            Account mainAcc = accountList.getMainAccount();
+            ui.showCurrentAccount(mainAcc);
         default:
             throw new CommandNotFoundException();
         }
