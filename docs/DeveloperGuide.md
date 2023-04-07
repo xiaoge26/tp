@@ -1,8 +1,8 @@
 # Developer Guide
 
 * [Acknowledgements](#acknowledgements)
-* [Setting up, getting started](#setting-up-getting-started)
-* [Design](#design)
+* [Setting Up, Getting Started](#setting-up-getting-started)
+* [Design & Implementation](#design)
     * [Architecture](#architecture)
     * [UI Component](#UI-Component)
     * [Parser Component](#parser-component)
@@ -14,10 +14,6 @@
     * [Withdrawal Limit Component](#withdraw limit checker-Component)
     * [Transaction Component](#transaction-Component)
     * [TransactionList Component](#transactionlist-component)
-* [Implementation](#implementation)
-    * [Account Related Feature](#Account-feature)
-    * [SaveGoal Related Feature](#SaveGoal-feature)
-    * [Transaction Related Feature](#transaction-feature)
 
 * [Appendix: Requirements](#appendix-requirements)
     * [Product Scope](#product-scope)
@@ -26,6 +22,7 @@
     * [User Stories](#user-stories)
     * [Non-Functional Requirements](#non-functional-requirements)
     * [Glossary](#glossary)
+    * [Instructions for Manual Testing](#instructions-for-manual-testing)
 
 ---
 
@@ -34,9 +31,9 @@
 ## Acknowledgements
 We adapted the structure of this document from the 
 [AddressBook-Level3](https://se-education.org/addressbook-level3/DeveloperGuide.html) 
-project created by the [SE-EDU initiative](https://se-education.org/).
+project created by the [SE-EDU initiative](https://se-education.org/). <br />
 We used the content from the above project for
-the "Setting up, getting started" and "Non-Functional Requirements" sections in 
+the "Setting Up, Getting Started" and "Non-Functional Requirements" sections in 
 this document as well.
 
 
@@ -45,11 +42,14 @@ First, **fork** this repo, and **clone** the fork into your computer.
 
 If you plan to use Intellij IDEA (highly recommended):
 
-1. **Configuring the JDK** to to ensure Intellij is configured to use JDK 11
-2. **Import the project as a Gradle project** <br />
-**Note**: Importing a Gradle project is slightly different from importing 
+1. **Configure the JDK**: Follow the guide 
+[_[se-edu/guides] IDEA: Configuring the JDK_](https://se-education.org/guides/tutorials/intellijJdk.html) to ensure Intellij is configured to use JDK 11
+2. **Import the project as a Gradle project**: 
+Follow the guide [_[se-edu/guides] IDEA: Importing a Gradle project_](https://se-education.org/guides/tutorials/intellijImportGradleProject.html) 
+to import the project into IDEA.  <br />
+❗ Note: Importing a Gradle project is slightly different from importing 
 a normal Java project <br />
-3. **Verify the setup**: <br />
+3. **Verify the setup**:
 * Run the `seedu/bankwithus/BankWithUs.java` and try a few commands. 
 You may want to refer to our User Guide for the list of commands <br />
 * Run the tests to ensure they all pass
@@ -73,20 +73,20 @@ The sequence diagram below shows how components interact with each other when th
 ### UI-Component
 Class: `Ui.java`
 
-*  contains all code that interfaces directly with the CLI
+*  Contains all code that interfaces directly with the CLI
 
 ### Parser-Component
 Class: `Parser.java`
 
-* determines what the program would do with the input retrieved from the CLI
+* Determines what the program would do with the input retrieved from the CLI
 
 ### Account-Component
 Class: `Account.java`
 
 The `Account` component:
 
-* contains `name`, `balance`, `saveGoal`, `withdrawChecker` attribute
-* stores and manages all the account details that pertains to one account
+* Contains `name`, `balance`, `saveGoal`, `withdrawChecker` attribute
+* Stores and manages all the account details that pertains to one account
 
 ### AccountList-Component
 
@@ -94,9 +94,10 @@ Class: `AccountList.java`
 
 The `AccountList` component:
 
-* contains an `ArrayList<Accounts>` named `accountList` that contains the various different accounts that the user has.
-* `accountList` is used to navigate between accounts for the switch-to feature
-* when a new account is created it is appended to the `accountList` array
+* Contains an `ArrayList<Accounts>` named `accountList` that contains the various 
+different accounts that the user has
+* The `accountList` is used to navigate between accounts for the switch-to feature
+* When a new account is created it is appended to `accountList` 
 
 ### BankWithUs-Component
 Class: `BankWithUs.java`
@@ -104,7 +105,7 @@ Class: `BankWithUs.java`
 The `BankWithUs` component:
 
 * The Main Class
-* the whole program executes through the `BankWithUs` class
+* The whole program executes through the `BankWithUs` class
 
 ### SaveGoal-Component
 Class: `SaveGoal.java`
@@ -112,7 +113,7 @@ Class: `SaveGoal.java`
 The `SaveGoal` component:
 
 * Allows users to add a savings goal
-* allows users to add a deadline to the savings goal
+* Allows users to add a deadline to the savings goal
 
 ### Storage-Component
 Class: `Storage.java`
@@ -145,15 +146,6 @@ that contains the various different transactions that the user has
 
 ---
 
-## Non-Functional Requirements
-
-1. The application should work on any mainstream OS as long as it has Java 11 installed.
-2. A user with above average typing speed for regular English text
-   should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-## Glossary
-
-* *Mainstream OS*: Windows, Linux, Unix, OS-X
 
 ## Appendix: Requirements
 
@@ -197,8 +189,29 @@ minimalism of a CLI interface, as it provides only the essential information and
 | v2.1    | user     | delete transaction records            | so that i can get rid of trivial transaction records                                    |
 
 
+## Non-Functional Requirements
 
+1. The application should work on any mainstream OS as long as it has Java 11 installed.
+2. A user with above average typing speed for regular English text
+   should be able to accomplish most of the tasks faster using commands than using the mouse.
+
+## Glossary
+
+* *Mainstream OS*: Windows, Linux, Unix, OS-X
+*  *CLI*: Command Line Interface <br />
+Some Operating Systems and their respective CLIs are listed below: <br />
+Windows: Command Prompt <br />
+   Linux: Linux Bash Shell <br />
+   MacOs: Mac Terminal <br />
 
 ## Instructions for manual testing
+### Launch
+1. Ensure you have Java 11 installed in your Computer
+2. Download the latest release `tp.jar` from here
+3. Copy the file to the folder you want to use as the home folder for BankWithUs
+4. Open a command terminal, cd into the folder you put the `tp.jar` file in, and use `java -jar tp.jar` 
+command to run the application. A CLI should appear in a few seconds
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+### Sample Test Cases
+Please refer to the Features section in our [UserGuide](UserGuide.md) for more details on the test cases
+that you can try out.
