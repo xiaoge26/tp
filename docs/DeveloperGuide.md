@@ -207,9 +207,9 @@ Windows: Command Prompt <br />
 ## Instructions for manual testing
 ### Launch
 1. Ensure you have Java 11 installed in your Computer
-2. Download the latest release `tp.jar` from here
+2. Download the latest release `BankWithUs.jar` from here
 3. Copy the file to the folder you want to use as the home folder for BankWithUs
-4. Open a command terminal, cd into the folder you put the `tp.jar` file in, and use `java -jar tp.jar` 
+4. Open a command terminal, cd into the folder you put the `BankWithUs.jar` file in, and use `java -jar BankWithUs.jar` 
 command to run the application. A CLI should appear in a few seconds
 
 ### Sample Test Cases
