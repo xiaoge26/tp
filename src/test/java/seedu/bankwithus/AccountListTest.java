@@ -6,6 +6,7 @@ import seedu.bankwithus.user.AccountList;
 import seedu.bankwithus.exceptions.NegativeAmountException;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -141,4 +142,15 @@ class AccountListTest {
         assertEquals("11000", testAccountList.getMainAccount()
                 .getWithdrawalChecker().getWithdrawalLimit());
     }
+
+    @Test
+    public void testIsDateFormatValid() {
+        AccountList acc = new AccountList();
+        String validDate = "07-04-2023";
+        String invalidDate = "2023-04-07";
+
+        assertEquals(true, acc.isDateFormatValid(validDate));
+        assertEquals(false, acc.isDateFormatValid(invalidDate));
+    }
+
 }
