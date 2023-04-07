@@ -86,7 +86,6 @@ public class Parser {
             } catch (NumberFormatException e) {
                 ui.showNumberFormatError();
             } catch (NullPointerException e) {
-                // Will almost never happen, but who knows
                 ui.showNullInputError();
             } catch (NegativeAmountException e) {
                 ui.showNegativeAmountError();
@@ -204,6 +203,7 @@ public class Parser {
         case "view-current":
             Account mainAcc = accountList.getMainAccount();
             ui.showCurrentAccount(mainAcc);
+            break;
         default:
             throw new CommandNotFoundException();
         }

@@ -332,14 +332,15 @@ public class AccountList {
             throw new MoreThanTwoDecimalPlace();
         } else {
             getMainAccount().subtractBalance(currentBalance, amtToDraw);
-            if(amtToDraw.compareTo(BigDecimal.ZERO) == 0) {
-                ui.showWithdrawMessage();
-            } else {
+            if (amtToDraw.compareTo(new BigDecimal("0")) == 0) {
                 System.out.println("Withdrawing $0 has no effect!");
+            } else {
+                ui.showWithdrawMessage();
             }
         }
     }
 
+    //@vishnuvk47
     /**
      * Finds the respective account to be deleted at users request.
      * Forces users to create a new account if no account remains after deletion executes.
