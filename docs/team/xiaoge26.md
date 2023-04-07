@@ -17,7 +17,6 @@ I have also developed all the features related to the `Transaction` and `Transac
 deleting, listing, parsing, saving, and loading the transactions.
 
 
-
 ### UG contributions
 
 Documented the `Transaction` and `TransactionList` feature in the User Guide. 
@@ -36,3 +35,4 @@ Further modified the DG template and fixed the typos and standardized the format
 * Released v2.0 of the application
 * Reviewed and approved a significant number of PRs not authored by myself
 * Refactored the code to different packages
+* Created milestones and assigned issues to them

@@ -2,7 +2,7 @@
 
 * [Acknowledgements](#acknowledgements)
 * [Setting Up, Getting Started](#setting-up-getting-started)
-* [Design & Implementation](#design)
+* [Design & Implementation](#design-and-implementation)
     * [Architecture](#architecture)
     * [UI Component](#UI-Component)
     * [Parser Component](#parser-component)
@@ -11,11 +11,11 @@
     * [AccountList Component](#accountlist-component)
     * [SaveGoal Component](#saveGoal-component)
     * [Storage Component](#storage-component)
-    * [Withdrawal Limit Component](#withdraw limit checker-Component)
-    * [Transaction Component](#transaction-Component)
+    * [Withdrawal Limit Component](#withdraw-limit-checker-Component)
+    * [Transaction Component](#transaction-component)
     * [TransactionList Component](#transactionlist-component)
 
-* [Appendix: Requirements](#appendix-requirements)
+* [Appendix](#appendix)
     * [Product Scope](#product-scope)
     * [Target User Profile](#target-user-profile)
     * [Value Proposition](#value-proposition)
@@ -55,7 +55,7 @@ You may want to refer to our User Guide for the list of commands <br />
 * Run the tests to ensure they all pass
 ---
 
-## Design & implementation
+## Design and Implementation
 
 ### Architecture
 <img src="images/MainArchitecture.png" width="280" /> <br />
@@ -147,7 +147,7 @@ that contains the various different transactions that the user has
 ---
 
 
-## Appendix: Requirements
+## Appendix
 
 ### Product scope
 
@@ -166,7 +166,7 @@ freelancers, and small business owners who are looking for a fast and straightfo
 
 ### Value proposition
 
-Fast typers may benefit more from the CLI 
+People who can type fast may benefit more from the CLI 
 version of the banking system as it allows for 
 quick navigation and interaction with the system using keyboard shortcuts. 
 This can lead to a faster and more efficient workflow compared to using a graphical user interface (GUI), 
