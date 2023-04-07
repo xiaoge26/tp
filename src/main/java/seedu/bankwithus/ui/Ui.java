@@ -303,8 +303,18 @@ public class Ui {
     }
 
     //@@author xiaoge26
+
     //This is shown when the user deleted all the accounts.
     public void showAddAccountPrompt() {
         System.out.println("You don't have any account now, please create a new account");
+        printLine();
+    }
+    public void showIndexOutOfBoundsError() {
+        System.out.println("Index out of bounds, please try again");
+        printLine();
+    }
+    public void showDeleteTransactionMessage() {
+        System.out.println("Transaction deleted successfully");
+        printLine();
     }
 }

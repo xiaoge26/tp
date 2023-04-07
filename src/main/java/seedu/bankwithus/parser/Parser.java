@@ -182,6 +182,18 @@ public class Parser {
                 ui.noTransactionsFoundError();
             }
             break;
+        case "delete-transaction":
+            try {
+                transactionList.deleteTransaction(args);
+                ui.printLine();
+            } catch (NoTransactionsFoundException e) {
+                ui.noTransactionsFoundError();
+            } catch (NumberFormatException e) {
+                ui.showNumberFormatError();
+            } catch (IndexOutOfBoundsException e) {
+                ui.showIndexOutOfBoundsError();
+            }
+            break;
         default:
             throw new CommandNotFoundException();
         }
