@@ -100,6 +100,7 @@ public class TransactionList {
      */
     public void deleteTransaction(String args) throws NoTransactionsFoundException,
             NumberFormatException, IndexOutOfBoundsException {
+        Ui ui = new Ui();
         if (size == 0) {
             throw new NoTransactionsFoundException();
         } else if (Integer.parseInt(args) > size || Integer.parseInt(args) < 1) {
@@ -109,6 +110,7 @@ public class TransactionList {
                 int index = Integer.parseInt(args) - 1;
                 transactions.remove(index);
                 size--;
+                ui.showTransactionDeletedMessage();
             } catch (NumberFormatException e) {
                 throw new NumberFormatException();
             } catch (IndexOutOfBoundsException e) {

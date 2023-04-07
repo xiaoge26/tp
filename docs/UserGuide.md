@@ -68,6 +68,7 @@ delete <account username>: deletes the account with username <account username>
 set-wl <amount>: sets <amount> to be the withdrawal limit
 check-wl: shows the withdrawal limit and the amount of money withdrawn this month
 view-transactions-all: views all transactions across all accounts
+delete_transaction <transaction index>: deletes the transaction with the given transaction index
 exit: quits program and saves
 ```
 
@@ -205,8 +206,8 @@ Format: `view-transactions-all`
 Example:
 ```
 >>view-transactions-all
-Account Name: jenson Transaction Type: deposit Amount: 100 Date: 26/03/2023
-Account Name: jenson Transaction Type: withdraw Amount: 10 Date: 26/03/2023
+1. Account Name: jenson Transaction Type: deposit Amount: 100 Date: 26/03/2023
+2. Account Name: jenson Transaction Type: withdraw Amount: 10 Date: 26/03/2023
 ```
 
 ### Add a savings Goal to the current account: `set-save-goal`
@@ -273,6 +274,27 @@ Withdrawal limit is currently $100.
 You have withdrawn $50 this month.
 ```
 
+### Delete a transaction record: `delete-transaction`
+
+Delete the transaction record with the given transaction index. <br />
+The index is the number shown in the list of transactions when `view-transactions-all` is called. <br />
+Take note that this will only delete the transaction record, but will not affect the balance of the account.
+
+Format: `delete-transaction <transaction index>`
+
+Example:
+```
+view-transactions-all
+1. Account Name: xixi Transaction Type: withdraw Amount: 234 Date: 04/04/2023
+2. Account Name: xixi Transaction Type: deposit Amount: 1 Date: 04/04/2023
+----------------------------
+delete-transaction 2
+Transaction deleted successfully
+----------------------------
+view-transactions-all
+1. Account Name: xixi Transaction Type: withdraw Amount: 234 Date: 04/04/2023
+```
+
 ### Exiting the program : `exit`
 
 Exits the program.
@@ -319,4 +341,5 @@ Please keep in mind that this will result in irreversible data loss.
 | **Show the save Goal**        | `show-saveGoal`         |
 | **Add a withdraw Limit**      | `set-wl`                |
 | **View all the transactions** | `view-transactions-all` |
+| **Delete a Transaction**      | `delete-transaction`    |
 | **Help**                      | `help`                  |

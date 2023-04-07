@@ -23,7 +23,6 @@ class TransactionEncoder {
         return encodedTransactionBuilder.toString();
     }
 
-    //@@author xiaoge26
     public String encodeTransactionList(TransactionList transactionList) {
         logger.log(Level.FINE, "Encoding TransactionList");
         if (transactionList.getSize() == 0) {
