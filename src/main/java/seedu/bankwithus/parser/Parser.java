@@ -141,6 +141,7 @@ public class Parser {
             }
             break;
         case "set-wl":
+            checkNegative(args);
             try {
                 accountList.setWithdrawalLimit(args);
                 String withdrawalLimit = accountList.getMainAccount()
@@ -163,6 +164,7 @@ public class Parser {
             ui.showHelp();
             break;
         case "set-save-goal":
+            checkNegative(args);
             if(args.length() > 0) {
                 String untilWhenStr = ui.getDeadline();
                 accountList.handleSaveGoal(args, untilWhenStr);
