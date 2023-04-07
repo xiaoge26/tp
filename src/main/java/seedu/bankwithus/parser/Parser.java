@@ -60,7 +60,7 @@ public class Parser {
      *
      * @throws IOException
      */
-    public void parseUserInput(String input) throws CommandNotFoundException, IOException {
+    public void parseUserInput(String input) throws CommandNotFoundException, IOException, NegativeAmountException {
         // Split input by space
         String[] split = input.trim().split("\\s+", 2);
         String command = split[0];
@@ -75,6 +75,7 @@ public class Parser {
             break;
         case "deposit":
             try {
+                checkNegative(args);
                 accountList.depositMoney(args);
                 transactionList.createNewTransaction(accountList.getMainAccount().getAccountName(),
                         "deposit", args, LocalDate.now());
@@ -102,6 +103,7 @@ public class Parser {
             break;
         case "withdraw":
             try {
+                checkNegative(args);
                 accountList.withdrawMoney(args);
                 transactionList.createNewTransaction(accountList.getMainAccount().getAccountName(),
                         "withdraw", args, LocalDate.now());
@@ -279,6 +281,12 @@ public class Parser {
         scanner.close();
         if (transactionList.getSize() == 0) {
             throw new TransactionFileIsEmptyException();
+        }
+    }
+
+    public void checkNegative(String args) throws NegativeAmountException {
+        if (args.length() > 1 && args.charAt(0) == '-') {
+            throw new NegativeAmountException();
         }
     }
 }
