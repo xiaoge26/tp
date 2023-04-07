@@ -176,6 +176,7 @@ public class Parser {
             accountList.showGoal();
             break;
         case "delete":
+            checkNegative(args);
             accountList.deleteAccount(args);
             break;
         case "view-transactions-all":
@@ -187,6 +188,7 @@ public class Parser {
             }
             break;
         case "delete-transaction":
+            checkNegative(args);
             try {
                 transactionList.deleteTransaction(args);
                 ui.printLine();
@@ -286,8 +288,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Throws an exception if argument(Amount/index) has -ve sign.
+     * Extra layer of check to avoid any -0 ambiguity.
+     * @param args
+     * @throws NegativeAmountException
+     */
     public void checkNegative(String args) throws NegativeAmountException {
-        if (args.length() > 1 && args.charAt(0) == '-') {
+        if (args.length() > 0 && args.charAt(0) == '-') {
             throw new NegativeAmountException();
         }
     }
