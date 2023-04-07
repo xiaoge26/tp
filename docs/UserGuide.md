@@ -15,15 +15,15 @@
 5. Follow the instruction as per the CLI and create your new account. e.g. typing **`help`** and pressing Enter will open the help option.<br>
    Some example commands you can try:
 
-       * `view-transactions-all` : Lists all recorded transactions
+       * `view-transactions-all` : Lists all recorded transactions.
 
-       * `withdraw 300` : Withdraws $300 from the current balance (Subsitute 300 for other numbers)
+       * `withdraw 300` : Withdraws $300 from the current balance. (Subsitute 300 for other numbers)
 
-       * `delete ACCOUNT_NAME` : Deletes the account with the given account name
+       * `delete ACCOUNT_NAME` : Deletes the account with the given account name.
 
        * `deposit 100` : Deposits $100 into the users account. (Subsitute 100 for other numbers)
 
-       * `exit` : Exits the application
+       * `exit` : Exits the application.
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -341,12 +341,16 @@ Please keep in mind that this will result in irreversible data loss.
 | Action                        | Format, Examples           |
 |-------------------------------|----------------------------|
 | **Add an Account**            | `add-account`              |
-| **switch to a new account**   | `switch-to ACC_NAME`       |
+| **View all Accounts Details** | `view-account`             |
+| **Switch to a new account**   | `switch-to ACC_NAME`       |
 | **Delete an account**         | `delete ACC-NAME`          |
-| **withdraw some amount**      | `withdraw AMOUNT`          |
+| **Withdraw some amount**      | `withdraw AMOUNT`          |
+| **Deposit some amount**       | `deposit AMOUNT`           |
 | **Add a savings goal**        | `set-save-goal AMOUNT`     |
 | **Show the save Goal**        | `show-save-goal`           |
 | **Add a withdraw Limit**      | `set-wl AMOUNT`            |
+| **Show the withdraw Limit**   | `check-wl`                 |
 | **View all the transactions** | `view-transactions-all`    |
 | **Delete a Transaction**      | `delete-transaction INDEX` |
-| **Help**                      | `help`                     |
+| **View help menu**            | `help`                     |
+| **Exit**                      | `exit`                     |
