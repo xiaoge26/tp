@@ -174,7 +174,7 @@ that contains the various different transactions that the user has
 
 **Step 1**:
 
---> Checks the args(AMOUNT to deposit) for a negative sign in the `checkNegative()` method
+--> Checks the args(AMOUNT to withdraw) for a negative sign in the `checkNegative()` method
 
 **Step 2**:
 
@@ -219,6 +219,40 @@ that contains the various different transactions that the user has
 **Step 4**:
 
 --> Add account creates a new instance of an Account class with the specified attributes and appends to the current ArrayList
+
+## Command: `deposit`:
+
+**Step 1**:
+
+--> Checks the args(AMOUNT to deposit) for a negative sign in the `checkNegative()` method
+
+**Step 2**:
+
+--> Calls the `depositMoney` method in the AccountList class
+
+--> Checks if the AMOUNT entered is empty, number of decimal places(accepts only 2 d.p) 
+
+**Step 3**:
+
+--> inside the `depositMoney` method, once it passes all the checks will call the `addBalance` method from the Account class to increment the balance as appropriate
+
+## Command: `set-save-goal`:
+
+**Step 1**:
+
+--> Checks the args(minimum AMOUNT to save in balance) for a negative sign in the `checkNegative()` method
+
+**Step 2**:
+
+--> If the AMOUNT to save is not empty then it request the user to enter a deadline for their savings goal
+
+--> The parser then calls the `handleSaveGoal` method from the AccountList class
+
+**Step 3**:
+
+--> Checks if the date format entered complies with the dd-MM-yyyy format in the `isDateFormatValid` method in AccountList class
+
+--> If data entered matches the specified formats, then it will call the `setSaveGoal` method from the Account class which will set the relevant Save goal for the main account
 
 ---
 

@@ -273,12 +273,12 @@ public class AccountList {
         BigDecimal amtToDeposit = new BigDecimal(depositAmountString);
         if (depositAmount < 0) {
             throw new NegativeAmountException();
-        } else {
-            if (isMoreThanTwoDecimalPlaces(depositAmountString)) {
-                throw new MoreThanTwoDecimalPlace();
-            }
-            getMainAccount().addBalance(amtToDeposit);
         }
+        if (isMoreThanTwoDecimalPlaces(depositAmountString)) {
+            throw new MoreThanTwoDecimalPlace();
+        }
+        getMainAccount().addBalance(amtToDeposit);
+
     }
 
     //@@author vishnuvk47
