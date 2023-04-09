@@ -141,4 +141,15 @@ class AccountListTest {
         assertEquals("11000", testAccountList.getMainAccount()
                 .getWithdrawalChecker().getWithdrawalLimit());
     }
+
+    @Test
+    public void testIsDateFormatValid() {
+        AccountList acc = new AccountList();
+        String validDate = "07-04-2023";
+        String invalidDate = "2023-04-07";
+
+        assertEquals(true, acc.isDateFormatValid(validDate));
+        assertEquals(false, acc.isDateFormatValid(invalidDate));
+    }
+
 }

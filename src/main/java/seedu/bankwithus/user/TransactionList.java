@@ -94,6 +94,7 @@ public class TransactionList {
         }
     }
 
+    //@xiaoge26
     /**
      * Deletes a transaction from the transaction list.
      * @param args the index of the transaction to be deleted
@@ -103,21 +104,21 @@ public class TransactionList {
         Ui ui = new Ui();
         if (size == 0) {
             throw new NoTransactionsFoundException();
-        } else if (Integer.parseInt(args) > size || Integer.parseInt(args) < 1) {
-            throw new IndexOutOfBoundsException();
-        } else {
-            try {
-                int index = Integer.parseInt(args) - 1;
-                transactions.remove(index);
-                size--;
-                ui.showTransactionDeletedMessage();
-            } catch (NumberFormatException e) {
-                throw new NumberFormatException();
-            } catch (IndexOutOfBoundsException e) {
+        }
+        try {
+            int index = Integer.parseInt(args) - 1;
+            if (index > size || index < 1) {
                 throw new IndexOutOfBoundsException();
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+            transactions.remove(index);
+            size--;
+            ui.showTransactionDeletedMessage();
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException();
+        } catch (IndexOutOfBoundsException e) {
+            throw new IndexOutOfBoundsException();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

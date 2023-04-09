@@ -332,10 +332,15 @@ public class AccountList {
             throw new MoreThanTwoDecimalPlace();
         } else {
             getMainAccount().subtractBalance(currentBalance, amtToDraw);
-            ui.showWithdrawMessage();
+            if (amtToDraw.compareTo(new BigDecimal("0")) == 0) {
+                System.out.println("Withdrawing $0 has no effect!");
+            } else {
+                ui.showWithdrawMessage();
+            }
         }
     }
 
+    //@vishnuvk47
     /**
      * Finds the respective account to be deleted at users request.
      * Forces users to create a new account if no account remains after deletion executes.
@@ -478,7 +483,9 @@ public class AccountList {
             if (toSave < 0) {
                 ui.showNegativeAmountError();
             } else if (isDateFormatValid(untilWhenStr)) {
+                assert toSave >= 0 : "Invalid amount entered.";
                 SaveGoal saveGoal = new SaveGoal(new BigDecimal(args), untilWhenStr);
+                assert getMainAccount() != null : "Users should always have one account intact";
                 getMainAccount().setSaveGoal(saveGoal, args, untilWhenStr);
                 ui.showSaveGoalCreated(args, untilWhenStr);
             }
@@ -496,7 +503,7 @@ public class AccountList {
      * @return True if valid format and False if invalid format
      */
     public boolean isDateFormatValid(String date) {
-
+        assert date != null : "Input date should not be null.";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         try {
             LocalDate.parse(date, formatter);
@@ -529,6 +536,11 @@ public class AccountList {
      * @return True if fails to meet save Goal and False if meets save Goal requirements
      */
     public Boolean willFailsSaveGoal(BigDecimal currentBalance, BigDecimal withdrawAmount) {
+
+        assert currentBalance != null : "Current balance cannot be null";
+        assert withdrawAmount != null : "Withdraw amount cannot be null";
+        assert withdrawAmount.compareTo(BigDecimal.ZERO) == 1 : "Withdraw amount must be positive";
+
         BigDecimal expectedBal = currentBalance.subtract(withdrawAmount);
         LocalDate tdy = LocalDate.now();
         LocalDate tdyDate = handleDate(tdy);
