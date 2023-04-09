@@ -32,9 +32,9 @@ Modified the DG template and fixed the typos and standardized the format.
 * Did extensive bug testing for version 2.0 with [tyuyang](https://github.com/tyuyang)
 * Helped in creating issues for the team to work on
 * Helped to identify existing bugs and squash them as a team
-* Updated User/Developer Guides that are not specific to a feature e.g. Non-Functional Requirements and Instructions for Manual Testing)
+* Updated User/Developer Guides to a feature e.g. Non-Functional Requirements and Instructions for Manual Testing)
 * Released v2.0 of the application
-* Reviewed and approved PRs not authored by myself
+* Reviewed and approved PRs authored by members of the organisation
 * Refactored the code to different packages
 * assigned and handled bug testing and added the bug issues to the github org for team to work on
 * completed and conducted reviews for pull requests for the team
