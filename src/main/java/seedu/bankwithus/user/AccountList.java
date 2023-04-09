@@ -115,11 +115,11 @@ public class AccountList {
     }
 
     /**
-     * Asks the user for their initial balance and returns it as a float.
+     * Asks the user for their initial balance and returns it as a String.
      * Will keep looping so long as the user does not give
      * a valid balance.
      *
-     * @return balance in the form of a float
+     * @return balance in the form of a String
      */
     public String askUserForBalance() {
         ui.askForBalance();
@@ -269,16 +269,14 @@ public class AccountList {
      */
     public void depositMoney(String depositAmountString) throws NumberFormatException,
             NullPointerException, NegativeAmountException, MoreThanTwoDecimalPlace {
-        float depositAmount = Float.parseFloat(depositAmountString);//floats are still used, but only for comparison
         BigDecimal amtToDeposit = new BigDecimal(depositAmountString);
-        if (depositAmount < 0) {
+        if (amtToDeposit.compareTo(BigDecimal.ZERO) == -1) {
             throw new NegativeAmountException();
-        } else {
-            if (isMoreThanTwoDecimalPlaces(depositAmountString)) {
-                throw new MoreThanTwoDecimalPlace();
-            }
-            getMainAccount().addBalance(amtToDeposit);
         }
+        if (isMoreThanTwoDecimalPlaces(depositAmountString)) {
+            throw new MoreThanTwoDecimalPlace();
+        }
+        getMainAccount().addBalance(amtToDeposit);
     }
 
     //@@author vishnuvk47
@@ -315,15 +313,15 @@ public class AccountList {
         if (withdrawAmountString.trim().isBlank()){
             throw new NoValueInputException();
         }
-        float withdrawAmount = Float.parseFloat(withdrawAmountString);
+
         BigDecimal amtToDraw = new BigDecimal(withdrawAmountString);
-        if (withdrawAmount < 0) {
+        if (amtToDraw.compareTo(BigDecimal.ZERO) == -1) {
             throw new NegativeAmountException();
         }
         BigDecimal currentBalance = getMainAccount().getAccountBalance();
         if (currentBalance.compareTo(amtToDraw) < 0) {
             throw new InsufficientBalanceException();
-        } else if (getMainAccount().getWithdrawalChecker().willExceedWithdrawalLimit(withdrawAmount)) {
+        } else if (getMainAccount().getWithdrawalChecker().willExceedWithdrawalLimit(amtToDraw)) {
             throw new ExceedsWithdrawalLimitException();
         } else if (willFailsSaveGoal(currentBalance, amtToDraw)) {
             ui.failToMeetSaveGoal();
@@ -479,11 +477,11 @@ public class AccountList {
      */
     public void handleSaveGoal(String args, String untilWhenStr) {
         try {
-            float toSave = Float.parseFloat(args);
-            if (toSave < 0) {
+            BigDecimal toSave = new BigDecimal(args);
+            if (toSave.compareTo(BigDecimal.ZERO) == -1) {
                 ui.showNegativeAmountError();
             } else if (isDateFormatValid(untilWhenStr)) {
-                assert toSave >= 0 : "Invalid amount entered.";
+                assert toSave.compareTo(BigDecimal.ZERO) == -1 : "Invalid amount entered.";
                 SaveGoal saveGoal = new SaveGoal(new BigDecimal(args), untilWhenStr);
                 assert getMainAccount() != null : "Users should always have one account intact";
                 getMainAccount().setSaveGoal(saveGoal, args, untilWhenStr);

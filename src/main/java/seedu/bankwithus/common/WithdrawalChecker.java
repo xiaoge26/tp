@@ -89,13 +89,13 @@ public class WithdrawalChecker {
      * @param withdrawAmount the amount withdrawn
      * @return true if will exceed, false otherwise
      */
-    public boolean willExceedWithdrawalLimit(float withdrawAmount) {
+    public boolean willExceedWithdrawalLimit(BigDecimal withdrawAmount) {
         if (totalAmtWithdrawn.isBlank() || withdrawalLimit == null) {
             return false;
         }
-        float totalAmtWithdrawnFloat = Float.parseFloat(totalAmtWithdrawn);
-        float withdrawalLimitFloat = Float.parseFloat(withdrawalLimit);
-        return ((totalAmtWithdrawnFloat + withdrawAmount) > withdrawalLimitFloat);
+        BigDecimal totalAmtWithdrawnBigDecimal = new BigDecimal(totalAmtWithdrawn);
+        BigDecimal withdrawalLimitBigDecimal = new BigDecimal(withdrawalLimit);
+        return ((totalAmtWithdrawnBigDecimal.add(withdrawAmount)).compareTo(withdrawalLimitBigDecimal) == 1 );
     }
 
     @Override
