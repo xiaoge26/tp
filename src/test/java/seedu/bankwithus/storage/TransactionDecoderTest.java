@@ -15,7 +15,8 @@ class TransactionDecoderTest {
     void testDecodeTransaction_validInput() {
         TransactionDecoder transactionDecoder = new TransactionDecoder();
         String encodedTransaction = "MyAccount;withdraw;1000.00;23/08/2021";
-        Transaction expectedTransaction = new Transaction("MyAccount", "withdraw", "1000.00", LocalDate.parse("23/08/2021", DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        Transaction expectedTransaction = new Transaction("MyAccount", "withdraw", "1000.00",
+                LocalDate.parse("23/08/2021", DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
         Transaction result = transactionDecoder.decodeTransaction(encodedTransaction);
 

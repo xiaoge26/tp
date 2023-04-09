@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
-import seedu.bankwithus.common.WithdrawalChecker;
 
 public class WithdrawalCheckerTest {
     @Test

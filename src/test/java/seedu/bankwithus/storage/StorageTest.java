@@ -2,7 +2,6 @@
 package seedu.bankwithus.storage;
 
 import org.junit.jupiter.api.Test;
-import seedu.bankwithus.storage.Storage;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
