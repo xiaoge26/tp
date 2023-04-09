@@ -1,8 +1,7 @@
-package seedu.bankwithus;
+package seedu.bankwithus.user;
 
 import org.junit.jupiter.api.Test;
 import seedu.bankwithus.exceptions.MoreThanTwoDecimalPlace;
-import seedu.bankwithus.user.AccountList;
 import seedu.bankwithus.exceptions.NegativeAmountException;
 import seedu.bankwithus.exceptions.NoAccountException;
 import seedu.bankwithus.exceptions.ExceedsWithdrawalLimitException;
@@ -17,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AccountListTest {
+    //@@author xiaoge26
     @Test
     void depositMoney_notANumber_expectException() {
         String amountString = "abc";
@@ -147,6 +147,7 @@ class AccountListTest {
                 .getWithdrawalChecker().getWithdrawalLimit());
     }
 
+    //@@author vishnuvk47
     @Test
     public void testIsDateFormatValid() {
         AccountList acc = new AccountList();

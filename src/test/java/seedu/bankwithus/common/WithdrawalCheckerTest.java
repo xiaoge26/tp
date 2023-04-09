@@ -1,4 +1,5 @@
-package seedu.bankwithus;
+//@@author tyuyang
+package seedu.bankwithus.common;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,7 +8,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
-import seedu.bankwithus.common.WithdrawalChecker;
 
 public class WithdrawalCheckerTest {
     @Test
