@@ -62,8 +62,6 @@ public class Ui {
 
     /**
      * Creates a scanner in the Ui class.
-     *
-     * @return
      */
     public void createScanner() {
         this.scanner = new Scanner(System.in);
@@ -131,7 +129,7 @@ public class Ui {
         System.out.println("check-wl: shows the withdrawal limit and the amount of money withdrawn " 
                 + "this month");
         System.out.println("view-transactions-all: views all transactions across all accounts");
-        System.out.println("delete_transaction <transaction index>: " +
+        System.out.println("delete-transaction <transaction index>: " +
                 "deletes the transaction with the given transaction index");
         System.out.println("exit: quits program and saves");
         printLine();

@@ -23,10 +23,7 @@ public class TransactionList {
     /**
      * Creates a new instance of TransactionList. Initialises transactions.
      * Should load data into transactions list too.
-     *
-     * @param scanner the scanner to read the transaction file
-     * @throws CorruptedTransactionFileException thrown when the transaction file is corrupted
-     * @throws TransactionFileIsEmptyException thrown when the transaction file is empty
+     * @param scanner the scanner to be used to read the transaction file
      */
     public TransactionList(Scanner scanner) {
         this.size = 0;
@@ -72,9 +69,6 @@ public class TransactionList {
     public ArrayList<Transaction> getTransactions() {
         return transactions;
     }
-    public Transaction getTransaction(int index) {
-        return transactions.get(index);
-    }
 
     public int getSize() {
         return size;
@@ -119,6 +113,20 @@ public class TransactionList {
             throw new IndexOutOfBoundsException();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Deletes all transactions for a particular account.
+     * @param accountName the name of the account
+     */
+    public void deleteTransactionsForAccount(String accountName) {
+        for (int i = 0; i < size; i++) {
+            if (transactions.get(i).getAccountName().equals(accountName)) {
+                transactions.remove(i);
+                size--;
+                i--;
+            }
         }
     }
 }

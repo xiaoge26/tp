@@ -178,6 +178,7 @@ public class Parser {
         case "delete":
             checkNegative(args);
             accountList.deleteAccount(args);
+            transactionList.deleteTransactionsForAccount(args);
             break;
         case "view-transactions-all":
             try {
@@ -263,9 +264,9 @@ public class Parser {
 
     /**
      * Reads the transaction data from the transaction save file.
-     * @param scanner
-     * @throws CorruptedSaveFileException
-     * @throws SaveFileIsEmptyException
+     * @param scanner Scanner to the transaction save file.
+     * @throws CorruptedTransactionFileException if the transaction file is corrupted.
+     * @throws TransactionFileIsEmptyException if the transaction file is empty.
      */
     public void parseTransactionFile(Scanner scanner) throws CorruptedTransactionFileException,
             TransactionFileIsEmptyException {
@@ -274,7 +275,7 @@ public class Parser {
             String transactionDetails = scanner.nextLine();
             try {
                 if (transactionDetails.isBlank()) {
-                    throw new SaveFileIsEmptyException();
+                    throw new TransactionFileIsEmptyException();
                 }
                 TransactionDecoder decoder = new TransactionDecoder();
                 Transaction temp = decoder.decodeTransaction(transactionDetails);
