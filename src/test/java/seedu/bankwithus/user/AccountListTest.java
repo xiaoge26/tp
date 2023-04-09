@@ -1,4 +1,4 @@
-package seedu.bankwithus;
+package seedu.bankwithus.user;
 
 import org.junit.jupiter.api.Test;
 import seedu.bankwithus.exceptions.MoreThanTwoDecimalPlace;
@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AccountListTest {
+    //@@author xiaoge26
     @Test
     void depositMoney_notANumber_expectException() {
         String amountString = "abc";

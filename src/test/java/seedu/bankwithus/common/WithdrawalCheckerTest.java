@@ -1,4 +1,5 @@
-package seedu.bankwithus;
+//@@author tyuyang
+package seedu.bankwithus.common;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
