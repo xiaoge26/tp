@@ -4,6 +4,11 @@ import org.junit.jupiter.api.Test;
 import seedu.bankwithus.exceptions.MoreThanTwoDecimalPlace;
 import seedu.bankwithus.user.AccountList;
 import seedu.bankwithus.exceptions.NegativeAmountException;
+import seedu.bankwithus.exceptions.NoAccountException;
+import seedu.bankwithus.exceptions.ExceedsWithdrawalLimitException;
+import seedu.bankwithus.exceptions.NoValueInputException;
+import seedu.bankwithus.exceptions.InsufficientBalanceException;
+import seedu.bankwithus.exceptions.WithdrawalCancelledException;
 
 import java.math.BigDecimal;
 
@@ -152,4 +157,150 @@ class AccountListTest {
         assertEquals(false, acc.isDateFormatValid(invalidDate));
     }
 
+    @Test
+    void depositMoney_nullAmount_expectException() {
+        String amountString = null;
+        String name = "SHhhh";
+        String balance = "1234";
+        AccountList accountList = new AccountList();
+        accountList.addAccount(name, balance, "");
+        assertThrows(NullPointerException.class,
+                () -> accountList.depositMoney(amountString));
+    }
+
+    @Test
+    void depositMoney_negativeAmount_expectException() {
+        String amountString = "-1000.11";
+        String name = "SHhhh";
+        String balance = "1234";
+        AccountList accountList = new AccountList();
+        accountList.addAccount(name, balance, "");
+        assertThrows(NegativeAmountException.class,
+                () -> accountList.depositMoney(amountString));
+    }
+
+    @Test
+    void depositMoney_validAmount_expectDeposit() throws NegativeAmountException, MoreThanTwoDecimalPlace {
+        String amountString = "1000.11";
+        String name = "SHhhh";
+        String balance = "1234";
+        AccountList accountList = new AccountList();
+        accountList.addAccount(name, balance, "");
+        BigDecimal expectedBalance = new BigDecimal(balance).add(new BigDecimal(amountString));
+        accountList.depositMoney(amountString);
+        assertEquals(expectedBalance, accountList.getMainAccount().getAccountBalance());
+    }
+
+    @Test
+    void withdrawMoney_validAmount_expectWithdrawal() throws NegativeAmountException, NoValueInputException,
+            WithdrawalCancelledException, InsufficientBalanceException, ExceedsWithdrawalLimitException,
+            MoreThanTwoDecimalPlace {
+        String amountString = "500.00";
+        String name = "Test Account";
+        String balance = "1000.00";
+        AccountList accountList = new AccountList();
+        accountList.addAccount(name, balance, "");
+        BigDecimal expectedBalance = new BigDecimal(balance).subtract(new BigDecimal(amountString));
+        accountList.withdrawMoney(amountString);
+        assertEquals(expectedBalance, accountList.getMainAccount().getAccountBalance());
+    }
+
+    @Test
+    void withdrawMoney_negativeAmount_expectException() {
+        String amountString = "-1000.00";
+        String name = "Test Account";
+        String balance = "1234.56";
+        AccountList accountList = new AccountList();
+        accountList.addAccount(name, balance, "");
+        assertThrows(NegativeAmountException.class,
+                () -> accountList.withdrawMoney(amountString));
+    }
+
+    @Test
+    void withdrawMoney_insufficientBalance_expectException() {
+        String amountString = "5000.00";
+        String name = "Test Account";
+        String balance = "1234.56";
+        AccountList accountList = new AccountList();
+        accountList.addAccount(name, balance, "");
+        assertThrows(InsufficientBalanceException.class,
+                () -> accountList.withdrawMoney(amountString));
+    }
+
+    @Test
+    void withdrawMoney_exceedWithdrawalLimit_expectException() {
+        String amountString = "5000.00";
+        String name = "Test Account";
+        String balance = "12345.67";
+        AccountList accountList = new AccountList();
+        accountList.addAccount(name, balance, "10");
+        assertThrows(ExceedsWithdrawalLimitException.class,
+                () -> accountList.withdrawMoney(amountString));
+    }
+
+    @Test
+    void withdrawMoney_noValueInput_expectException() {
+        String amountString = "    ";
+        String name = "Test Account";
+        String balance = "1234.56";
+        AccountList accountList = new AccountList();
+        accountList.addAccount(name, balance, "");
+        assertThrows(NoValueInputException.class,
+                () -> accountList.withdrawMoney(amountString));
+    }
+
+    //As per [PE-D][Tester A] [Bug] #144
+    @Test
+    void depositMoney_largestPossibleNumber_expectNoException() {
+        String amountString = new BigDecimal(Double.MAX_VALUE).toString();
+        String name = "Test Account";
+        String balance = "0";
+        AccountList accountList = new AccountList();
+        accountList.addAccount(name, balance, "");
+        assertDoesNotThrow(() -> accountList.depositMoney(amountString));
+    }
+
+    ////As per [PE-D][Tester A] [Bug] #144 --> extension from this bug
+    @Test
+    void depositMoney_onAccountLargeBalance_expectNoException() {
+        String amountString = new BigDecimal(Double.MAX_VALUE).toString();
+        String name = "Test Account";
+        String balance = amountString;
+        AccountList accountList = new AccountList();
+        accountList.addAccount(name, balance, "");
+        assertDoesNotThrow(() -> accountList.depositMoney(amountString));
+    }
+
+    //As per [PE-D][Tester A] [Bug] #144 --> also extension from this bug
+    @Test
+    void newAccount_largestPossibleNumber_expectNoException() {
+        String balance = new BigDecimal(Double.MAX_VALUE).toString();
+        String name = "Test Account";
+        AccountList accountList = new AccountList();
+        assertDoesNotThrow(() -> accountList.addAccount(name, balance, ""));
+    }
+
+    //[PE-D][Tester E] Accounts with similar name (or substring) ends up not being able to get switched over
+    @Test
+    void switchMainAccountSubstring_accountExists_expectSuccess() throws NoAccountException {
+        AccountList accountList = new AccountList();
+        accountList.addAccount("Account 1", "1000.00", "");
+        accountList.addAccount("Account 2", "500.00", "");
+
+        accountList.switchMainAccount("Account 2");
+
+        assertEquals("Account 2", accountList.getMainAccount().getAccountName());
+    }
+
+    //Bug occurs where deleting an account will cause that name to be "blacklisted" #148
+    @Test
+    void deleteAccount_createNewAccountWithNameOfDeletedAccount_accountExpectSuccess() throws NoAccountException {
+        AccountList accountList = new AccountList();
+        accountList.addAccount("Account 1", "1000.00", "");
+        accountList.addAccount("Account 2", "500.00", "");
+        accountList.deleteAccount("Account 2");
+        accountList.addAccount("Account 2", "500.00", "");
+        accountList.switchMainAccount("Account 2");
+        assertEquals("Account 2", accountList.getMainAccount().getAccountName());
+    }
 }
