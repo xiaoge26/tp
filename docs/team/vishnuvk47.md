@@ -19,6 +19,8 @@ Helped create a CLI-based application that acts like a banking app. Users can cr
 * I have developed a 'Save Goal' feature that empowers users to adhere to a frugal lifestyle by setting a minimum balance they wish to maintain. The system sends alerts to users when a withdrawal would result in them falling below their set save goal. Although this is not a strict limit, users have the flexibility to override the system's suggestions.
 The development of the 'Save Goal' feature involved integrating the use of LocalDate and closely interacting with the withdrawal feature. This relates to both front end and back end as it needs to parse the user data stored in the save file (back end) and also interact with users via the UI to receive the relevant inputs and process them(front end). [#72](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/72)
 
+Note: Features, UG and DG also had several significant contributions from my team mates as the program grew and evolved. We largely adopted a BFS approach
+
 ### UG contributions
 
 Created a User Guide for the BankWithUs software/application, which included a rough template and details on the various features and their use cases. While working on the guide, I received significant assistance from my teammate, Tyuyang and xiaoge26, who helped me improve the guide's consistency and format to align with recommended guidelines. [#76](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/76)
