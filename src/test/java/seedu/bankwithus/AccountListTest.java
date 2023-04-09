@@ -295,8 +295,4 @@ class AccountListTest {
         accountList.switchMainAccount("Account 2");
         assertEquals("Account 2", accountList.getMainAccount().getAccountName());
     }
-
-
-
-
 }
