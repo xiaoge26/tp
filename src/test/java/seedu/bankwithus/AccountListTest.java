@@ -1,8 +1,14 @@
 package seedu.bankwithus;
 
 import org.junit.jupiter.api.Test;
-import seedu.bankwithus.exceptions.*;
+import seedu.bankwithus.exceptions.MoreThanTwoDecimalPlace;
 import seedu.bankwithus.user.AccountList;
+import seedu.bankwithus.exceptions.NegativeAmountException;
+import seedu.bankwithus.exceptions.NoAccountException;
+import seedu.bankwithus.exceptions.ExceedsWithdrawalLimitException;
+import seedu.bankwithus.exceptions.NoValueInputException;
+import seedu.bankwithus.exceptions.InsufficientBalanceException;
+import seedu.bankwithus.exceptions.WithdrawalCancelledException;
 
 import java.math.BigDecimal;
 
@@ -186,7 +192,9 @@ class AccountListTest {
     }
 
     @Test
-    void withdrawMoney_validAmount_expectWithdrawal() throws NegativeAmountException, NoValueInputException, WithdrawalCancelledException, InsufficientBalanceException, ExceedsWithdrawalLimitException, MoreThanTwoDecimalPlace {
+    void withdrawMoney_validAmount_expectWithdrawal() throws NegativeAmountException, NoValueInputException,
+            WithdrawalCancelledException, InsufficientBalanceException, ExceedsWithdrawalLimitException,
+            MoreThanTwoDecimalPlace {
         String amountString = "500.00";
         String name = "Test Account";
         String balance = "1000.00";
