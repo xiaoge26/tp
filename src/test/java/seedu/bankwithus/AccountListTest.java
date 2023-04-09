@@ -262,7 +262,7 @@ class AccountListTest {
 
     ////As per [PE-D][Tester A] [Bug] #144 --> extension from this bug
     @Test
-    void depositMoney_largestPossibleNumber_onAccountWithLargeBalance_expectNoException() {
+    void depositMoney_onAccountLargeBalance_expectNoException() {
         String amountString = new BigDecimal(Double.MAX_VALUE).toString();
         String name = "Test Account";
         String balance = amountString;
