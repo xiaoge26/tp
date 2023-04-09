@@ -196,6 +196,8 @@ that contains the various different transactions that the user has
 
 --> The `subtractBalance` will deduct the AMOUNT withdrawn from the users balance
 
+Note: Withdrawal will be cancelled if it fails to meet withdrawal limit or if users choose to meet savings goal 
+
 **Step 6**:
 
 --> New balance is displayed to the user via the `showBal()` method from AccountList class that makes use of the UI class' method to print to screen
@@ -253,6 +255,28 @@ that contains the various different transactions that the user has
 --> Checks if the date format entered complies with the dd-MM-yyyy format in the `isDateFormatValid` method in AccountList class
 
 --> If data entered matches the specified formats, then it will call the `setSaveGoal` method from the Account class which will set the relevant Save goal for the main account
+
+## Command: `show-save-goal`:
+
+**step 1**:
+
+--> Calls the `showGoal` method in the AccountList class which then prints the Save Goal attributes to the UI, if save goal amount is greater than 0
+
+## Command: `switch-to`
+
+**step 1**:
+
+--> Calls the `switchMainAccount` method from teh AccountList class with the NAME of the account to switch into.
+
+--> If that account is found the method uses the `swap` method from `Collections` to swap the account that matches the NAME into index 0
+
+## Command: `delete`
+
+**step 1**:
+
+--> Calls the `deleteAccount` method from AccountList
+
+--> This find the index of the account that matches the NAME of the account to be deleted and removes it from the ArrayList
 
 ---
 
