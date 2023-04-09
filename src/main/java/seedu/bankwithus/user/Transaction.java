@@ -41,4 +41,8 @@ public class Transaction {
     public String getType() {
         return type;
     }
+
+    public LocalDate getDate() {
+        return date;
+    }
 }
