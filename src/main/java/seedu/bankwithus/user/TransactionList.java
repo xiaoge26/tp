@@ -101,7 +101,7 @@ public class TransactionList {
         }
         try {
             int index = Integer.parseInt(args) - 1;
-            if (index > size || index < 1) {
+            if (index > size || index < 0) {
                 throw new IndexOutOfBoundsException();
             }
             transactions.remove(index);
