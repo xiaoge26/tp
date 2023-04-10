@@ -244,9 +244,14 @@ Exceed withdrawal limit case
 
 <img src="images/ExceedWLCase.png" width="700" />
 
+<div style="page-break-after: always;"></div>
+
 Fail save goal case
 
 <img src="images/FailSaveGoalCase.png" width="800" />
+
+<div style="page-break-after: always;"></div>
+
 
 ## Command: `add-account`:
 
@@ -374,6 +379,7 @@ list of accounts, and the Account class represents the individual accounts and t
 
 ---
 
+<div style="page-break-after: always;"></div>
 
 ## Appendix
 
