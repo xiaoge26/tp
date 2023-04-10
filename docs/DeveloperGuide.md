@@ -231,6 +231,10 @@ Exceed withdrawal limit case
 
 <img src="images/ExceedWLCase.png" width="700" />
 
+Fail save goal case
+
+<img src="images/FailSaveGoalCase.png" width="800" />
+
 ## Command: `add-account`:
 
 **Step 1**:
