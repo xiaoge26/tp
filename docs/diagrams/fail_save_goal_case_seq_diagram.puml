@@ -1,0 +1,46 @@
+@startuml FailSaveGoalCase
+participant ":Parser"
+participant ":AccountList"
+participant ":Account"
+participant ":SaveGoal"
+participant ":Ui"
+activate ":AccountList"
+":AccountList" -> ":AccountList":willFailsSaveGoal()
+activate ":AccountList"
+":AccountList" -> ":Account":getMainAccount()
+activate ":Account"
+":Account" --> ":AccountList"
+deactivate ":Account"
+":AccountList" -> ":SaveGoal":getSaveGoal()
+activate ":SaveGoal"
+":SaveGoal" --> ":AccountList":return amtToSave
+deactivate ":SaveGoal"
+":AccountList" -> ":SaveGoal":getSaveGoal()
+activate ":SaveGoal"
+":SaveGoal" --> ":AccountList":return untilWhen
+deactivate ":SaveGoal"
+":AccountList" --> ":AccountList":return amtToSave\n&& untilWhen
+deactivate ":AccountList"
+":AccountList" -> ":Ui":failToMeetSaveGoal()
+activate ":Ui"
+":Ui" --> ":AccountList"
+deactivate ":Ui"
+":AccountList" -> ":AccountList":handleProceed()
+activate ":AccountList"
+loop yesOrNo is not 'Y' or 'N'
+":AccountList" -> ":Ui":getNextLine()
+activate ":Ui"
+":Ui" --> ":AccountList"
+deactivate ":Ui"
+end
+alt yesOrNo == 'Y'
+":AccountList" -> ":Account":getMainAccount().\nsubtractBalance()
+activate ":Account"
+":Account" --> ":AccountList"
+deactivate ":Account"
+else yesOrNo == 'N'
+":AccountList" --> ":Parser":throws WithdrawalCancelled\nException
+end
+":AccountList" --> ":AccountList"
+deactivate ":AccountList"
+@enduml
