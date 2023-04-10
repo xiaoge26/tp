@@ -131,6 +131,7 @@ public class Ui {
         System.out.println("view-transactions-all: views all transactions across all accounts");
         System.out.println("delete-transaction <transaction index>: " +
                 "deletes the transaction with the given transaction index");
+        System.out.println("view-current: Shows the current account");
         System.out.println("exit: quits program and saves");
         printLine();
     }
