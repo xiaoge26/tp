@@ -3,6 +3,8 @@ package seedu.bankwithus.ui;
 import seedu.bankwithus.user.Account;
 import seedu.bankwithus.common.SaveGoal;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -60,8 +62,6 @@ public class Ui {
 
     /**
      * Creates a scanner in the Ui class.
-     *
-     * @return
      */
     public void createScanner() {
         this.scanner = new Scanner(System.in);
@@ -99,8 +99,8 @@ public class Ui {
         }
     }
 
-    public void showBal(String finalBal) {
-        System.out.println("You have $" + finalBal + " remaining!");
+    public void showBal(BigDecimal finalBal) {
+        System.out.println("You have $" + finalBal.setScale(2, RoundingMode.CEILING) + " remaining!");
     }
 
     public void showNegativeAmountError() {
@@ -129,6 +129,8 @@ public class Ui {
         System.out.println("check-wl: shows the withdrawal limit and the amount of money withdrawn " 
                 + "this month");
         System.out.println("view-transactions-all: views all transactions across all accounts");
+        System.out.println("delete-transaction <transaction index>: " +
+                "deletes the transaction with the given transaction index");
         System.out.println("exit: quits program and saves");
         printLine();
     }
@@ -169,6 +171,9 @@ public class Ui {
 
     public void showCorruptedSaveFileError() {
         System.out.println("Save file is corrupted!!! Creating new account...");
+    }
+    public void showCorruptedTransactionFileError() {
+        System.out.println("Transaction file is corrupted!!! Deleting the corrupted entries...");
     }
 
     public void showForbiddenCharacterError() {
@@ -239,7 +244,7 @@ public class Ui {
     }
 
     public void showGoal(SaveGoal goal) {
-        System.out.println("Min amount to save: $" + Float.toString(goal.amtToSave));
+        System.out.println("Min amount to save: $" + goal.amtToSave);
         LocalDate date = goal.untilWhen;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String untilwhen = date.format(formatter);
@@ -289,5 +294,26 @@ public class Ui {
     public void showDecimalPlacesError(){
         System.out.println("There are more than two decimal places!\n" + "Please re-enter the command");
         printLine();
+    }
+
+    //@@author Sherlock-YH
+    public void showNoValueInput() {
+        System.out.println("You did not enter any value. Please re-enter");
+        printLine();
+    }
+
+    //@@author xiaoge26
+
+    //This is shown when the user deleted all the accounts.
+    public void showAddAccountPrompt() {
+        System.out.println("You don't have any account now, please create a new account");
+        printLine();
+    }
+    public void showIndexOutOfBoundsError() {
+        System.out.println("Index out of bounds, please try again");
+        printLine();
+    }
+    public void showTransactionDeletedMessage() {
+        System.out.println("Transaction deleted successfully");
     }
 }

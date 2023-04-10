@@ -3,6 +3,7 @@ package seedu.bankwithus;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import seedu.bankwithus.exceptions.NegativeAmountException;
 import seedu.bankwithus.user.AccountList;
 import seedu.bankwithus.user.TransactionList;
 import seedu.bankwithus.exceptions.CommandNotFoundException;
@@ -116,6 +117,8 @@ public class BankWithUs {
                 parser.parseUserInput(line);
             } catch (CommandNotFoundException e) {
                 ui.showCommandNotFoundError();
+            } catch (NegativeAmountException e) {
+                ui.showNegativeAmountError();
             }
         }
     }
