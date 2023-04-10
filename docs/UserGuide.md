@@ -71,6 +71,7 @@ set-wl <amount>: sets <amount> to be the withdrawal limit
 check-wl: shows the withdrawal limit and the amount of money withdrawn this month
 view-transactions-all: views all transactions across all accounts
 delete-transaction <transaction index>: deletes the transaction with the given transaction index
+view-current: shows the relevant details of the current account
 exit: quits program and saves
 ```
 

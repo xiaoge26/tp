@@ -260,13 +260,13 @@ Note: Withdrawal will be cancelled if it fails to meet withdrawal limit or if us
 
 ## Command: `show-save-goal`:
 
-**step 1**:
+**Step 1**:
 
 --> Calls the `showGoal` method in the AccountList class which then prints the Save Goal attributes to the UI, if save goal amount is greater than 0
 
 ## Command: `switch-to`
 
-**step 1**:
+**Step 1**:
 
 --> Calls the `switchMainAccount` method from teh AccountList class with the NAME of the account to switch into.
 
@@ -274,11 +274,59 @@ Note: Withdrawal will be cancelled if it fails to meet withdrawal limit or if us
 
 ## Command: `delete`
 
-**step 1**:
+**Step 1**:
 
 --> Calls the `deleteAccount` method from AccountList
 
 --> This find the index of the account that matches the NAME of the account to be deleted and removes it from the ArrayList
+
+## Command: `set-wl`
+
+**Step 1**:
+
+--> Calls the `setWithdrawalLimit` method in the AccountList class
+
+--> The method will check for a number format exception and negative number exception before setting the specified AMOUNT as the withdrawal limit
+
+## Command: `check-wl`
+
+**Step 1**:
+
+--> Calls the `checkWithdrawalLimit` method in AccountList class
+
+--> Calls the getter method which then returns the Withdrawal limit
+
+**Step 2**:
+
+--> Adds the attributes to a String array of size 2 which is then returned to the parser, where it then accesses the UI method to print to screen
+
+## Summary of overall architecture
+
+The application follows a simplified MVC architecture, where the Model is the `Storage` class, View is the `UI` class 
+and the controller is the `parser` class and makes use of the command-line interface (CLI) where the user interacts with the 
+program through the command-line prompt. The main class responsible for the CLI interaction is in the `BankWithUs` class
+that uses the `UI` class to interact with the user and the `Parser` class to "route" and deal with commands as appropriate.  
+The `bankWithUS` class contains a loop that continuously prompts the user for commands and then executes the corresponding action.
+
+The AccountList class is responsible for managing a list of Account objects. The Account class represents 
+individual user accounts, and it contains attributes such as account number, balance, and savings goal. It 
+also provides methods to manipulate the account data, such as depositing or withdrawing funds, checking the 
+account balance, and setting the savings goal.
+
+When the user enters a command to interact with an account, such as deposit or withdraw, the `Parser` class calls 
+the corresponding method in the AccountList class, which in turn calls the corresponding method in the Account 
+class to modify the account data. If the command entered by the user is to create a new account, the AccountList 
+class creates a new Account object and adds it to the ArrayList.
+
+The UI class, called `UI`, is responsible for displaying messages to the user and decoding and displaying 
+account information. It contains methods to display messages such as account creation success or failure and prompts 
+for user input. It also has methods to display account information, such as the account balance, savings goal, and 
+transaction history.
+
+Overall, the architecture is designed to separate concerns between the UI, the account management logic, and the 
+individual account data. The `Parser` class acts as the intermediary between the user and the account management 
+logic, while the `UI` class handles the display of information to the user. The AccountList class manages the 
+list of accounts, and the Account class represents the individual accounts and their data.
 
 ---
 
