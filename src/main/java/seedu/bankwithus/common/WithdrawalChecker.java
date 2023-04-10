@@ -77,7 +77,7 @@ public class WithdrawalChecker {
         return this.withdrawalLimit;
     }
 
-    public void setWithdrawalLimit(float withdrawalLimit) {
+    public void setWithdrawalLimit(BigDecimal withdrawalLimit) {
         DecimalFormat df = new DecimalFormat("#.##");
         String formatted = df.format(withdrawalLimit);
         this.withdrawalLimit = String.valueOf(formatted);

@@ -158,7 +158,7 @@ public class AccountList {
     public void addAccount(String name, String balance, String withdrawalLimit) {
         Account newAccount = new Account(name, balance, "0", LocalDate.parse("2001-01-01"));
         if (!withdrawalLimit.isBlank()) {
-            Float withdrawalLimitFloat = Float.parseFloat(withdrawalLimit);
+            BigDecimal withdrawalLimitFloat = new BigDecimal(withdrawalLimit);
             newAccount.getWithdrawalChecker().setWithdrawalLimit(withdrawalLimitFloat);
         }
         accounts.add(newAccount);
@@ -177,7 +177,7 @@ public class AccountList {
     public void addAccount(String name, String balance, String withdrawalLimit, String amtToSave, LocalDate untilWhen) {
         Account newAccount = new Account(name, balance, amtToSave, untilWhen);
         if (!withdrawalLimit.isBlank()) {
-            Float withdrawalLimitFloat = Float.parseFloat(withdrawalLimit);
+            BigDecimal withdrawalLimitFloat = new BigDecimal(withdrawalLimit);
             newAccount.getWithdrawalChecker().setWithdrawalLimit(withdrawalLimitFloat);
         }
         accounts.add(newAccount);
@@ -199,7 +199,7 @@ public class AccountList {
                            LocalDate lastWithdrawnDate, String withdrawalLimit, String amtToSave, LocalDate untilWhen) {
         Account newAccount = new Account(name, balance, totalAmtWithdrawn, lastWithdrawnDate, amtToSave, untilWhen);
         if (!withdrawalLimit.isBlank()) {
-            Float withdrawalLimitFloat = Float.parseFloat(withdrawalLimit);
+            BigDecimal withdrawalLimitFloat = new BigDecimal(withdrawalLimit);
             newAccount.getWithdrawalChecker().setWithdrawalLimit(withdrawalLimitFloat);
         }
         accounts.add(newAccount);
@@ -425,13 +425,13 @@ public class AccountList {
      * @throws NegativeAmountException if input is negative
      */
     public void setWithdrawalLimit(String args) throws NegativeAmountException {
-        float withdrawalLimit;
+        BigDecimal withdrawalLimit;
         try {
-            withdrawalLimit = Float.parseFloat(args);
+            withdrawalLimit = new BigDecimal(args);
         } catch (Exception e) {
             throw new NumberFormatException();
         }
-        if (withdrawalLimit < 0) {
+        if (withdrawalLimit.compareTo(BigDecimal.ZERO) == -1) {
             throw new NegativeAmountException();
         }
         getMainAccount().getWithdrawalChecker().setWithdrawalLimit(withdrawalLimit);

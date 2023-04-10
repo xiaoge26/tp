@@ -36,7 +36,7 @@ public class WithdrawalCheckerTest {
         assertEquals("0; ; ", wc.toString());
         
         //test without withdrawal and with withdrawal limit
-        assertDoesNotThrow(() -> wc.setWithdrawalLimit((float) 10.10));
+        assertDoesNotThrow(() -> wc.setWithdrawalLimit(new BigDecimal("10.1")));
         assertEquals("0; ;10.1", wc.toString());
 
         //test with withdrawal and without withdrawal limit
@@ -44,7 +44,7 @@ public class WithdrawalCheckerTest {
         assertEquals("1000;2023-01-10; ", wc2.toString());
 
         //test with withdrawal and with withdrawal limit
-        assertDoesNotThrow(() -> wc2.setWithdrawalLimit((float) 100.10));
+        assertDoesNotThrow(() -> wc2.setWithdrawalLimit((new BigDecimal( 100.10))));
         assertEquals("1000;2023-01-10;100.1", wc2.toString());
     }
 }
