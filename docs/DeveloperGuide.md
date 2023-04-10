@@ -69,6 +69,8 @@ The sequence diagram below shows how components interact with each other when th
 
 <img src="images/deposit100SeqDiagram.png" width="700" />
 
+Note: The lifeline of the Transaction class does not end after the cross due to a limitation with PlantUML. 
+
 
 ### UI-Component
 Class: `Ui.java`
