@@ -10,7 +10,9 @@ Helped create a CLI-based application that acts like a banking app. Users can cr
 
 ### Enhancements implemented
 
-Created the withdrawal limit feature. Since this feature required the tracking of withdrawals in a month, a separate feature that tracks how much money has been withdrawn in the current month had to be created. In addition, the use of LocalDate also had to be integrated into the feature, which adds to the complexity of this feature. This feature also heavily interacts with the withdraw feature, which meant that bugs that arose from integration needed to be prevented. In conclusion, this feature does not really have any bugs (aside from limit overflow) and works as expected in all tested situations.
+Created the withdrawal limit feature ([#67](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/67), [#70](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/70), and [#71](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/71)). Since this feature required the tracking of withdrawals in a month, a separate feature that tracks how much money has been withdrawn in the current month had to be created. In addition, the use of LocalDate also had to be integrated into the feature, which adds to the complexity of this feature. This feature also heavily interacts with the withdraw feature, which meant that bugs that arose from integration needed to be prevented. In conclusion, this feature does not really have any bugs and works as expected in all tested situations.
+
+Did some of the infrastructural work, such as the first iteration of the product ([#8](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/8)), the skeleton code for the load() function ([#21](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/21)), and the skeleton code for the run() function ([#29](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/29)). This allowed my teammates to start on their assigned features without having to worry about how classes interact with each other.
 
 ### UG contributions
 
@@ -25,9 +27,17 @@ Created the puml diagrams for the main architecture and the example sequence dia
 
 Helped in creating issues for the team to work on, especially at the start of the project. 
 
-Did extensive bug testing for version 2.0 with [manushridiv](https://github.com/manushridiv) and published them as issues. Almost all of the functionality bugs found in the PED were already pointed out with the exception of [issue #123](https://github.com/AY2223S2-CS2113-T13-3/tp/issues/123), [issue #114](https://github.com/AY2223S2-CS2113-T13-3/tp/issues/114) and [issue #127](https://github.com/AY2223S2-CS2113-T13-3/tp/issues/127). 
+Did extensive bug testing for version 2.0 with [manushridiv](https://github.com/manushridiv) and published them as issues. Almost all of the functionality bugs found by others in the PED were already found before the PED with the exception of [issue #123](https://github.com/AY2223S2-CS2113-T13-3/tp/issues/123), [issue #114](https://github.com/AY2223S2-CS2113-T13-3/tp/issues/114) and [issue #127](https://github.com/AY2223S2-CS2113-T13-3/tp/issues/127). 
 
 Helped restructure and clean up the code in [this PR](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/48). 
 
 
-Reviewed and approved a significant number of PRs not authored by myself.
+Reviewed and approved a significant number of PRs not authored by myself. Examples below:
+
+[#31](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/31), [#34](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/34), [#39](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/39), [#40](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/40), [#42](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/42), [#57](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/57), [#72](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/72), [#74](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/74), [#101](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/101).
+
+The rest of the pull requests are just LGTM reviews, so those are not included.
+
+### Contributions beyond the project team
+
+[Reported 18 bugs during the PE-D](https://github.com/tyuyang/ped/issues).
