@@ -75,7 +75,7 @@ view-current: shows the relevant details of the current account
 exit: quits program and saves
 ```
 
-### Adding an account: `add-account`
+### Add an account: `add-account`
 
 Initiates the process of adding a new account. The user is not required to input any parameters when calling the command.
 However, once the command starts, it will prompt the user for their name and initial balance.
@@ -97,13 +97,13 @@ What is your name?
 >>Steve
 How much would you like to add as Balance?
 >>1000
-Account created!
+Account added!
 Name: Steve
 Balance: $1000
 ----------------------------
 ```
 
-### Switch current account: `switch-to`
+### Switch to another account: `switch-to`
 
 Switches from the *current account* to the new requested account, if it exists.
 
@@ -123,12 +123,12 @@ Current Account switched
 Current Account is:
 ----------------------------
 Name: jenson
-Balance: $90
+Balance: $90.00
 ----------------------------
 ```
 
 
-### Deleting an account : `delete`
+### Delete an account: `delete`
 
 
 Format: `delete ACCOUNT_NAME`
@@ -146,7 +146,7 @@ Account: jameson deleted
 ```
 Deletes the jameson account.
 
-### View Accounts : `view-account`
+### View the details of all the accounts: `view-account`
 
 Shows a list of all the available accounts with their account name and balance.
 
@@ -157,14 +157,25 @@ Example:
 >>view-account
 Current Account:
 Name: james
-Balance: $1000
+Balance: $1000.00
 ----------------------------
 Name: john
-Balance: $300
+Balance: $300.00
 ----------------------------
 ```
 
-### Depositing amount : `deposit`
+### View the details of the current account: `view-current`
+Shows the details of the current account.
+Format: `view-current`
+Example:
+```
+>>view-current
+Name: john
+Balance: $300.00
+----------------------------
+```
+
+### Deposit: `deposit`
 
 Deposits AMOUNT into the *current account*.
 
@@ -183,7 +194,7 @@ You have $190.00 remaining!
 Attempting to do the above cause the program to show error messages.
 
 
-### Withdraw : `withdraw`
+### Withdraw: `withdraw`
 
 Withdraws AMOUNT from the users balance.
 
@@ -237,6 +248,14 @@ Try saving a minimum of $300 until 11-11-2023
 Save Goal has been created, Have fun staying frugal!
 ```
 
+### Check the current savings goal: `show-save-goal`
+Shows the current savings goal and the deadline of the current account.
+```
+>>show-save-goal
+Min amount to save: $300
+Deadline: 11-11-2023
+----------------------------
+```
 ### Set a withdrawal limit: `set-wl`
 
 Adds a withdrawal limit to the *current account*. <br />
@@ -303,7 +322,7 @@ view-transactions-all
 1. Account Name: xixi Transaction Type: withdraw Amount: 234 Date: 04/04/2023
 ```
 
-### Exiting the program : `exit`
+### Exit the program : `exit`
 
 Exits the program.
 
@@ -339,19 +358,20 @@ Please keep in mind that this will result in irreversible data loss.
 
 ## Command summary
 
-| Action                        | Format, Examples           |
-|-------------------------------|----------------------------|
-| **Add an Account**            | `add-account`              |
-| **View all Accounts Details** | `view-account`             |
-| **Switch to a new account**   | `switch-to ACC_NAME`       |
-| **Delete an account**         | `delete ACC-NAME`          |
-| **Withdraw some amount**      | `withdraw AMOUNT`          |
-| **Deposit some amount**       | `deposit AMOUNT`           |
-| **Add a savings goal**        | `set-save-goal AMOUNT`     |
-| **Show the save Goal**        | `show-save-goal`           |
-| **Add a withdraw Limit**      | `set-wl AMOUNT`            |
-| **Show the withdraw Limit**   | `check-wl`                 |
-| **View all the transactions** | `view-transactions-all`    |
-| **Delete a Transaction**      | `delete-transaction INDEX` |
-| **View help menu**            | `help`                     |
-| **Exit**                      | `exit`                     |
+| Action                           | Format, Examples           |
+|----------------------------------|----------------------------|
+| **Add an account**               | `add-account`              |
+| **View all accounts details**    | `view-account`             |
+| **View current account details** | `view-current`             |
+| **Switch to a new account**      | `switch-to ACC_NAME`       |
+| **Delete an account**            | `delete ACC-NAME`          |
+| **Withdraw some amount**         | `withdraw AMOUNT`          |
+| **Deposit some amount**          | `deposit AMOUNT`           |
+| **Add a savings goal**           | `set-save-goal AMOUNT`     |
+| **Show the savings goal**        | `show-save-goal`           |
+| **Add a withdraw limit**         | `set-wl AMOUNT`            |
+| **Show the withdraw limit**      | `check-wl`                 |
+| **View all the transactions**    | `view-transactions-all`    |
+| **Delete a transaction**         | `delete-transaction INDEX` |
+| **View help menu**               | `help`                     |
+| **Exit**                         | `exit`                     |

@@ -32,7 +32,7 @@ deleting, listing, parsing, saving, and loading the transactions. <br />
   * Automatically delete all the transactions of a particular account when the user deletes the account
 ### Contributions to the UG
 
-* Documented the features related `Transaction` and `TransactionList` components in the User Guide <br />
+* Documented the features related `Transaction` and `TransactionList` components, and `show-save-goal` feature in the User Guide <br />
 * Fixed typos and bugs in the other sections in UG as well <br />
 
 ### Contributions to the DG
