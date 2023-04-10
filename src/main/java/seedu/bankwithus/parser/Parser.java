@@ -220,10 +220,15 @@ public class Parser {
      * @throws CorruptedSaveFileException if any of the parameters are corrupted
      */
     public void parseSavedFile(Scanner scanner) throws CorruptedSaveFileException, SaveFileIsEmptyException {
+        boolean hasAccounts = false;
         while (scanner.hasNextLine()) {
             String accountDetails = scanner.nextLine();
             if (accountDetails.isBlank()) {
-                throw new SaveFileIsEmptyException();
+                if (!hasAccounts) {
+                    throw new SaveFileIsEmptyException();
+                } else {
+                    throw new CorruptedSaveFileException();
+                }
             }
             String[] splitDetails = accountDetails.split(";");
             try {
@@ -252,6 +257,7 @@ public class Parser {
                     accountList.addAccount(name, balanceString, totalAmtWithdrawn, 
                             LocalDate.parse(lastWithdrawnDate), withdrawalLimit, amtToSave, untilWhen);
                 }
+                hasAccounts = true;
             } catch (Exception e) {
                 throw new CorruptedSaveFileException();
             }
