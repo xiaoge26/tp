@@ -224,11 +224,7 @@ public class Parser {
         while (scanner.hasNextLine()) {
             String accountDetails = scanner.nextLine();
             if (accountDetails.isBlank()) {
-                if (!hasAccounts) {
-                    throw new SaveFileIsEmptyException();
-                } else {
-                    throw new CorruptedSaveFileException();
-                }
+                continue;
             }
             String[] splitDetails = accountDetails.split(";");
             try {
@@ -260,6 +256,9 @@ public class Parser {
                 hasAccounts = true;
             } catch (Exception e) {
                 throw new CorruptedSaveFileException();
+            }
+            if (!hasAccounts) {
+                throw new SaveFileIsEmptyException();
             }
         }
         scanner.close();
