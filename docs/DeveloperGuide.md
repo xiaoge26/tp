@@ -441,8 +441,8 @@ Windows: Command Prompt <br />
 ## Instructions for manual testing
 ### Launch
 1. Ensure you have Java 11 installed in your Computer
-2. Download the latest release `BankWithUs.jar` from [here](https://github.com/AY2223S2-CS2113-T13-3/tp/releases)
-3. Copy the file to the folder you want to use as the home folder for BankWithUs
+2. Download the latest release from [here](https://github.com/AY2223S2-CS2113-T13-3/tp/releases)
+3. Copy the file to the folder you want to use as the home folder for BankWithUs, and rename it to `BankWithUs.jar`
 4. Open a command terminal, cd into the folder you put the `BankWithUs.jar` file in, and use `java -jar BankWithUs.jar` 
 command to run the application. A CLI should appear in a few seconds
 
