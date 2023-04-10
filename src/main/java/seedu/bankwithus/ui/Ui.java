@@ -206,7 +206,7 @@ public class Ui {
     }
     //@@author Sherlock-YH
     public void showNewAccountAdded(Account acc) {
-        System.out.println("Account created!");
+        System.out.println("Account added!");
         System.out.println("Name: " + acc.getAccountName());
         System.out.println("Balance: $" + acc.getAccountBalance());
         printLine();
