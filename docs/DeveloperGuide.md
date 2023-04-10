@@ -65,7 +65,8 @@ a normal Java project <br />
 * Run the `seedu/bankwithus/BankWithUs.java` and try a few commands. 
 You may want to refer to our User Guide for the list of commands <br />
 * Run the tests to ensure they all pass
----
+
+<div style="page-break-after: always;"></div>
 
 ## Design and Implementation
 
@@ -76,6 +77,8 @@ The  Architecture Diagram given above explains the high-level design of the App.
 Given below is a quick overview of main components and how they interact with each other.
 
 For a quick link to a summary refer to: [Summary of overall architecture](#summary-of-overall-architecture)
+
+<div style="page-break-after: always;"></div>
 
 **Interactions**
 
@@ -91,6 +94,8 @@ Note: The lifeline of the Transaction class does not end after the cross due to 
 Class: `Ui.java`
 
 *  Contains all code that interfaces directly with the CLI
+
+<div style="page-break-after: always;"></div>
 
 ### Parser-Component
 Class: `Parser.java`
@@ -226,6 +231,8 @@ General sequence diagram
 <img src="images/WithdrawFunction.png" width="700" />
 
 *Note: Many details especially from the SaveGoal and WithdrawalChecker classes have been omitted for brevity.*
+
+<div style="page-break-after: always;"></div>
 
 Exceed withdrawal limit case
 
