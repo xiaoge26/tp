@@ -81,7 +81,7 @@ For a quick link to a summary refer to: [Summary of overall architecture](#summa
 
 The sequence diagram below shows how components interact with each other when the user issues the command `deposit 100`.
 
-<img src="images/deposit100SeqDiagram.png" width="700" />
+<img src="images/deposit100SeqDiagram.png" width="900" />
 
 Note: The lifeline of the Transaction class does not end after the cross due to a limitation with PlantUML. 
 
@@ -218,6 +218,18 @@ Note: Withdrawal will be cancelled if it fails to meet withdrawal limit or if us
 **Step 6**:
 
 *  New balance is displayed to the user via the `showBal()` method from AccountList class that makes use of the UI class' method to print to screen
+
+**Sequence Diagram**
+
+General sequence diagram
+
+<img src="images/WithdrawFunction.png" width="700" />
+
+*Note: Many details especially from the SaveGoal and WithdrawalChecker classes have been omitted for brevity.*
+
+Exceed withdrawal limit case
+
+<img src="images/ExceedWLCase.png" width="700" />
 
 ## Command: `add-account`:
 

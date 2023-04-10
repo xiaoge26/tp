@@ -1,0 +1,21 @@
+@startuml ExceedWLCase
+participant ":AccountList"
+participant ":Account"
+participant ":WithdrawalChecker"
+activate ":AccountList"
+":AccountList" -> ":Account":getMainAccount()
+activate ":Account"
+":Account" --> ":AccountList"
+deactivate ":Account"
+":AccountList" -> ":Account":getWithdrawalChecker()
+activate ":Account"
+":Account" --> ":AccountList"
+deactivate ":Account"
+":AccountList" -> ":WithdrawalChecker":willExceedWithdrawalLimit()
+activate ":WithdrawalChecker"
+opt no withdrawal limit set 
+":WithdrawalChecker" --> ":AccountList":return false
+end
+":WithdrawalChecker" --> ":AccountList":return totalAmtWithdrawn + \nwithdrawnAmount > withdrawalLimit
+deactivate ":WithdrawalChecker"
+@enduml
