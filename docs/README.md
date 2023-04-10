@@ -1,4 +1,4 @@
-# Duke
+# BankWithUs
 
 {Give product intro here}
 

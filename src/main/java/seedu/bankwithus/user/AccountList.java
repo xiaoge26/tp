@@ -7,13 +7,16 @@ import seedu.bankwithus.exceptions.AccountNotFoundException;
 import seedu.bankwithus.exceptions.CorruptedSaveFileException;
 import seedu.bankwithus.exceptions.ExceedsWithdrawalLimitException;
 import seedu.bankwithus.exceptions.InsufficientBalanceException;
+import seedu.bankwithus.exceptions.MoreThanTwoDecimalPlace;
 import seedu.bankwithus.exceptions.NegativeAmountException;
 import seedu.bankwithus.exceptions.NoAccountException;
+import seedu.bankwithus.exceptions.NoValueInputException;
 import seedu.bankwithus.exceptions.SaveFileIsEmptyException;
 import seedu.bankwithus.exceptions.WithdrawalCancelledException;
 import seedu.bankwithus.parser.Parser;
 import seedu.bankwithus.ui.Ui;
 
+import java.math.BigDecimal;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,7 +26,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import static java.lang.Math.abs;
 
 
 public class AccountList {
@@ -67,7 +69,7 @@ public class AccountList {
         Parser parser = new Parser(this);
         try {
             parser.parseSavedFile(scanner);
-            for(Account acc : accounts) {
+            for (Account acc : accounts) {
                 doesNameExist.put(acc.getName(), true);
             }
         } catch (CorruptedSaveFileException e) {
@@ -80,6 +82,7 @@ public class AccountList {
     }
 
     //@@author xiaoge26
+
     /**
      * @return - Returns the current account.
      */
@@ -88,6 +91,7 @@ public class AccountList {
     }
 
     //@@author
+
     /**
      * Asks the user for the name and returns it in the form of
      * a string. Will keep looping so long as the user does not
@@ -111,11 +115,11 @@ public class AccountList {
     }
 
     /**
-     * Asks the user for their initial balance and returns it as a float.
+     * Asks the user for their initial balance and returns it as a String.
      * Will keep looping so long as the user does not give
      * a valid balance.
      *
-     * @return balance in the form of a float
+     * @return balance in the form of a String
      */
     public String askUserForBalance() {
         ui.askForBalance();
@@ -123,17 +127,16 @@ public class AccountList {
         balanceString = balanceString.trim();
         balanceString = balanceString.replaceFirst("^0+(?!$)", "");
         try {
-            float balance = Float.parseFloat(balanceString);
-            if (balance < 0) {
+            BigDecimal balance = new BigDecimal(balanceString);
+            if (balance.signum() == -1) {
                 throw new NegativeAmountException();
             }
-            if (balance < 1 && abs(balance) != 0) {
+            if (balance.compareTo(new BigDecimal("0")) == -1 ) {
                 balanceString = "0" + balanceString;
                 return balanceString;
             }
-            float absBalance = abs(balance); //to strip -ve sign if user enters -0.
-            balanceString = Float.toString(absBalance);
-            return balanceString;
+            balance = balance.abs();
+            return balance.toString();
         } catch (NumberFormatException e) {
             ui.showNumberFormatError();
             return askUserForBalance();
@@ -144,6 +147,7 @@ public class AccountList {
     }
 
     //@@author xiaoge26
+
     /**
      * Creates a new account and adds it to the AccountList.
      *
@@ -163,11 +167,12 @@ public class AccountList {
 
     /**
      * Simple method that adds an account.
-     * @param name - Name of the account
-     * @param balance -The available balance
+     *
+     * @param name            - Name of the account
+     * @param balance         -The available balance
      * @param withdrawalLimit - withdrawal limit to be set
-     * @param amtToSave - save Goal amount
-     * @param untilWhen - deadline for save goal amount
+     * @param amtToSave       - save Goal amount
+     * @param untilWhen       - deadline for save goal amount
      */
     public void addAccount(String name, String balance, String withdrawalLimit, String amtToSave, LocalDate untilWhen) {
         Account newAccount = new Account(name, balance, amtToSave, untilWhen);
@@ -180,9 +185,10 @@ public class AccountList {
     }
 
     //@@author tyuyang
+
     /**
      * Creates a new account with withdrawal info and adds it to the AccountList.
-     * 
+     *
      * @param name              Name of the new account to be added
      * @param balance           Balance of the new account to be added
      * @param totalAmtWithdrawn Total amount withdrawn from the account this month
@@ -190,7 +196,7 @@ public class AccountList {
      * @param withdrawalLimit   Withdrawal limit set by the user, blank if not set
      */
     public void addAccount(String name, String balance, String totalAmtWithdrawn,
-            LocalDate lastWithdrawnDate, String withdrawalLimit, String amtToSave, LocalDate untilWhen) {
+                           LocalDate lastWithdrawnDate, String withdrawalLimit, String amtToSave, LocalDate untilWhen) {
         Account newAccount = new Account(name, balance, totalAmtWithdrawn, lastWithdrawnDate, amtToSave, untilWhen);
         if (!withdrawalLimit.isBlank()) {
             Float withdrawalLimitFloat = Float.parseFloat(withdrawalLimit);
@@ -199,8 +205,9 @@ public class AccountList {
         accounts.add(newAccount);
         ui.showNewAccountAdded(newAccount);
     }
-    
+
     //@@author vishnuvk47
+
     /**
      * Creates a new Account for a first time user.
      */
@@ -216,6 +223,7 @@ public class AccountList {
     }
 
     //@@author Sherlock-YH
+
     /**
      * Name and balance are separated by ; prepared to be saved.
      *
@@ -245,33 +253,37 @@ public class AccountList {
      */
     //@@author
     public void showBal() {
-        String balance = getMainAccount().getAccountBalance();
-        float bal = Float.parseFloat(balance);
+        BigDecimal balance = getMainAccount().getAccountBalance();
         ui.showBal(balance);
-
     }
 
-    /**
-     * Deposits a user specified amount to the current account's balance.
-     * @param depositAmountString - amount to be deposited
-     * @throws NumberFormatException
-     * @throws NullPointerException
-     * @throws NegativeAmountException
-     */
     //@@author xiaoge26
+
+    /**
+     * Deposits money into the current account.
+     * @param depositAmountString the amount to be deposited
+     * @throws NumberFormatException if the amount is not a number
+     * @throws NullPointerException if the amount is null
+     * @throws NegativeAmountException if the amount is negative
+     * @throws MoreThanTwoDecimalPlace if the amount has more than 2 decimal places
+     */
     public void depositMoney(String depositAmountString) throws NumberFormatException,
-            NullPointerException, NegativeAmountException {
-        float depositAmount = Float.parseFloat(depositAmountString);
-        if (depositAmount < 0) {
+            NullPointerException, NegativeAmountException, MoreThanTwoDecimalPlace {
+        BigDecimal amtToDeposit = new BigDecimal(depositAmountString);
+        if (amtToDeposit.compareTo(BigDecimal.ZERO) == -1) {
             throw new NegativeAmountException();
-        } else {
-            getMainAccount().addBalance(depositAmount);
         }
+        if (isMoreThanTwoDecimalPlaces(depositAmountString)) {
+            throw new MoreThanTwoDecimalPlace();
+        }
+        getMainAccount().addBalance(amtToDeposit);
     }
 
     //@@author vishnuvk47
+
     /**
      * Formats the date into the dd-MM-yyyy format.
+     *
      * @param date
      * @return the date in the dd-MM-yyyy format
      */
@@ -286,6 +298,7 @@ public class AccountList {
      * Withdraws a user specified amount from the current account.
      * Also checks if user meets their withdrawal limit and save goal requirement.
      * Throws exceptions if withdrawal does not go through.
+     *
      * @param withdrawAmountString - amount to be withdrawn
      * @throws NumberFormatException
      * @throws NegativeAmountException
@@ -295,37 +308,52 @@ public class AccountList {
      */
     //@@author manushridiv
     public void withdrawMoney(String withdrawAmountString) throws NumberFormatException,
-            NegativeAmountException, InsufficientBalanceException, ExceedsWithdrawalLimitException, 
-            WithdrawalCancelledException {
-        float withdrawAmount = Float.parseFloat(withdrawAmountString);
-        if (withdrawAmount < 0) {
+            NegativeAmountException, InsufficientBalanceException, ExceedsWithdrawalLimitException,
+            WithdrawalCancelledException, MoreThanTwoDecimalPlace, NoValueInputException {
+        if (withdrawAmountString.trim().isBlank()){
+            throw new NoValueInputException();
+        }
+
+        BigDecimal amtToDraw = new BigDecimal(withdrawAmountString);
+        if (amtToDraw.compareTo(BigDecimal.ZERO) == -1) {
             throw new NegativeAmountException();
         }
-        float currentBalance = Float.parseFloat(getMainAccount().getAccountBalance());
-        if (currentBalance < withdrawAmount) {
+        BigDecimal currentBalance = getMainAccount().getAccountBalance();
+        if (currentBalance.compareTo(amtToDraw) < 0) {
             throw new InsufficientBalanceException();
-        } else if (getMainAccount().getWithdrawalChecker().willExceedWithdrawalLimit(withdrawAmount)) {
+        } else if (getMainAccount().getWithdrawalChecker().willExceedWithdrawalLimit(amtToDraw)) {
             throw new ExceedsWithdrawalLimitException();
-        } else if(willFailsSaveGoal(currentBalance, withdrawAmount)) {
+        } else if (willFailsSaveGoal(currentBalance, amtToDraw)) {
             ui.failToMeetSaveGoal();
-            handleProceed(withdrawAmount, currentBalance);
+            handleProceed(amtToDraw, currentBalance);
+        } else if (isMoreThanTwoDecimalPlaces(withdrawAmountString)) {
+            throw new MoreThanTwoDecimalPlace();
         } else {
-            getMainAccount( ).subtractBalance(currentBalance,withdrawAmount);
-            ui.showWithdrawMessage();
+            getMainAccount().subtractBalance(currentBalance, amtToDraw);
+            if (amtToDraw.compareTo(new BigDecimal("0")) == 0) {
+                System.out.println("Withdrawing $0 has no effect!");
+            } else {
+                ui.showWithdrawMessage();
+            }
         }
     }
 
+    //@vishnuvk47
     /**
      * Finds the respective account to be deleted at users request.
      * Forces users to create a new account if no account remains after deletion executes.
+     *
      * @param name - name of the account to delete
-     * @param acc - the account to be checked if it matches the account name to be deleted
+     * @param acc  - the account to be checked if it matches the account name to be deleted
      */
     public Boolean foundAccountToDelete(String name, Account acc) {
         if (acc.getAccountName().equals(name)) {
             accounts.remove(acc);
+            doesNameExist.remove(name);
             ui.showAccountDeleted(name);
-            if(accounts.size() < 1) {
+            doesNameExist.remove(name);
+            if (accounts.size() < 1) {
+                ui.showAddAccountPrompt();
                 createNewAccount();
             }
             return true;
@@ -335,13 +363,14 @@ public class AccountList {
 
     /**
      * Baseline method for the delete account command.
+     *
      * @param name - name of the account to be deleted
      */
     //@@author Sherlock-YH
     public void deleteAccount(String name) {
         boolean accountDeleted = false;
         for (int i = 0; i < accounts.size(); i++) {
-            if(foundAccountToDelete(name, accounts.get(i))) {
+            if (foundAccountToDelete(name, accounts.get(i))) {
                 accountDeleted = true;
                 i--;
             }
@@ -349,8 +378,10 @@ public class AccountList {
         if (!accountDeleted) {
             ui.showNoAccountFound();
         }
+        if (accounts.size() < 1) {
+            createNewAccount();
+        }
     }
-
 
 
     //@@author Sherlock-YH
@@ -360,6 +391,7 @@ public class AccountList {
 
     /**
      * Method that handles switching between users.
+     *
      * @param accName - account to be switched into
      * @throws NoAccountException
      */
@@ -384,12 +416,12 @@ public class AccountList {
     }
 
     //@@author tyuyang
+
     /**
      * Sets the withdrawal limit of the main account. Modifies the attribute
      * withdrawalLimit in the WithdrawalChecker class directly.
-     * 
+     *
      * @param args the user input
-     * 
      * @throws NegativeAmountException if input is negative
      */
     public void setWithdrawalLimit(String args) throws NegativeAmountException {
@@ -404,7 +436,7 @@ public class AccountList {
         }
         getMainAccount().getWithdrawalChecker().setWithdrawalLimit(withdrawalLimit);
     }
-    
+
     //@@author Sherlock-YH
     public ArrayList<Account> getAccounts() {
         return accounts;
@@ -415,22 +447,24 @@ public class AccountList {
     }
 
     //@@author vishnuvk47
+
     /**
      * Handles overwriting of saveGoal at users own discretion.
+     *
      * @param withdrawAmount
      * @param currentBalance
      */
-    public void handleProceed(float withdrawAmount, float currentBalance) throws 
+    public void handleProceed(BigDecimal withdrawAmount, BigDecimal currentBalance) throws
             WithdrawalCancelledException {
         String yesOrNo = ui.getNextLine();
-        while(!(yesOrNo.equalsIgnoreCase("y") || yesOrNo.equalsIgnoreCase("n"))) {
+        while (!(yesOrNo.equalsIgnoreCase("y") || yesOrNo.equalsIgnoreCase("n"))) {
             System.out.println("Please enter ONLY either Y for Yes and N for No.");
             yesOrNo = ui.getNextLine();
         }
 
-        if(yesOrNo.equalsIgnoreCase("y")) {
-            getMainAccount( ).subtractBalance(currentBalance,withdrawAmount);
-            getMainAccount().saveGoal.amtToSave = 0;
+        if (yesOrNo.equalsIgnoreCase("y")) {
+            getMainAccount().subtractBalance(currentBalance, withdrawAmount);
+            getMainAccount().saveGoal.amtToSave = new BigDecimal(0);
             ui.showWithdrawMessage();
         } else {
             throw new WithdrawalCancelledException();
@@ -438,18 +472,22 @@ public class AccountList {
     }
 
     //@@author Vishnu
+
     /**
      * Primary function that handles the setting and exception handling when saveGoal is called.
+     *
      * @param args
      * @param untilWhenStr
      */
     public void handleSaveGoal(String args, String untilWhenStr) {
         try {
-            float toSave = Float.parseFloat(args);
-            if (toSave < 0) {
+            BigDecimal toSave = new BigDecimal(args);
+            if (toSave.compareTo(BigDecimal.ZERO) == -1) {
                 ui.showNegativeAmountError();
             } else if (isDateFormatValid(untilWhenStr)) {
-                SaveGoal saveGoal = new SaveGoal(toSave, untilWhenStr);
+                assert toSave.compareTo(BigDecimal.ZERO) == -1 : "Invalid amount entered.";
+                SaveGoal saveGoal = new SaveGoal(new BigDecimal(args), untilWhenStr);
+                assert getMainAccount() != null : "Users should always have one account intact";
                 getMainAccount().setSaveGoal(saveGoal, args, untilWhenStr);
                 ui.showSaveGoalCreated(args, untilWhenStr);
             }
@@ -459,13 +497,15 @@ public class AccountList {
     }
 
     //@@author Vishnu
+
     /**
      * Checks if the date is entered in teh valid DD-MM-YYYY format.
+     *
      * @param date
      * @return True if valid format and False if invalid format
      */
     public boolean isDateFormatValid(String date) {
-
+        assert date != null : "Input date should not be null.";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         try {
             LocalDate.parse(date, formatter);
@@ -482,7 +522,8 @@ public class AccountList {
      */
     public void showGoal() {
         SaveGoal goal = getMainAccount().getSaveGoal();
-        if(goal.amtToSave <= 0) {
+        BigDecimal zero = new BigDecimal("0");
+        if (zero.compareTo(goal.amtToSave) == 0) {
             System.out.println("you do not have any Save Goal");
         } else {
             ui.showGoal(goal);
@@ -491,15 +532,21 @@ public class AccountList {
 
     /**
      * Checks to see if the amount being withdrawn exceeds save Goal requirements.
+     *
      * @param currentBalance
      * @param withdrawAmount
      * @return True if fails to meet save Goal and False if meets save Goal requirements
      */
-    public Boolean willFailsSaveGoal(float currentBalance, float withdrawAmount) {
-        float expectedBal = currentBalance - withdrawAmount;
+    public Boolean willFailsSaveGoal(BigDecimal currentBalance, BigDecimal withdrawAmount) {
+
+        assert currentBalance != null : "Current balance cannot be null";
+        assert withdrawAmount != null : "Withdraw amount cannot be null";
+        assert withdrawAmount.compareTo(BigDecimal.ZERO) == 1 : "Withdraw amount must be positive";
+
+        BigDecimal expectedBal = currentBalance.subtract(withdrawAmount);
         LocalDate tdy = LocalDate.now();
         LocalDate tdyDate = handleDate(tdy);
-        boolean exceedsSaveGoal = getMainAccount().getSaveGoal().amtToSave > expectedBal;
+        boolean exceedsSaveGoal = (getMainAccount().getSaveGoal().amtToSave.compareTo(expectedBal) == 1);
         boolean deadlineNotPassed = getMainAccount().getSaveGoal().untilWhen.isAfter(tdyDate);
         return (exceedsSaveGoal && deadlineNotPassed);
     }
@@ -508,9 +555,19 @@ public class AccountList {
     public String[] checkWithdrawalLimit() {
         String[] wlInfo = new String[2];
         WithdrawalChecker withdrawalChecker = this.getMainAccount().getWithdrawalChecker();
-        withdrawalChecker.updateTotalAmtWithdrawn(0);
+        withdrawalChecker.updateTotalAmtWithdrawn(new BigDecimal("0"));
         wlInfo[0] = withdrawalChecker.getWithdrawalLimit();
         wlInfo[1] = withdrawalChecker.getTotalAmtWithdrawn();
         return wlInfo;
+    }
+
+    //@@author Sherlock-YH
+    public static boolean isMoreThanTwoDecimalPlaces(String num) {
+        int decPosition = num.indexOf(".");
+        if (decPosition == -1) {
+            // No decimal point found, so the number has zero decimal places
+            return false;
+        }
+        return (num.length() - (decPosition + 1) > 2);
     }
 }

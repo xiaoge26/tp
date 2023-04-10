@@ -1,5 +1,6 @@
 package seedu.bankwithus.common;
 
+import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.text.DecimalFormat;
@@ -46,7 +47,7 @@ public class WithdrawalChecker {
      * 
      * @param withdrawal the amount that was just withdrawn
      */
-    public void updateTotalAmtWithdrawn(float withdrawal) {
+    public void updateTotalAmtWithdrawn(BigDecimal withdrawal) {
         logger.log(Level.FINE, "updateTotalAmtWithdrawn in WithdrawalChecker called");
         LocalDate currentDate = LocalDate.now();
         DecimalFormat df = new DecimalFormat("#.##");
@@ -62,7 +63,7 @@ public class WithdrawalChecker {
         if (lastWithdrawnDate.getMonth() == currentDate.getMonth() && 
                 lastWithdrawnDate.getYear() == currentDate.getYear()) {
             logger.log(Level.FINE, "Previous withdrawal in the same month, adding to total");
-            String formatted = df.format(Float.parseFloat(totalAmtWithdrawn) + withdrawal);
+            String formatted = df.format(new BigDecimal(totalAmtWithdrawn).add(withdrawal));
             totalAmtWithdrawn = String.valueOf(formatted);
         } else {
             logger.log(Level.FINE, "Previous withdrawal in previous months, setting to new value");
@@ -88,13 +89,13 @@ public class WithdrawalChecker {
      * @param withdrawAmount the amount withdrawn
      * @return true if will exceed, false otherwise
      */
-    public boolean willExceedWithdrawalLimit(float withdrawAmount) {
+    public boolean willExceedWithdrawalLimit(BigDecimal withdrawAmount) {
         if (totalAmtWithdrawn.isBlank() || withdrawalLimit == null) {
             return false;
         }
-        float totalAmtWithdrawnFloat = Float.parseFloat(totalAmtWithdrawn);
-        float withdrawalLimitFloat = Float.parseFloat(withdrawalLimit);
-        return ((totalAmtWithdrawnFloat + withdrawAmount) > withdrawalLimitFloat);
+        BigDecimal totalAmtWithdrawnBigDecimal = new BigDecimal(totalAmtWithdrawn);
+        BigDecimal withdrawalLimitBigDecimal = new BigDecimal(withdrawalLimit);
+        return ((totalAmtWithdrawnBigDecimal.add(withdrawAmount)).compareTo(withdrawalLimitBigDecimal) == 1 );
     }
 
     @Override
