@@ -1,0 +1,20 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+class Account {
+    - saveGoal: SaveGoal
+    - name: String
+    - balance: BigDecimal
+    - withdrawalChecker: WithdrawalChecker
+    + Account(name: String, balance: String, amtToSave: String, untilWhen: LocalDate)
+    + Account(name: String, balance: String, totalAmtWithdrawn: String, lastWithdrawnDate: LocalDate, amtToSave: String, untilWhen: LocalDate)
+    + getAccountName(): String
+    + getAccountBalance(): BigDecimal
+    + getWithdrawalChecker(): WithdrawalChecker
+    + addBalance(balanceToBeAdded: BigDecimal): void
+    + subtractBalance(currentBalance: BigDecimal, withdrawal: BigDecimal): void
+    + setSaveGoal(saveGoal: SaveGoal, args: String, untilWhenStr: String): void
+    + getName(): String
+    + getSaveGoal(): SaveGoal
+}
+@enduml
