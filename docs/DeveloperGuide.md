@@ -434,5 +434,5 @@ Windows: Command Prompt <br />
 command to run the application. A CLI should appear in a few seconds
 
 ### Sample Test Cases
-Please refer to the Features section in our [UserGuide](https://ay2223s2-cs2113-t13-3.github.io/tp/UserGuide.html) for more details on the test cases
+Please refer to the Features section in our [UserGuide](UserGuide.md) for more details on the test cases
 that you can try out.
