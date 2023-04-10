@@ -96,7 +96,7 @@ What is your name?
 >>Steve
 How much would you like to add as Balance?
 >>1000
-Account created!
+Account added!
 Name: Steve
 Balance: $1000
 ----------------------------
@@ -236,6 +236,14 @@ Try saving a minimum of $300 until 11-11-2023
 Save Goal has been created, Have fun staying frugal!
 ```
 
+### Check the current savings goal: `show-save-goal`
+Shows the current savings goal and the deadline of the current account.
+```
+>>show-save-goal
+Min amount to save: $300
+Deadline: 11-11-2023
+----------------------------
+```
 ### Set a withdrawal limit: `set-wl`
 
 Adds a withdrawal limit to the *current account*. <br />
