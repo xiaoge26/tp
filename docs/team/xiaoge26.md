@@ -64,17 +64,5 @@ deleting, listing, parsing, saving, and loading the transactions. <br />
 
 
 ### Contributions beyond the project team
-* Reported bugs and suggestions to other teams: 
-[#142](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/142)
-[#139](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/139)
-[#133](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/133)
-[#129](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/129)
-[#126](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/126)
-[#117](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/117)
-[#116](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/116)
-[#101](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/101)
-[#104](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/104)
-[#107](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/107)
-[#142](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/142)
-[#95](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/95)
+* [Reported 12 bugs during the PE-D](https://github.com/xiaoge26/ped/issues)
 * Developer Guide reviewed: [[CS2113-T14-2] BagPacker #61](https://github.com/nus-cs2113-AY2223S2/tp/pull/61/files/bf0684974cef3c42639ecce53b4a5ff60dec3a7a)
