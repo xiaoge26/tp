@@ -221,9 +221,15 @@ Note: Withdrawal will be cancelled if it fails to meet withdrawal limit or if us
 
 **Sequence Diagram**
 
+General sequence diagram
+
 <img src="images/WithdrawFunction.png" width="700" />
 
-Note: Many details especially from the SaveGoal and WithdrawalChecker classes have been omitted for brevity.
+*Note: Many details especially from the SaveGoal and WithdrawalChecker classes have been omitted for brevity.*
+
+Exceed withdrawal limit case
+
+<img src="images/ExceedWLCase.png" width="700" />
 
 ## Command: `add-account`:
 
