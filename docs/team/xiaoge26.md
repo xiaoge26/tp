@@ -29,10 +29,11 @@ deleting, listing, parsing, saving, and loading the transactions. <br />
   * Allows the user to delete a transaction from the transaction history
 * Delete Transaction Feature [#159](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/159) [#163](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/163)
   * Allow the user to delete a transaction from the transaction history
-  * Automatically delete all the transactions of a particular account when the user deletes the account
+  * Automatically delete all the transactions of a particular account when the user deletes the account <br />
+  
 ### Contributions to the UG
 
-* Documented the features related `Transaction` and `TransactionList` components, and `show-save-goal` feature in the User Guide <br />
+* Documented `view-current`, `show-save-goal` and the features related to `Transaction` and `TransactionList` components in the User Guide <br />
 * Fixed typos and bugs in the other sections in UG as well <br />
 
 ### Contributions to the DG
@@ -53,28 +54,18 @@ deleting, listing, parsing, saving, and loading the transactions. <br />
 
 ### Review/mentoring contributions
 #### Links to PRs reviewed
-* [add NoValueInput exception #156](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/156)
-* [Update show help #98](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/98)
-* [Add main architecture and example seq diagram to dev guide #100](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/100)
-* [Branch withdrawal limit #71](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/71)
-* [Create withdrawal checker class #67](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/67)
-* [Change the attribute balance to String type #58](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/58)
-* [add Account class #24](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/24)
-* [Wrote PPP for myself #158](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/158)
+[#175](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/175)
+[#156](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/156)
+[#166](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/166)
+[#98](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/98)
+[#100](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/100)
+[#71](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/71)
+[#67](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/67)
+[#58](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/58)
+[#24](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/24)
+[#158](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/158)
 
 
 ### Contributions beyond the project team
-* Reported bugs and suggestions to other teams: 
-[#142](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/142)
-[#139](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/139)
-[#133](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/133)
-[#129](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/129)
-[#126](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/126)
-[#117](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/117)
-[#116](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/116)
-[#101](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/101)
-[#104](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/104)
-[#107](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/107)
-[#142](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/142)
-[#95](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/95)
+* [Reported 12 bugs during the PE-D](https://github.com/xiaoge26/ped/issues)
 * Developer Guide reviewed: [[CS2113-T14-2] BagPacker #61](https://github.com/nus-cs2113-AY2223S2/tp/pull/61/files/bf0684974cef3c42639ecce53b4a5ff60dec3a7a)
