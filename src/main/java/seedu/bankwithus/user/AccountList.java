@@ -313,7 +313,6 @@ public class AccountList {
         if (withdrawAmountString.trim().isBlank()){
             throw new NoValueInputException();
         }
-
         BigDecimal amtToDraw = new BigDecimal(withdrawAmountString);
         if (amtToDraw.compareTo(BigDecimal.ZERO) == -1) {
             throw new NegativeAmountException();
@@ -321,13 +320,16 @@ public class AccountList {
         BigDecimal currentBalance = getMainAccount().getAccountBalance();
         if (currentBalance.compareTo(amtToDraw) < 0) {
             throw new InsufficientBalanceException();
-        } else if (getMainAccount().getWithdrawalChecker().willExceedWithdrawalLimit(amtToDraw)) {
+        }
+        if (getMainAccount().getWithdrawalChecker().willExceedWithdrawalLimit(amtToDraw)) {
             throw new ExceedsWithdrawalLimitException();
-        } else if (willFailsSaveGoal(currentBalance, amtToDraw)) {
+        }
+        if (isMoreThanTwoDecimalPlaces(withdrawAmountString)) {
+            throw new MoreThanTwoDecimalPlace();
+        }
+        if (willFailsSaveGoal(currentBalance, amtToDraw)) {
             ui.failToMeetSaveGoal();
             handleProceed(amtToDraw, currentBalance);
-        } else if (isMoreThanTwoDecimalPlaces(withdrawAmountString)) {
-            throw new MoreThanTwoDecimalPlace();
         } else {
             getMainAccount().subtractBalance(currentBalance, amtToDraw);
             if (amtToDraw.compareTo(new BigDecimal("0")) == 0) {

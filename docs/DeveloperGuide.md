@@ -305,11 +305,11 @@ Note: Withdrawal will be cancelled if it fails to meet withdrawal limit or if us
 
 ## Summary of overall architecture
 
-The application follows a simplified MVC architecture, where the Model is the `Storage` class, View is the `UI` class 
-and the controller is the `parser` class and makes use of the command-line interface (CLI) where the user interacts with the 
+The application follows a simplified MVC architecture, where the Model is the `Storage` class, View is the `Ui` class 
+and the controller is the `Parser` class and makes use of the command-line interface (CLI) where the user interacts with the 
 program through the command-line prompt. The main class responsible for the CLI interaction is in the `BankWithUs` class
-that uses the `UI` class to interact with the user and the `Parser` class to "route" and deal with commands as appropriate.  
-The `bankWithUS` class contains a loop that continuously prompts the user for commands and then executes the corresponding action.
+that uses the `Ui` class to interact with the user and the `Parser` class to "route" and deal with commands as appropriate.  
+The `BankWithUS` class contains a loop that continuously prompts the user for commands and then executes the corresponding action using the `Parser` class.
 
 The AccountList class is responsible for managing a list of Account objects. The Account class represents 
 individual user accounts, and it contains attributes such as account number, balance, and savings goal. It 
@@ -321,14 +321,14 @@ the corresponding method in the AccountList class, which in turn calls the corre
 class to modify the account data. If the command entered by the user is to create a new account, the AccountList 
 class creates a new Account object and adds it to the ArrayList.
 
-The UI class, called `UI`, is responsible for displaying messages to the user and decoding and displaying 
+The UI class, called `Ui`, is responsible for displaying messages to the user and decoding and displaying 
 account information. It contains methods to display messages such as account creation success or failure and prompts 
 for user input. It also has methods to display account information, such as the account balance, savings goal, and 
 transaction history.
 
 Overall, the architecture is designed to separate concerns between the UI, the account management logic, and the 
 individual account data. The `Parser` class acts as the intermediary between the user and the account management 
-logic, while the `UI` class handles the display of information to the user. The AccountList class manages the 
+logic, while the `Ui` class handles the display of information to the user. The AccountList class manages the 
 list of accounts, and the Account class represents the individual accounts and their data.
 
 ---
