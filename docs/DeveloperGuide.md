@@ -9,7 +9,7 @@
     * [BankWithUs Component](#bankwithus-component)
     * [Account Component](#account-component)
     * [AccountList Component](#accountlist-component)
-    * [SaveGoal Component](#saveGoal-component)
+    * [SaveGoal Component](#saveGoal-Component)
     * [Storage Component](#storage-component)
     * [Withdrawal Limit Component](#withdraw-limit-checker-Component)
     * [Transaction Component](#transaction-component)
@@ -63,6 +63,8 @@ The  Architecture Diagram given above explains the high-level design of the App.
 
 Given below is a quick overview of main components and how they interact with each other.
 
+For a quick link to a summary refer to: [Summary of overall architecture](#summary-of-overall-architecture)
+
 **Interactions**
 
 The sequence diagram below shows how components interact with each other when the user issues the command `deposit 100`.
@@ -73,6 +75,7 @@ Note: The lifeline of the Transaction class does not end after the cross due to 
 
 
 ### UI-Component
+
 Class: `Ui.java`
 
 *  Contains all code that interfaces directly with the CLI
