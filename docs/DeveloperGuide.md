@@ -2,19 +2,31 @@
 
 * [Acknowledgements](#acknowledgements)
 * [Setting Up, Getting Started](#setting-up-getting-started)
-* [Design & Implementation](#design-and-implementation)
+* [Design](#design-and-implementation)
     * [Architecture](#architecture)
-    * [UI Component](#UI-Component)
+    * [UI Component](#ui-component)
     * [Parser Component](#parser-component)
     * [BankWithUs Component](#bankwithus-component)
     * [Account Component](#account-component)
     * [AccountList Component](#accountlist-component)
-    * [SaveGoal Component](#saveGoal-Component)
+    * [SaveGoal Component](#savegoal-component)
     * [Storage Component](#storage-component)
-    * [Withdrawal Limit Component](#withdraw-limit-checker-Component)
+    * [Withdrawal Limit Component](#withdraw-limit-checker-component)
     * [Transaction Component](#transaction-component)
     * [TransactionList Component](#transactionlist-component)
-
+* [Implementation](#design-and-implementation)
+  * [Add Account](#command--add-account-)
+  * [Delete](#command--delete)
+  * [Deposit](#command--deposit-)
+  * [Check Withdrawal Limit](#command--check-wl)
+  * [Setting Save Goal](#command--set-save-goal-)
+  * [Set Withdrawal Limit](#command--set-wl)
+  * [Show Save Goal](#command--show-save-goal-)
+  * [Withdraw](#command--withdraw-)
+  * [Switch Account](#command--switch-to)
+  * [View accounts](#command--view-account-)
+  * [Help](#command--help)
+  * [Summary of overall architecture](#summary-of-overall-architecture)
 * [Appendix](#appendix)
     * [Product Scope](#product-scope)
     * [Target User Profile](#target-user-profile)
@@ -154,154 +166,154 @@ that contains the various different transactions that the user has
 
 ## Command: `help`
 
-* If a user command begins with help, it will call a method in the UI class to print the help screen.
-* Feature with the most basic implementation
+* If a user command begins with help, it will call a method in the UI class to print the help screen. 
+*  Feature with the most basic implementation
 
 ## Command: `view-account` :
 
 **Step 1**:
 
---> Calls `getAllAccountDetails()` method from the AccountList class. 
+*  Calls `getAllAccountDetails()` method from the AccountList class. 
 
---> The `getAllAccountDetails()` method parses the `ArrayList<Account>` from the AccountLits class
+*  The `getAllAccountDetails()` method parses the `ArrayList<Account>` from the AccountLits class
 
---> This builds a String where each Account is separated by a newline character and the attributes of an Account is separated by `;`
+*  This builds a String where each Account is separated by a newline character and the attributes of an Account is separated by `;`
 
 **Step 2**:
 
---> This string is then passed to the `viewAccount()` class in UI, where the string is decoded and print to screen
+*  This string is then passed to the `viewAccount()` class in UI, where the string is decoded and print to screen
 
---> Identifies attributes that belong to a particular user by splitting the string based on a new line
+*  Identify attributes that belong to a particular user by splitting the string based on a new line
 
---> The relevant attributes(Name, balance) of the account can ge identified by separating the string again by `;` and accessing index 0 and 1 respectively
+*  The relevant attributes(Name, balance) of the account can ge identified by separating the string again by `;` and accessing index 0 and 1 respectively
 
 ## Command: `withdraw` :
 
 **Step 1**:
 
---> Checks the args(AMOUNT to withdraw) for a negative sign in the `checkNegative()` method
+*  Checks the args(AMOUNT to withdraw) for a negative sign in the `checkNegative()` method
 
 **Step 2**:
 
---> Calls the `withdrawMoney` method in the AccountList class
+*  Calls the `withdrawMoney` method in the AccountList class
 
---> Checks if the AMOUNT entered is empty, number of decimal places(accepts only 2 d.p) and checks if the AMOUNT to be withdrawn is less than or equal to the available balance
+*  Checks if the AMOUNT entered is empty, number of decimal places(accepts only 2 d.p) and checks if the AMOUNT to be withdrawn is less than or equal to the available balance
 
 **Step 3**:
 
---> Checks if the AMOUNT to withdraw exceeds the set withdrawal limit, if any, in the `willExceedWithdrawalLimit` method of the withdrawalChecker class
+*  Checks if the AMOUNT to withdraw exceeds the set withdrawal limit, if any, in the `willExceedWithdrawalLimit` method of the withdrawalChecker class
 
 **Step 4**:
 
---> Checks if the AMOUNT to withdraw will cause the user to default on their set savings goal; though, users can proceed at their own discretion
+*  Checks if the AMOUNT to withdraw will cause the user to default on their set savings goal; though, users can proceed at their own discretion
 
 **Step 5**:
 
---> If it passes all the above checks or if the users decide to continue despite defaulting on save goal then it will call the `subtractBalance` method in the Account class
+*  If it passes all the above checks or if the users decide to continue despite defaulting on save goal then it will call the `subtractBalance` method in the Account class
 
---> The `subtractBalance` will deduct the AMOUNT withdrawn from the users balance
+*  The `subtractBalance` will deduct the AMOUNT withdrawn from the users balance
 
 Note: Withdrawal will be cancelled if it fails to meet withdrawal limit or if users choose to meet savings goal 
 
 **Step 6**:
 
---> New balance is displayed to the user via the `showBal()` method from AccountList class that makes use of the UI class' method to print to screen
+*  New balance is displayed to the user via the `showBal()` method from AccountList class that makes use of the UI class' method to print to screen
 
 ## Command: `add-account`:
 
 **Step 1**:
 
---> Calls the `createNewAccount` method in AccountList class
+*  Calls the `createNewAccount` method in AccountList class
 
 **Step 2**:
 
---> The `createNewAccount` request from the user via the interface for their username(name) and password
+*  The `createNewAccount` request from the user via the interface for their username(name) and password
 
---> The method will continuously prompt users to enter a unique name, if a unique one wasnt already provided
+*  The method will continuously prompt users to enter a unique name, if a unique one wasnt already provided
 
 **Step 3**:
 
---> Based on the name and balance provided, a new account is created via the `addAccount` method
+*  Based on the name and balance provided, a new account is created via the `addAccount` method
 
 **Step 4**:
 
---> Add account creates a new instance of an Account class with the specified attributes and appends to the current ArrayList
+*  Add account creates a new instance of an Account class with the specified attributes and appends to the current ArrayList
 
 ## Command: `deposit`:
 
 **Step 1**:
 
---> Checks the args(AMOUNT to deposit) for a negative sign in the `checkNegative()` method
+*  Checks the args(AMOUNT to deposit) for a negative sign in the `checkNegative()` method
 
 **Step 2**:
 
---> Calls the `depositMoney` method in the AccountList class
+*  Calls the `depositMoney` method in the AccountList class
 
---> Checks if the AMOUNT entered is empty, number of decimal places(accepts only 2 d.p) 
+*  Checks if the AMOUNT entered is empty, number of decimal places(accepts only 2 d.p) 
 
 **Step 3**:
 
---> inside the `depositMoney` method, once it passes all the checks will call the `addBalance` method from the Account class to increment the balance as appropriate
+*  inside the `depositMoney` method, once it passes all the checks will call the `addBalance` method from the Account class to increment the balance as appropriate
 
 ## Command: `set-save-goal`:
 
 **Step 1**:
 
---> Checks the args(minimum AMOUNT to save in balance) for a negative sign in the `checkNegative()` method
+*  Checks the args(minimum AMOUNT to save in balance) for a negative sign in the `checkNegative()` method
 
 **Step 2**:
 
---> If the AMOUNT to save is not empty then it request the user to enter a deadline for their savings goal
+*  If the AMOUNT to save is not empty then it request the user to enter a deadline for their savings goal
 
---> The parser then calls the `handleSaveGoal` method from the AccountList class
+*  The parser then calls the `handleSaveGoal` method from the AccountList class
 
 **Step 3**:
 
---> Checks if the date format entered complies with the dd-MM-yyyy format in the `isDateFormatValid` method in AccountList class
+*  Checks if the date format entered complies with the dd-MM-yyyy format in the `isDateFormatValid` method in AccountList class
 
---> If data entered matches the specified formats, then it will call the `setSaveGoal` method from the Account class which will set the relevant Save goal for the main account
+*  If data entered matches the specified formats, then it will call the `setSaveGoal` method from the Account class which will set the relevant Save goal for the main account
 
 ## Command: `show-save-goal`:
 
 **Step 1**:
 
---> Calls the `showGoal` method in the AccountList class which then prints the Save Goal attributes to the UI, if save goal amount is greater than 0
+*  Calls the `showGoal` method in the AccountList class which then prints the Save Goal attributes to the UI, if save goal amount is greater than 0
 
 ## Command: `switch-to`
 
 **Step 1**:
 
---> Calls the `switchMainAccount` method from teh AccountList class with the NAME of the account to switch into.
+*  Calls the `switchMainAccount` method from teh AccountList class with the NAME of the account to switch into.
 
---> If that account is found the method uses the `swap` method from `Collections` to swap the account that matches the NAME into index 0
+*  If that account is found the method uses the `swap` method from `Collections` to swap the account that matches the NAME into index 0
 
 ## Command: `delete`
 
 **Step 1**:
 
---> Calls the `deleteAccount` method from AccountList
+*  Calls the `deleteAccount` method from AccountList
 
---> This find the index of the account that matches the NAME of the account to be deleted and removes it from the ArrayList
+*  This find the index of the account that matches the NAME of the account to be deleted and removes it from the ArrayList
 
 ## Command: `set-wl`
 
 **Step 1**:
 
---> Calls the `setWithdrawalLimit` method in the AccountList class
+*  Calls the `setWithdrawalLimit` method in the AccountList class
 
---> The method will check for a number format exception and negative number exception before setting the specified AMOUNT as the withdrawal limit
+*  The method will check for a number format exception and negative number exception before setting the specified AMOUNT as the withdrawal limit
 
 ## Command: `check-wl`
 
 **Step 1**:
 
---> Calls the `checkWithdrawalLimit` method in AccountList class
+*  Calls the `checkWithdrawalLimit` method in AccountList class
 
---> Calls the getter method which then returns the Withdrawal limit
+*  Calls the getter method which then returns the Withdrawal limit
 
 **Step 2**:
 
---> Adds the attributes to a String array of size 2 which is then returned to the parser, where it then accesses the UI method to print to screen
+*  Adds the attributes to a String array of size 2 which is then returned to the parser, where it then accesses the UI method to print to screen
 
 ## Summary of overall architecture
 
