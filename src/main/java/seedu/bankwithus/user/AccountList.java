@@ -485,7 +485,7 @@ public class AccountList {
             if (toSave.compareTo(BigDecimal.ZERO) == -1) {
                 ui.showNegativeAmountError();
             } else if (isDateFormatValid(untilWhenStr)) {
-                assert toSave.compareTo(BigDecimal.ZERO) == -1 : "Invalid amount entered.";
+                assert toSave.compareTo(BigDecimal.ZERO) != -1 : "Invalid amount entered.";
                 SaveGoal saveGoal = new SaveGoal(new BigDecimal(args), untilWhenStr);
                 assert getMainAccount() != null : "Users should always have one account intact";
                 getMainAccount().setSaveGoal(saveGoal, args, untilWhenStr);
