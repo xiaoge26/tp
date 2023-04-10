@@ -62,8 +62,6 @@ public class Ui {
 
     /**
      * Creates a scanner in the Ui class.
-     *
-     * @return
      */
     public void createScanner() {
         this.scanner = new Scanner(System.in);
@@ -131,6 +129,8 @@ public class Ui {
         System.out.println("check-wl: shows the withdrawal limit and the amount of money withdrawn " 
                 + "this month");
         System.out.println("view-transactions-all: views all transactions across all accounts");
+        System.out.println("delete-transaction <transaction index>: " +
+                "deletes the transaction with the given transaction index");
         System.out.println("exit: quits program and saves");
         printLine();
     }
@@ -172,6 +172,9 @@ public class Ui {
     public void showCorruptedSaveFileError() {
         System.out.println("Save file is corrupted!!! Creating new account...");
     }
+    public void showCorruptedTransactionFileError() {
+        System.out.println("Transaction file is corrupted!!! Deleting the corrupted entries...");
+    }
 
     public void showForbiddenCharacterError() {
         System.out.println("Please do not put the character ';' in the name.");
@@ -203,7 +206,7 @@ public class Ui {
     }
     //@@author Sherlock-YH
     public void showNewAccountAdded(Account acc) {
-        System.out.println("Account created!");
+        System.out.println("Account added!");
         System.out.println("Name: " + acc.getAccountName());
         System.out.println("Balance: $" + acc.getAccountBalance());
         printLine();
@@ -291,5 +294,26 @@ public class Ui {
     public void showDecimalPlacesError(){
         System.out.println("There are more than two decimal places!\n" + "Please re-enter the command");
         printLine();
+    }
+
+    //@@author Sherlock-YH
+    public void showNoValueInput() {
+        System.out.println("You did not enter any value. Please re-enter");
+        printLine();
+    }
+
+    //@@author xiaoge26
+
+    //This is shown when the user deleted all the accounts.
+    public void showAddAccountPrompt() {
+        System.out.println("You don't have any account now, please create a new account");
+        printLine();
+    }
+    public void showIndexOutOfBoundsError() {
+        System.out.println("Index out of bounds, please try again");
+        printLine();
+    }
+    public void showTransactionDeletedMessage() {
+        System.out.println("Transaction deleted successfully");
     }
 }

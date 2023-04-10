@@ -56,12 +56,11 @@ public class Account {
     //@@author manushridiv
     public void subtractBalance(BigDecimal currentBalance, BigDecimal withdrawal) {
         this.balance = currentBalance.subtract(withdrawal);
-        withdrawalChecker.updateTotalAmtWithdrawn(withdrawal); //check later
+        withdrawalChecker.updateTotalAmtWithdrawn(withdrawal);
     }
 
     //@@author vishnuvk47
     public void setSaveGoal(SaveGoal saveGoal, String args, String untilWhenStr) {
-
         this.saveGoal = saveGoal;
     }
 
