@@ -81,7 +81,7 @@ For a quick link to a summary refer to: [Summary of overall architecture](#summa
 
 The sequence diagram below shows how components interact with each other when the user issues the command `deposit 100`.
 
-<img src="images/deposit100SeqDiagram.png" width="700" />
+<img src="images/deposit100SeqDiagram.png" width="900" />
 
 Note: The lifeline of the Transaction class does not end after the cross due to a limitation with PlantUML. 
 
