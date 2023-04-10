@@ -67,7 +67,9 @@ Given below is a quick overview of main components and how they interact with ea
 
 The sequence diagram below shows how components interact with each other when the user issues the command `deposit 100`.
 
-<img src="images/deposit100SeqDiagram.png" width="280" />
+<img src="images/deposit100SeqDiagram.png" width="700" />
+
+Note: The lifeline of the Transaction class does not end after the cross due to a limitation with PlantUML. 
 
 
 ### UI-Component

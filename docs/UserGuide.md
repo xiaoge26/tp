@@ -70,7 +70,7 @@ delete <account username>: deletes the account with username <account username>
 set-wl <amount>: sets <amount> to be the withdrawal limit
 check-wl: shows the withdrawal limit and the amount of money withdrawn this month
 view-transactions-all: views all transactions across all accounts
-delete_transaction <transaction index>: deletes the transaction with the given transaction index
+delete-transaction <transaction index>: deletes the transaction with the given transaction index
 exit: quits program and saves
 ```
 
@@ -246,10 +246,10 @@ Format: `set-wl AMOUNT` will set `AMOUNT` as the withdrawal limit.
 * `AMOUNT` must be a valid number. If `AMOUNT` is not valid, an error message will be shown.
 
 ```
-set-wl 100
+>>set-wl 100
 Withdrawal limit set to $100!
 ----------------------------
-withdraw 1000
+>>withdraw 1000
 Apologies! Your transaction did not go through as it will result
 in you exceeding your withdrawal limit!
 Withdrawal limit is currently $100.
@@ -265,18 +265,18 @@ Format: `check-wl`
 
 Example:
 ```
-set-wl 100
+>>set-wl 100
 Withdrawal limit set to $100!
 ----------------------------
-check-wl
+>>check-wl
 Withdrawal limit is currently $100
 You have withdrawn $0 this month.
 ----------------------------
-withdraw 50
+>>withdraw 50
 Withdrawal successful!
 You have $9950 remaining!
 ----------------------------
-check-wl
+>>check-wl
 Withdrawal limit is currently $100.
 You have withdrawn $50 this month.
 ```
