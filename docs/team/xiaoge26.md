@@ -29,7 +29,8 @@ deleting, listing, parsing, saving, and loading the transactions. <br />
   * Allows the user to delete a transaction from the transaction history
 * Delete Transaction Feature [#159](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/159) [#163](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/163)
   * Allow the user to delete a transaction from the transaction history
-  * Automatically delete all the transactions of a particular account when the user deletes the account
+  * Automatically delete all the transactions of a particular account when the user deletes the account <br />
+  
 ### Contributions to the UG
 
 * Documented `view-current`, `show-save-goal` and the features related to `Transaction` and `TransactionList` components in the User Guide <br />
