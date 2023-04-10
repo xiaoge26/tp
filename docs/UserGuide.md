@@ -123,7 +123,7 @@ Current Account switched
 Current Account is:
 ----------------------------
 Name: jenson
-Balance: $90
+Balance: $90.00
 ----------------------------
 ```
 
@@ -146,7 +146,7 @@ Account: jameson deleted
 ```
 Deletes the jameson account.
 
-### View Accounts : `view-account`
+### View all the accounts details: `view-account`
 
 Shows a list of all the available accounts with their account name and balance.
 
@@ -157,10 +157,21 @@ Example:
 >>view-account
 Current Account:
 Name: james
-Balance: $1000
+Balance: $1000.00
 ----------------------------
 Name: john
-Balance: $300
+Balance: $300.00
+----------------------------
+```
+
+### View current account details: `view-current`
+Shows the details of the current account.
+Format: `view-current`
+Example:
+```
+>>view-current
+Name: john
+Balance: $300.00
 ----------------------------
 ```
 
@@ -347,19 +358,20 @@ Please keep in mind that this will result in irreversible data loss.
 
 ## Command summary
 
-| Action                        | Format, Examples           |
-|-------------------------------|----------------------------|
-| **Add an Account**            | `add-account`              |
-| **View all Accounts Details** | `view-account`             |
-| **Switch to a new account**   | `switch-to ACC_NAME`       |
-| **Delete an account**         | `delete ACC-NAME`          |
-| **Withdraw some amount**      | `withdraw AMOUNT`          |
-| **Deposit some amount**       | `deposit AMOUNT`           |
-| **Add a savings goal**        | `set-save-goal AMOUNT`     |
-| **Show the save Goal**        | `show-save-goal`           |
-| **Add a withdraw Limit**      | `set-wl AMOUNT`            |
-| **Show the withdraw Limit**   | `check-wl`                 |
-| **View all the transactions** | `view-transactions-all`    |
-| **Delete a Transaction**      | `delete-transaction INDEX` |
-| **View help menu**            | `help`                     |
-| **Exit**                      | `exit`                     |
+| Action                           | Format, Examples           |
+|----------------------------------|----------------------------|
+| **Add an account**               | `add-account`              |
+| **View all accounts details**    | `view-account`             |
+| **View current account details** | `view-current`             |
+| **Switch to a new account**      | `switch-to ACC_NAME`       |
+| **Delete an account**            | `delete ACC-NAME`          |
+| **Withdraw some amount**         | `withdraw AMOUNT`          |
+| **Deposit some amount**          | `deposit AMOUNT`           |
+| **Add a savings goal**           | `set-save-goal AMOUNT`     |
+| **Show the savings goal**        | `show-save-goal`           |
+| **Add a withdraw limit**         | `set-wl AMOUNT`            |
+| **Show the withdraw limit**      | `check-wl`                 |
+| **View all the transactions**    | `view-transactions-all`    |
+| **Delete a transaction**         | `delete-transaction INDEX` |
+| **View help menu**               | `help`                     |
+| **Exit**                         | `exit`                     |
