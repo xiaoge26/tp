@@ -27,12 +27,12 @@ Created a User Guide for the BankWithUs software/application, which included a r
 
 ### DG contributions
 
-Templated the layout, wrote documentation for functionalities of the program for the DG.[#73](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/73) 
+Templated the layout, wrote documentation for functionalities, implementation of the program for the DG.[#73](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/73) 
 
 ### Team-based tasks
 
 * Set up the GitHub team org/repo
-* Updated user/developer docs that are not specific to a feature e.g. documenting the target user profile
+* Updated user/developer docs that are not specific to a feature e.g. documenting the target user profile, user stories, product scope, and value proposition
 * Handled a significant number of issues that were reported in the PE-D.[#109](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/109)
 * refactored the floats into Big Decimal to resolve overflow and precision issues.[#155](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/155)
 
@@ -49,6 +49,6 @@ Templated the layout, wrote documentation for functionalities of the program for
 
 #### Contributions beyond the project team
 
-* [reported 14 bugs during the PE-D](https://github.com/vishnuvk47/ped/issues)
+* [Reported 14 bugs during the PE-D](https://github.com/vishnuvk47/ped/issues)
 * Review other colleagues and teams codes, UG and DG during tutorial sessions
 
