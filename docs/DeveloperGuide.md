@@ -219,6 +219,12 @@ Note: Withdrawal will be cancelled if it fails to meet withdrawal limit or if us
 
 *  New balance is displayed to the user via the `showBal()` method from AccountList class that makes use of the UI class' method to print to screen
 
+**Sequence Diagram**
+
+<img src="images/WithdrawFunction.png" width="700" />
+
+Note: Many details especially from the SaveGoal and WithdrawalChecker classes have been omitted for brevity.
+
 ## Command: `add-account`:
 
 **Step 1**:
