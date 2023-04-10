@@ -75,7 +75,7 @@ view-current: shows the relevant details of the current account
 exit: quits program and saves
 ```
 
-### Adding an account: `add-account`
+### Add an account: `add-account`
 
 Initiates the process of adding a new account. The user is not required to input any parameters when calling the command.
 However, once the command starts, it will prompt the user for their name and initial balance.
@@ -103,7 +103,7 @@ Balance: $1000
 ----------------------------
 ```
 
-### Switch current account: `switch-to`
+### Switch to another account: `switch-to`
 
 Switches from the *current account* to the new requested account, if it exists.
 
@@ -128,7 +128,7 @@ Balance: $90.00
 ```
 
 
-### Deleting an account : `delete`
+### Delete an account: `delete`
 
 
 Format: `delete ACCOUNT_NAME`
@@ -146,7 +146,7 @@ Account: jameson deleted
 ```
 Deletes the jameson account.
 
-### View all the accounts details: `view-account`
+### View the details of all the accounts: `view-account`
 
 Shows a list of all the available accounts with their account name and balance.
 
@@ -164,7 +164,7 @@ Balance: $300.00
 ----------------------------
 ```
 
-### View current account details: `view-current`
+### View the details of the current account: `view-current`
 Shows the details of the current account.
 Format: `view-current`
 Example:
@@ -175,7 +175,7 @@ Balance: $300.00
 ----------------------------
 ```
 
-### Depositing amount : `deposit`
+### Deposit: `deposit`
 
 Deposits AMOUNT into the *current account*.
 
@@ -194,7 +194,7 @@ You have $190.00 remaining!
 Attempting to do the above cause the program to show error messages.
 
 
-### Withdraw : `withdraw`
+### Withdraw: `withdraw`
 
 Withdraws AMOUNT from the users balance.
 
@@ -322,7 +322,7 @@ view-transactions-all
 1. Account Name: xixi Transaction Type: withdraw Amount: 234 Date: 04/04/2023
 ```
 
-### Exiting the program : `exit`
+### Exit the program : `exit`
 
 Exits the program.
 
