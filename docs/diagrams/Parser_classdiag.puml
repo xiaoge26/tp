@@ -1,0 +1,14 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+class Parser {
+    -scanner: Scanner
+    -commandFactory: CommandFactory
+    -accountsFile: File
+    -transactionsFile: File
+    +Parser(accountsFile: File, transactionsFile: File)
+    +parseCommand(commandString: String): Command
+    +parseAccount(accountString: String): Account
+    +parseTransaction(transactionString: String): Transaction
+}
+@enduml

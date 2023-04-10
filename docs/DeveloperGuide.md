@@ -100,10 +100,14 @@ Class: `Ui.java`
 ### Parser-Component
 Class: `Parser.java`
 
+<img src="images/UML_CLASS_DIAGS/PARSER_CLASS.png" width="700" />
+
 * Determines what the program would do with the input retrieved from the CLI
 
 ### Account-Component
 Class: `Account.java`
+
+<img src="images/UML_CLASS_DIAGS/ACCOUNT_CLASS.png" width="700" />
 
 The `Account` component:
 
@@ -123,6 +127,8 @@ different accounts that the user has
 
 ### BankWithUs-Component
 Class: `BankWithUs.java`
+
+<img src="images/UML_CLASS_DIAGS/BWU_CLASS.png" width="700" />
 
 The `BankWithUs` component:
 
@@ -237,6 +243,10 @@ General sequence diagram
 Exceed withdrawal limit case
 
 <img src="images/ExceedWLCase.png" width="700" />
+
+Fail save goal case
+
+<img src="images/FailSaveGoalCase.png" width="800" />
 
 ## Command: `add-account`:
 

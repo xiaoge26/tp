@@ -20,7 +20,7 @@ Authored the withdrawal limit section. Worked with [vishnuvk47](https://github.c
 
 ### DG contributions
 
-Created the puml diagrams for the main architecture and the example sequence diagram.
+Created the puml diagrams for [main architecture](../diagrams/main_architecture.puml), [example sequence diagram](../diagrams/example_sequence_diagram.puml), [withdraw command](../diagrams/withdraw_seq_diagram.puml), [exceed withdrawal limit case](../diagrams/exceed_wl_seq_diagram.puml), and [fail save goal case](../diagrams/fail_save_goal_case_seq_diagram.puml).
 
 
 ### Team-based tasks

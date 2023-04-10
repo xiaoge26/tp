@@ -1,0 +1,21 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+class BankWithUs {
+    -isExitEntered: boolean
+    -storage: Storage
+    -ui: Ui
+    -accountList: AccountList
+    -transactionList: TransactionList
+    -parser: Parser
+    +ACCOUNTS_FILE_PATH: String
+    +TRANSACTIONS_FILE_PATH: String
+    +BankWithUs(accountsFilePath: String, transactionsFilePath: String)
+    +getAccountList(): AccountList
+    +getTransactionList(): TransactionList
+    +getUi(): Ui
+    +exit(): void
+    +run(): void
+    +main(args: String[]): void
+}
+@enduml
