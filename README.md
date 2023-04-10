@@ -63,4 +63,4 @@ Steps for publishing documentation to the public:
 1. Set the `source` as `master branch /docs folder`.
 1. Optionally, use the `choose a theme` button to choose a theme for your documentation.
 
-[DG](DeveloperGuide.md) | [UG](UserGuide.md)
+[DG](docs/DeveloperGuide.md) | [UG](UserGuide.md)
