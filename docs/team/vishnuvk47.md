@@ -27,7 +27,8 @@ Created a User Guide for the BankWithUs software/application, which included a r
 
 ### DG contributions
 
-Templated the layout, wrote documentation for functionalities, implementation of the program for the DG.[#73](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/73) 
+Templated the layout, wrote documentation for functionalities, implementation of the program for the DG.[#73](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/73) [#175](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/175) [#178](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/178) [#182](https://github.com/AY2223S2-CS2113-T13-3/tp/pull/182)
+Added some Class diagrams as well
 
 ### Team-based tasks
 
