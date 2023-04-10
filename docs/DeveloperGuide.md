@@ -424,5 +424,52 @@ Windows: Command Prompt <br />
 command to run the application. A CLI should appear in a few seconds
 
 ### Sample Test Cases
-Please refer to the Features section in our [UserGuide](UserGuide.md) for more details on the test cases
+
+#### Withdraw
+For these test cases, you need to have an account with a balance of at least 100 but not greater than 1000, 
+and a withdrawal limit of 500. <br />
+
+* Test case: `withdraw 100` <br />
+Expected: A successful message and the new balance will be shown, and the balance of the account should be reduced by 100 <br />
+  ```
+  Withdrawal successful!
+  You have $600.00 remaining!
+  ```
+* Test case: `withdraw 1001` <br />
+Expected: An alert message `You do not have sufficient Balance` will be shown, and the balance of the account should not be changed <br />
+* Test case: `withdraw 501` <br />
+Expected: An alert message will be shown, including the current withdrawal limit 
+ and the amount you have withdrawn in this month. The balance of the account should not be changed <br />
+The alert message should be similar to this: <br />
+  ```
+  Apologies! Your transaction did not go through as it will result
+  in you exceeding your withdrawal limit!
+  Withdrawal limit is currently $500.
+  You have withdrawn $100 this month.
+  ```
+
+* Test case: `withdraw abcd` <br />
+Expected: An error message `The input is not a valid number! Please try again.` will be shown, and the balance of the account should not be changed <br />
+* Test case: `withdraw -100` <br />
+Expected: An error message `Negative amount entered!` will be shown, and the balance of the account should not be changed <br />
+
+
+#### Deposit
+Similar to withdraw, you can try out the following test cases: <br />
+
+* Test case: `deposit 100` <br />
+Expected: A successful message and the new balance will be shown, 
+ and the balance of the account should be increased by 100 <br />
+The successful message should be similar to this: <br />
+  ```
+  New deposit added!
+  You have $800.00 remaining!
+  ```
+* Test case: `deposit abc` <br />
+Expected: An error message  `The input is not a valid number! Please try again.` will be shown, and the balance of the account should not be changed <br />
+* Test case: `deposit -100` <br />
+Expected: An error message`Negative amount entered!`will be shown, and the balance of the account should not be changed <br />
+
+
+Please refer to the Features section in our [UserGuide](UserGuide.md) for more details on other test cases
 that you can try out.
