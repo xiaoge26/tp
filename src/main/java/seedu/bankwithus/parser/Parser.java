@@ -1,5 +1,10 @@
 package seedu.bankwithus.parser;
 
+import seedu.bankwithus.exceptions.CorruptedTransactionFileException;
+import seedu.bankwithus.exceptions.MoreThanTwoDecimalPlace;
+import seedu.bankwithus.exceptions.NoValueInputException;
+import seedu.bankwithus.exceptions.TransactionFileIsEmptyException;
+import seedu.bankwithus.user.Account;
 import seedu.bankwithus.user.AccountList;
 import seedu.bankwithus.BankWithUs;
 import seedu.bankwithus.user.Transaction;
@@ -15,6 +20,7 @@ import seedu.bankwithus.exceptions.NegativeAmountException;
 import seedu.bankwithus.exceptions.NoAccountException;
 import seedu.bankwithus.exceptions.NoTransactionsFoundException;
 import seedu.bankwithus.exceptions.SaveFileIsEmptyException;
+import seedu.bankwithus.exceptions.WithdrawalCancelledException;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -26,7 +32,7 @@ public class Parser {
     private TransactionList transactionList;
     private Ui ui;
     /**
-     * Instantiates a bwu Parser object
+     * Instantiates a bwu Parser object.
      *
      * @param bwu the main bankWithUs program
      */
@@ -38,7 +44,7 @@ public class Parser {
     }
 
     /**
-     * Instatiates a accountList Parser object
+     * Instantiates a accountList Parser object.
      *
      * @param accountList the accountList
      */
@@ -55,7 +61,7 @@ public class Parser {
      *
      * @throws IOException
      */
-    public void parseUserInput(String input) throws CommandNotFoundException, IOException {
+    public void parseUserInput(String input) throws CommandNotFoundException, IOException, NegativeAmountException {
         // Split input by space
         String[] split = input.trim().split("\\s+", 2);
         String command = split[0];
@@ -70,6 +76,7 @@ public class Parser {
             break;
         case "deposit":
             try {
+                checkNegative(args);
                 accountList.depositMoney(args);
                 transactionList.createNewTransaction(accountList.getMainAccount().getAccountName(),
                         "deposit", args, LocalDate.now());
@@ -79,10 +86,11 @@ public class Parser {
             } catch (NumberFormatException e) {
                 ui.showNumberFormatError();
             } catch (NullPointerException e) {
-                // Will almost never happen, but who knows
                 ui.showNullInputError();
             } catch (NegativeAmountException e) {
                 ui.showNegativeAmountError();
+            } catch (MoreThanTwoDecimalPlace e) {
+                ui.showDecimalPlacesError();
             }
             break;
         case "view-account":
@@ -95,6 +103,7 @@ public class Parser {
             break;
         case "withdraw":
             try {
+                checkNegative(args);
                 accountList.withdrawMoney(args);
                 transactionList.createNewTransaction(accountList.getMainAccount().getAccountName(),
                         "withdraw", args, LocalDate.now());
@@ -112,6 +121,13 @@ public class Parser {
                 ui.showWithdrawalLimit(wlInfo[0]); //print wl
                 ui.showTotalAmountWithdrawn(wlInfo[1]); //print total amt withdrawn
                 ui.printLine();
+            } catch (WithdrawalCancelledException e) {
+                ui.showWithdrawCancelled();
+                ui.printLine();
+            } catch (MoreThanTwoDecimalPlace e) {
+                ui.showDecimalPlacesError();
+            } catch (NoValueInputException e) {
+                ui.showNoValueInput();
             }
             break;
         case "add-account":
@@ -125,6 +141,7 @@ public class Parser {
             }
             break;
         case "set-wl":
+            checkNegative(args);
             try {
                 accountList.setWithdrawalLimit(args);
                 String withdrawalLimit = accountList.getMainAccount()
@@ -147,6 +164,7 @@ public class Parser {
             ui.showHelp();
             break;
         case "set-save-goal":
+            checkNegative(args);
             if(args.length() > 0) {
                 String untilWhenStr = ui.getDeadline();
                 accountList.handleSaveGoal(args, untilWhenStr);
@@ -158,7 +176,9 @@ public class Parser {
             accountList.showGoal();
             break;
         case "delete":
+            checkNegative(args);
             accountList.deleteAccount(args);
+            transactionList.deleteTransactionsForAccount(args);
             break;
         case "view-transactions-all":
             try {
@@ -168,6 +188,23 @@ public class Parser {
                 ui.noTransactionsFoundError();
             }
             break;
+        case "delete-transaction":
+            checkNegative(args);
+            try {
+                transactionList.deleteTransaction(args);
+                ui.printLine();
+            } catch (NoTransactionsFoundException e) {
+                ui.noTransactionsFoundError();
+            } catch (NumberFormatException e) {
+                ui.showNumberFormatError();
+            } catch (IndexOutOfBoundsException e) {
+                ui.showIndexOutOfBoundsError();
+            }
+            break;
+        case "view-current":
+            Account mainAcc = accountList.getMainAccount();
+            ui.showCurrentAccount(mainAcc);
+            break;
         default:
             throw new CommandNotFoundException();
         }
@@ -175,9 +212,9 @@ public class Parser {
 
     //@@author Sherlock-YH
     /**
-     * Parses the save file. Takes in the scanner to the save file,
-     * and splits the name and balance by ; character. Part of
-     * accountList parser, not bwu parser
+     * Parses the save file. Takes in the scanner to the save file.
+     * Splits the name and balance by ; character.
+     * Part of AccountList parser, not bwu parser.
      *
      * @param scanner
      * @throws CorruptedSaveFileException if any of the parameters are corrupted
@@ -196,16 +233,15 @@ public class Parser {
                 String lastWithdrawnDate = splitDetails[3].trim();
                 String withdrawalLimit = splitDetails[4].trim();
                 String amtToSave;
-                String untilWhen;
+                String untilWhenStr;
                 if (splitDetails.length > 5) {
                     amtToSave = splitDetails[5].trim();
-                    untilWhen = splitDetails[6].trim();
+                    untilWhenStr = splitDetails[6].trim();
                 } else {
                     amtToSave = "0";
-                    untilWhen = "2001-01-01";
+                    untilWhenStr = "2001-01-01";
                 }
-                StringBuilder tempStr = new StringBuilder(untilWhen);
-                untilWhen = tempStr.reverse().toString();
+                LocalDate untilWhen = LocalDate.parse(untilWhenStr);
                 if (name.isEmpty() || balanceString.isEmpty() || totalAmtWithdrawn.isEmpty()) {
                     throw new CorruptedSaveFileException();
                 }
@@ -226,20 +262,46 @@ public class Parser {
         }
     }
 
-    public void parseTransactionFile(Scanner scanner) throws CorruptedSaveFileException,
-            SaveFileIsEmptyException {
+    /**
+     * Reads the transaction data from the transaction save file.
+     * @param scanner Scanner to the transaction save file.
+     * @throws CorruptedTransactionFileException if the transaction file is corrupted.
+     * @throws TransactionFileIsEmptyException if the transaction file is empty.
+     */
+    public void parseTransactionFile(Scanner scanner) throws CorruptedTransactionFileException,
+            TransactionFileIsEmptyException {
+        boolean isCorrupted = false;
         while (scanner.hasNextLine()) {
             String transactionDetails = scanner.nextLine();
-            if (transactionDetails.isBlank()) {
-                throw new SaveFileIsEmptyException();
+            try {
+                if (transactionDetails.isBlank()) {
+                    throw new TransactionFileIsEmptyException();
+                }
+                TransactionDecoder decoder = new TransactionDecoder();
+                Transaction temp = decoder.decodeTransaction(transactionDetails);
+                transactionList.addTransaction(temp);
+            } catch (Exception e) {
+                isCorrupted = true;
             }
-            TransactionDecoder decoder = new TransactionDecoder();
-            Transaction temp = decoder.decodeTransaction(transactionDetails);
-            transactionList.addTransaction(temp);
+        }
+        if (isCorrupted) {
+            throw new CorruptedTransactionFileException();
         }
         scanner.close();
-        if (transactionList.getSize() == 0){
-            throw new SaveFileIsEmptyException();
+        if (transactionList.getSize() == 0) {
+            throw new TransactionFileIsEmptyException();
+        }
+    }
+
+    /**
+     * Throws an exception if argument(Amount/index) has -ve sign.
+     * Extra layer of check to avoid any -0 ambiguity.
+     * @param args
+     * @throws NegativeAmountException
+     */
+    public void checkNegative(String args) throws NegativeAmountException {
+        if (args.length() > 0 && args.charAt(0) == '-') {
+            throw new NegativeAmountException();
         }
     }
 }

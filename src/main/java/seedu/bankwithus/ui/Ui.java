@@ -3,6 +3,8 @@ package seedu.bankwithus.ui;
 import seedu.bankwithus.user.Account;
 import seedu.bankwithus.common.SaveGoal;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -12,7 +14,7 @@ public class Ui {
     private Scanner scanner;
 
     public void showSaveGoalCreated(String args, String untilWhenStr) {
-        System.out.println("Try saving a minimum of $"+args+" until "+untilWhenStr);
+        System.out.println("Try saving a minimum of $" + args + " until " + untilWhenStr);
         System.out.println("Save Goal has been created, Have fun staying frugal!");
     }
     public void showFileNotFoundError() {
@@ -46,6 +48,9 @@ public class Ui {
     public void showAddAccountMessage() {
         System.out.println("Account created!");
     }
+    public void showNoTransactionsFoundMessage () {
+        System.out.println("No transactions found!");
+    }
 
     public void showDepositMessage() {
         System.out.println("New deposit added!");
@@ -56,16 +61,14 @@ public class Ui {
     }
 
     /**
-     * Creates a scanner in the Ui class
-     *
-     * @return
+     * Creates a scanner in the Ui class.
      */
     public void createScanner() {
         this.scanner = new Scanner(System.in);
     }
 
     /**
-     * Gets the next line of user input
+     * Gets the next line of user input.
      *
      * @return the next of user input
      */
@@ -74,7 +77,7 @@ public class Ui {
     }
 
     /**
-     * Closes the scanner
+     * Closes the scanner.
      */
     public void closeScanner() {
         this.scanner.close();
@@ -96,8 +99,8 @@ public class Ui {
         }
     }
 
-    public void showBal(String finalBal) {
-        System.out.println("You have $" + finalBal + " remaining!");
+    public void showBal(BigDecimal finalBal) {
+        System.out.println("You have $" + finalBal.setScale(2, RoundingMode.CEILING) + " remaining!");
     }
 
     public void showNegativeAmountError() {
@@ -126,6 +129,8 @@ public class Ui {
         System.out.println("check-wl: shows the withdrawal limit and the amount of money withdrawn " 
                 + "this month");
         System.out.println("view-transactions-all: views all transactions across all accounts");
+        System.out.println("delete-transaction <transaction index>: " +
+                "deletes the transaction with the given transaction index");
         System.out.println("exit: quits program and saves");
         printLine();
     }
@@ -167,6 +172,9 @@ public class Ui {
     public void showCorruptedSaveFileError() {
         System.out.println("Save file is corrupted!!! Creating new account...");
     }
+    public void showCorruptedTransactionFileError() {
+        System.out.println("Transaction file is corrupted!!! Deleting the corrupted entries...");
+    }
 
     public void showForbiddenCharacterError() {
         System.out.println("Please do not put the character ';' in the name.");
@@ -198,7 +206,7 @@ public class Ui {
     }
     //@@author Sherlock-YH
     public void showNewAccountAdded(Account acc) {
-        System.out.println("Account created!");
+        System.out.println("Account added!");
         System.out.println("Name: " + acc.getAccountName());
         System.out.println("Balance: $" + acc.getAccountBalance());
         printLine();
@@ -236,7 +244,7 @@ public class Ui {
     }
 
     public void showGoal(SaveGoal goal) {
-        System.out.println("Min amount to save: $" + Float.toString(goal.amtToSave));
+        System.out.println("Min amount to save: $" + goal.amtToSave);
         LocalDate date = goal.untilWhen;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String untilwhen = date.format(formatter);
@@ -274,9 +282,38 @@ public class Ui {
         System.out.println("Apologies! Your transaction did not go through as it will result");
         System.out.println("in you exceeding your withdrawal limit!");
     }
-
+    public void accountAlreadyExists() {
+        System.out.println("Account already exists, try again!");
+    }
     public void noTransactionsFoundError() {
         System.out.println("No transactions found!");
         printLine();
+    }
+
+    //@@author Sherlock-YH
+    public void showDecimalPlacesError(){
+        System.out.println("There are more than two decimal places!\n" + "Please re-enter the command");
+        printLine();
+    }
+
+    //@@author Sherlock-YH
+    public void showNoValueInput() {
+        System.out.println("You did not enter any value. Please re-enter");
+        printLine();
+    }
+
+    //@@author xiaoge26
+
+    //This is shown when the user deleted all the accounts.
+    public void showAddAccountPrompt() {
+        System.out.println("You don't have any account now, please create a new account");
+        printLine();
+    }
+    public void showIndexOutOfBoundsError() {
+        System.out.println("Index out of bounds, please try again");
+        printLine();
+    }
+    public void showTransactionDeletedMessage() {
+        System.out.println("Transaction deleted successfully");
     }
 }

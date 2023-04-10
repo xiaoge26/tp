@@ -3,6 +3,7 @@ package seedu.bankwithus;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import seedu.bankwithus.exceptions.NegativeAmountException;
 import seedu.bankwithus.user.AccountList;
 import seedu.bankwithus.user.TransactionList;
 import seedu.bankwithus.exceptions.CommandNotFoundException;
@@ -86,7 +87,7 @@ public class BankWithUs {
 
     //@@author Sherlock-YH
     /**
-     * Exit the programme, save the data and show farewell message
+     * Exit the programme, save the data and show farewell message.
      *
      * @throws IOException throw error if the data cannot be saved
      */
@@ -116,6 +117,8 @@ public class BankWithUs {
                 parser.parseUserInput(line);
             } catch (CommandNotFoundException e) {
                 ui.showCommandNotFoundError();
+            } catch (NegativeAmountException e) {
+                ui.showNegativeAmountError();
             }
         }
     }
